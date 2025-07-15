@@ -31,13 +31,48 @@
 .example-code {
   background: $color-gray-900;
   border-radius: $border-radius-lg;
-  padding: $space-lg;
   overflow-x: auto;
+  position: relative;
+  
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-md $space-lg;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid $color-gray-700;
+    
+    .code-title {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: $color-gray-300;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .copy-button {
+      :deep(.p-button) {
+        padding: $space-xs $space-sm;
+        color: $color-gray-400;
+        transition: all 0.2s ease;
+        
+        &:hover:not(:disabled) {
+          color: $color-primary;
+          background: rgba($color-primary, 0.1);
+        }
+        
+        &:disabled {
+          color: $color-green-400;
+          cursor: default;
+        }
+      }
+    }
+  }
   
   pre {
     margin: 0;
     background: none;
-    padding: 0;
+    padding: $space-lg;
     border: none;
     box-shadow: none;
     
@@ -117,6 +152,30 @@
   .example-code {
     background: $color-dark-bg;
     border: 1px solid $color-dark-border;
+    
+    .code-header {
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom-color: $color-dark-border;
+      
+      .code-title {
+        color: $color-dark-text-secondary;
+      }
+      
+      .copy-button {
+        :deep(.p-button) {
+          color: $color-dark-text-secondary;
+          
+          &:hover:not(:disabled) {
+            color: $color-primary;
+            background: rgba($color-primary, 0.2);
+          }
+          
+          &:disabled {
+            color: $color-green-400;
+          }
+        }
+      }
+    }
   }
   
   // PrimeNG accordion dark mode overrides
