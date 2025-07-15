@@ -48,11 +48,36 @@
     }
     
     .example-code {
-      h4 {
-        margin: 0 0 $space-md 0;
-        font-size: $font-size-xl;
-        font-weight: $font-weight-semibold;
-        color: $color-gray-800;
+      .code-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: $space-md;
+        
+        h4 {
+          margin: 0;
+          font-size: $font-size-xl;
+          font-weight: $font-weight-semibold;
+          color: $color-gray-800;
+        }
+        
+        .copy-button {
+          :deep(.p-button) {
+            padding: $space-sm;
+            color: $color-gray-600;
+            transition: all 0.2s ease;
+            
+            &:hover:not(:disabled) {
+              color: $color-primary;
+              background: rgba($color-primary, 0.1);
+            }
+            
+            &:disabled {
+              color: $color-green-600;
+              cursor: default;
+            }
+          }
+        }
       }
       
       pre {
@@ -64,6 +89,7 @@
         margin: 0;
         border: 1px solid $color-gray-700;
         box-shadow: $shadow-md;
+        position: relative;
         
         code {
           background: none;
@@ -247,8 +273,25 @@
       }
       
       .example-code {
-        h4 {
-          color: $color-dark-text;
+        .code-header {
+          h4 {
+            color: $color-dark-text;
+          }
+          
+          .copy-button {
+            :deep(.p-button) {
+              color: $color-dark-text-secondary;
+              
+              &:hover:not(:disabled) {
+                color: $color-primary;
+                background: rgba($color-primary, 0.2);
+              }
+              
+              &:disabled {
+                color: $color-green-400;
+              }
+            }
+          }
         }
         
         pre {
@@ -349,6 +392,20 @@
       }
       
       .example-code {
+        .code-header {
+          flex-direction: column;
+          gap: $space-sm;
+          align-items: flex-start;
+          
+          h4 {
+            font-size: $font-size-lg;
+          }
+          
+          .copy-button {
+            align-self: flex-end;
+          }
+        }
+        
         pre {
           padding: $space-lg;
           font-size: $font-size-xs;

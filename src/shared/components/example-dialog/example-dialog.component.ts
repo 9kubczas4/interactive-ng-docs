@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { ExampleItem } from '../example-sidebar/example-sidebar.component';
 import { ExampleDialogService } from '../../services/example-dialog.service';
 
@@ -102,7 +103,20 @@ import { ConfirmationDiscardExampleComponent } from '../examples/confirmation-di
             
             @if (currentExample()?.code) {
               <div class="example-code">
-                <h4>Code</h4>
+                <div class="code-header">
+                  <h4>Code</h4>
+                  <p-button 
+                    [icon]="copySuccess() ? 'pi pi-check' : 'pi pi-copy'"
+                    severity="secondary"
+                    size="small"
+                    [text]="true"
+                    [disabled]="copySuccess()"
+                    (onClick)="copyCode(currentExample()?.code || '')"
+                    [pTooltip]="copySuccess() ? 'Copied!' : 'Copy code'"
+                    tooltipPosition="left"
+                    class="copy-button"
+                  />
+                </div>
                 <pre><code>{{ currentExample()?.code }}</code></pre>
               </div>
             }
@@ -132,11 +146,13 @@ export class ExampleDialogComponent implements OnInit {
   private router = inject(Router);
   private dialogService = inject(ExampleDialogService);
   private destroyRef = inject(DestroyRef);
+  private clipboard = inject(Clipboard);
   
   isVisible = signal(false);
   currentExample = signal<ExampleItem | null>(null);
   currentExampleIndex = signal(0);
   dialogTitle = signal('Interactive Example');
+  copySuccess = signal(false);
   
   availableExamples = computed(() => this.dialogService.examples());
   
@@ -213,6 +229,14 @@ export class ExampleDialogComponent implements OnInit {
     this.currentExample.set(null);
     this.currentExampleIndex.set(0);
     this.dialogService.closeExample();
+  }
+  
+  copyCode(code: string) {
+    const success = this.clipboard.copy(code);
+    if (success) {
+      this.copySuccess.set(true);
+      setTimeout(() => this.copySuccess.set(false), 2000);
+    }
   }
   
   private getExampleId(title: string): string {
