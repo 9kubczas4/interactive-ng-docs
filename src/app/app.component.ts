@@ -13,7 +13,7 @@ import { SidebarComponent } from '@core/layout/sidebar/sidebar.component';
         <main class="main-content">
           <router-outlet />
         </main>
-        <app-sidebar />
+        <aside appSidebar></aside>
       </div>
     </div>
   `,

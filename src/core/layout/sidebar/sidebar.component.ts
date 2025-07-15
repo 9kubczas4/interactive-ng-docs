@@ -3,68 +3,10 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'aside[appSidebar]',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="sidebar-content">
-      <div class="sidebar-header">
-        <h3 class="sidebar-title">
-          <i class="pi pi-sitemap"></i>
-          Navigation
-        </h3>
-      </div>
-      <div class="menu-container">
-        <p-panelMenu [model]="menuItems()" />
-      </div>
-    </div>
-  `,
-  styles: [`
-    @import "../../../styles/variables.scss";
-    
-    .sidebar-content {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      background: $color-white;
-      width: $sidebar-width;
-      max-width: $sidebar-width;
-      box-sizing: border-box;
-    }
-    
-    .sidebar-header {
-      padding: $space-xl;
-      border-bottom: 1px solid $color-gray-300;
-      background: $color-white;
-    }
-    
-    .sidebar-title {
-      font-size: $font-size-lg;
-      font-weight: $font-weight-semibold;
-      color: $color-blue-800;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: $space-sm;
-      
-      i {
-        color: $color-blue-800;
-      }
-    }
-    
-    .menu-container {
-      flex: 1;
-      padding: $space-lg;
-      overflow-y: auto;
-      background: $color-white;
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      .sidebar-content {
-        width: 100%;
-        max-width: 100%;
-      }
-    }
-  `],
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
   imports: [PanelMenuModule]
 })
 export class SidebarComponent {
