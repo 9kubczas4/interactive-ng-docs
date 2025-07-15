@@ -14,15 +14,15 @@ import { Clipboard } from '@angular/cdk/clipboard';
       position: relative;
     }
     
-    .markdown-content :deep(.code-block-container) {
+    ::ng-deep .markdown-content .code-block-container {
       position: relative;
       margin: 1.5rem 0;
     }
     
-    .markdown-content :deep(.code-copy-button) {
+    ::ng-deep .markdown-content .code-copy-button {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 1rem;
+      right: 1rem;
       background: rgba(0, 0, 0, 0.8);
       color: #cbd5e0;
       border: 1px solid #4a5568;
