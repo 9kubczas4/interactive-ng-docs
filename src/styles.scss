@@ -1,0 +1,155 @@
+// Import PrimeNG styles
+@import "primeicons/primeicons.css";
+
+// Global styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.documentation-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  grid-template-rows: 60px 1fr;
+  height: 100vh;
+  gap: 0;
+}
+
+.header {
+  grid-column: 1 / -1;
+  background: white;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.sidebar {
+  background: white;
+  border-right: 1px solid #dee2e6;
+  overflow-y: auto;
+}
+
+.main-content {
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.example-sidebar {
+  background: white;
+  border-left: 1px solid #dee2e6;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.markdown-content {
+  line-height: 1.6;
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-top: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+  }
+  
+  code {
+    background-color: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  }
+  
+  pre {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    
+    code {
+      background: none;
+      padding: 0;
+    }
+  }
+  
+  ul, ol {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+  
+  blockquote {
+    border-left: 4px solid #007bff;
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: #6c757d;
+  }
+}
+
+.example-container {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  
+  .example-header {
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 500;
+  }
+  
+  .example-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .documentation-layout {
+    grid-template-columns: 280px 1fr;
+  }
+  
+  .example-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .documentation-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px auto 1fr;
+  }
+  
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+  }
+} 
