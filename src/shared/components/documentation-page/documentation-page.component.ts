@@ -66,6 +66,13 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
         font-size: 1.25rem;
       }
     }
+    
+    // Dark mode styles
+    :host-context(.dark-mode) {
+      .examples-title {
+        color: #f7fafc;
+      }
+    }
   `],
   imports: [MarkdownContentComponent, ExampleSidebarComponent]
 })

@@ -255,4 +255,53 @@ aside[appSidebar] {
     opacity: 1;
     visibility: visible;
   }
+}
+
+// Dark mode styles
+.dark-mode {
+  .documentation-layout {
+    background: $color-dark-bg;
+  }
+  
+  .main-content {
+    background: $color-dark-bg;
+    color: $color-dark-text;
+    border-left-color: $color-dark-border;
+  }
+  
+  .markdown-content {
+    h1, h2, h3, h4, h5, h6 {
+      color: $color-dark-text;
+    }
+    
+    p, li {
+      color: $color-dark-text-secondary;
+    }
+    
+    code {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ff6b6b;
+      border-color: $color-dark-border;
+    }
+    
+    pre {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: $color-dark-border;
+    }
+    
+    blockquote {
+      color: $color-dark-text-secondary;
+    }
+    
+    table {
+      th {
+        background: $color-dark-surface;
+        color: $color-dark-text;
+      }
+      
+      th, td {
+        border-bottom-color: $color-dark-border;
+      }
+    }
+  }
 } 

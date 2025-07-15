@@ -93,4 +93,37 @@
   .logo-icon {
     font-size: $font-size-2xl;
   }
+}
+
+// Dark mode styles
+:host-context(.dark-mode) {
+  background: $color-dark-surface;
+  border-bottom-color: $color-dark-border;
+  
+  ::ng-deep .hamburger-button {
+    .p-button-icon {
+      color: $color-dark-text-secondary;
+    }
+    
+    &:hover .p-button-icon {
+      color: $color-primary;
+    }
+  }
+  
+  ::ng-deep .github-button {
+    .p-button-icon {
+      color: $color-dark-text-secondary;
+    }
+    
+    .p-button-label {
+      color: $color-dark-text;
+    }
+    
+    &:hover {
+      .p-button-icon,
+      .p-button-label {
+        color: $color-primary;
+      }
+    }
+  }
 } 

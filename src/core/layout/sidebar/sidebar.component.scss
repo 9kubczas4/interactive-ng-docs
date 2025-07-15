@@ -195,4 +195,70 @@
       opacity: 1;
     }
   }
+}
+
+// Dark mode styles
+:host-context(.dark-mode) {
+  background: $color-dark-surface;
+  border-left-color: $color-dark-border;
+  
+  .sidebar-content {
+    background: $color-dark-surface;
+  }
+  
+  .sidebar-header {
+    background: $color-dark-surface;
+    border-bottom-color: $color-dark-border;
+  }
+  
+  .menu-container {
+    background: $color-dark-surface;
+  }
+  
+  // PrimeNG dark mode overrides
+  ::ng-deep .p-panelmenu {
+    .p-panelmenu-header {
+      .p-panelmenu-header-content {
+        background: $color-dark-surface;
+        
+        .p-panelmenu-item-link {
+          color: $color-dark-text;
+          
+          .p-menuitem-icon {
+            color: $color-dark-text-secondary;
+          }
+        }
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+        }
+      }
+    }
+    
+    .p-panelmenu-content {
+      background: $color-dark-surface;
+      
+      .p-panelmenu-submenu {
+        .p-panelmenu-item {
+          .p-panelmenu-item-content {
+            .p-panelmenu-item-link {
+              color: $color-dark-text-secondary;
+              
+              .p-panelmenu-submenu-icon {
+                color: $color-dark-text-secondary;
+              }
+            }
+            
+            &:hover {
+              background: rgba(255, 255, 255, 0.05);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @media (max-width: $breakpoint-md) {
+    border-right-color: $color-dark-border;
+  }
 } 

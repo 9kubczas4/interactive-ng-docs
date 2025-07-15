@@ -3,6 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '@core/layout/header/header.component';
 import { SidebarComponent } from '@core/layout/sidebar/sidebar.component';
 import { SidebarService } from '@core/services/sidebar.service';
+import { ThemeService } from '@core/services/theme.service';
+import { FloatingActionButtonsComponent } from '@shared/components/floating-action-buttons/floating-action-buttons.component';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +18,16 @@ import { SidebarService } from '@core/services/sidebar.service';
           <router-outlet />
         </main>
       </div>
+      <app-floating-action-buttons />
     </div>
   `,
-  imports: [RouterOutlet, HeaderComponent, SidebarComponent]
+  imports: [RouterOutlet, HeaderComponent, SidebarComponent, FloatingActionButtonsComponent]
 })
 export class AppComponent {
   title = 'Interactive Angular Documentation';
   
   sidebarService = inject(SidebarService);
+  themeService = inject(ThemeService); // Initialize theme service
   
   closeSidebarOnMobile(): void {
     // Close sidebar on mobile when clicking on main content
