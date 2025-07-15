@@ -219,6 +219,10 @@
   
   // PrimeNG dark mode overrides
   ::ng-deep .p-panelmenu {
+    .p-panelmenu-panel {
+      background: none;
+    }
+    
     .p-panelmenu-header {
       .p-panelmenu-header-content {
         background: $color-dark-surface;
@@ -229,6 +233,12 @@
           .p-menuitem-icon {
             color: $color-dark-text-secondary;
           }
+        }
+        
+        .p-panelmenu-header-label,
+        .p-panelmenu-header-content .p-panelmenu-header-label,
+        .p-panelmenu-item-link .p-panelmenu-header-label {
+          color: white !important;
         }
         
         &:hover {
