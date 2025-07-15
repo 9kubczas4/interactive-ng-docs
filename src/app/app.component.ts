@@ -8,7 +8,7 @@ import { SidebarComponent } from '@core/layout/sidebar/sidebar.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="documentation-layout">
-      <app-header />
+      <header appHeader></header>
       <div class="content-container">
         <main class="main-content">
           <router-outlet />
