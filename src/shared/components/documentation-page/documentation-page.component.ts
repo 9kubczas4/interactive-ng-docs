@@ -13,11 +13,13 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
       
       @if (examples().length > 0) {
         <div class="examples-section">
-          <h2 class="examples-title">
-            <i class="pi pi-code mr-2"></i>
-            Interactive Examples
-          </h2>
-          <app-example-sidebar [examples]="examples()" />
+          <div class="examples-container">
+            <h2 class="examples-title">
+              <i class="pi pi-code"></i>
+              <span>Interactive Examples</span>
+            </h2>
+            <app-example-sidebar [examples]="examples()" />
+          </div>
         </div>
       }
     </div>
@@ -26,7 +28,7 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
     .documentation-page {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 3rem;
       min-height: 100%;
     }
     
@@ -35,7 +37,48 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
     }
     
     .examples-section {
-      margin-top: 2rem;
+      margin-top: 3rem;
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: -1.5rem;
+        left: -2rem;
+        right: -2rem;
+        height: 1px;
+        background: linear-gradient(90deg, 
+          transparent 0%, 
+          rgba(102, 126, 234, 0.3) 20%, 
+          rgba(118, 75, 162, 0.3) 80%, 
+          transparent 100%);
+      }
+    }
+    
+    .examples-container {
+      background: linear-gradient(135deg, 
+        rgba(102, 126, 234, 0.03) 0%, 
+        rgba(118, 75, 162, 0.03) 100%);
+      border: 1px solid rgba(102, 126, 234, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, 
+          rgba(102, 126, 234, 0.5) 0%, 
+          rgba(118, 75, 162, 0.5) 100%);
+      }
     }
     
     .examples-title {
@@ -43,34 +86,84 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
       font-weight: 600;
       color: #1a202c;
       margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid;
-      border-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) 1;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(102, 126, 234, 0.2);
       display: flex;
       align-items: center;
+      gap: 0.75rem;
       
       i {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+      
+      span {
+        flex: 1;
       }
     }
     
     @media (max-width: 768px) {
       .documentation-page {
-        gap: 1rem;
+        gap: 2rem;
+      }
+      
+      .examples-section {
+        margin-top: 2rem;
+        
+        &::before {
+          left: -1rem;
+          right: -1rem;
+        }
+      }
+      
+      .examples-container {
+        padding: 1.5rem;
+        border-radius: 12px;
       }
       
       .examples-title {
         font-size: 1.25rem;
+        gap: 0.5rem;
+        
+        i {
+          font-size: 1.1rem;
+        }
       }
     }
     
     // Dark mode styles
     :host-context(.dark-mode) {
+      .examples-section {
+        &::before {
+          background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(102, 126, 234, 0.4) 20%, 
+            rgba(118, 75, 162, 0.4) 80%, 
+            transparent 100%);
+        }
+      }
+      
+      .examples-container {
+        background: linear-gradient(135deg, 
+          rgba(102, 126, 234, 0.08) 0%, 
+          rgba(118, 75, 162, 0.08) 100%);
+        border-color: rgba(102, 126, 234, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        
+        &::before {
+          background: linear-gradient(90deg, 
+            rgba(102, 126, 234, 0.6) 0%, 
+            rgba(118, 75, 162, 0.6) 100%);
+        }
+      }
+      
       .examples-title {
         color: #f7fafc;
+        border-bottom-color: rgba(102, 126, 234, 0.3);
       }
     }
   `],
