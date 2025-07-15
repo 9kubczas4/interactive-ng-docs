@@ -1,0 +1,412 @@
+@import "../../../styles/variables";
+
+.dialog-content {
+  padding: $space-lg;
+  
+  .example-display {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xl;
+    
+    .example-header {
+      border-bottom: 1px solid $color-gray-300;
+      padding-bottom: $space-lg;
+      
+      .example-title-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $space-sm;
+        
+        h3 {
+          margin: 0;
+          font-size: $font-size-2xl;
+          font-weight: $font-weight-bold;
+          color: $color-gray-900;
+        }
+        
+        .example-counter {
+          .counter-text {
+            font-size: $font-size-sm;
+            color: $color-gray-600;
+            background: $color-gray-100;
+            padding: $space-xs $space-md;
+            border-radius: $border-radius-md;
+            font-weight: $font-weight-medium;
+          }
+        }
+      }
+      
+      .example-description {
+        margin: 0;
+        color: $color-gray-600;
+        font-size: $font-size-lg;
+      }
+    }
+    
+    .example-navigation {
+      display: flex;
+      align-items: center;
+      gap: $space-md;
+      padding: $space-md;
+      background: linear-gradient(135deg, 
+        rgba($color-primary, 0.05) 0%, 
+        rgba($color-secondary, 0.05) 100%);
+      border-radius: $border-radius-lg;
+      border: 1px solid rgba($color-primary, 0.15);
+      
+      .nav-button {
+        min-width: 100px;
+        
+        :deep(.p-button) {
+          background: rgba($color-primary, 0.1);
+          border-color: rgba($color-primary, 0.3);
+          
+          &:hover:not(:disabled) {
+            background: rgba($color-primary, 0.2);
+            border-color: rgba($color-primary, 0.4);
+          }
+          
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        }
+      }
+      
+      .nav-info {
+        flex: 1;
+        text-align: center;
+        
+        .nav-title {
+          font-weight: $font-weight-semibold;
+          color: $color-gray-800;
+          font-size: $font-size-lg;
+        }
+      }
+    }
+    
+    .example-demo {
+      h4 {
+        margin: 0 0 $space-md 0;
+        font-size: $font-size-xl;
+        font-weight: $font-weight-semibold;
+        color: $color-gray-800;
+      }
+      
+      .demo-container {
+        background: $color-gray-100;
+        border: 1px solid $color-gray-300;
+        border-radius: $border-radius-lg;
+        padding: $space-xl;
+        box-shadow: $shadow-sm;
+      }
+    }
+    
+    .example-code {
+      h4 {
+        margin: 0 0 $space-md 0;
+        font-size: $font-size-xl;
+        font-weight: $font-weight-semibold;
+        color: $color-gray-800;
+      }
+      
+      pre {
+        background: $color-gray-900;
+        color: $color-gray-100;
+        padding: $space-xl;
+        border-radius: $border-radius-lg;
+        overflow-x: auto;
+        margin: 0;
+        border: 1px solid $color-gray-700;
+        box-shadow: $shadow-md;
+        
+        code {
+          background: none;
+          color: inherit;
+          padding: 0;
+          border: none;
+          font-size: $font-size-sm;
+          font-family: 'JetBrains Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+      }
+    }
+  }
+  
+  .no-example {
+    text-align: center;
+    padding: $space-3xl;
+    color: $color-gray-600;
+    
+    p {
+      margin: 0;
+      font-size: $font-size-lg;
+    }
+  }
+}
+
+// Dialog footer navigation
+.dialog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  
+  .footer-navigation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    
+    .footer-nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: $space-md;
+      
+      .footer-counter {
+        font-size: $font-size-sm;
+        color: $color-gray-600;
+        font-weight: $font-weight-medium;
+        min-width: 60px;
+        text-align: center;
+      }
+      
+      :deep(.p-button) {
+        &:disabled {
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+}
+
+// Dialog-specific styling
+:host ::ng-deep .example-dialog {
+  .p-dialog-header {
+    background: linear-gradient(135deg, rgba($color-primary, 0.1) 0%, rgba($color-secondary, 0.1) 100%);
+    border-bottom: 1px solid $color-gray-300;
+    
+    .p-dialog-title {
+      font-weight: $font-weight-bold;
+      color: $color-gray-900;
+    }
+    
+    .p-dialog-header-close {
+      color: $color-gray-600;
+      
+      &:hover {
+        background: rgba($color-primary, 0.1);
+        color: $color-primary;
+      }
+    }
+  }
+  
+  .p-dialog-content {
+    padding: 0;
+  }
+  
+  .p-dialog-footer {
+    background: $color-gray-100;
+    border-top: 1px solid $color-gray-300;
+    padding: $space-lg;
+    
+    .p-button {
+      margin: 0;
+    }
+  }
+}
+
+// Dark mode styles
+:host-context(.dark-mode) {
+  .dialog-content {
+    .example-display {
+      .example-header {
+        border-bottom-color: $color-dark-border;
+        
+        .example-title-section {
+          h3 {
+            color: $color-dark-text;
+          }
+          
+          .example-counter {
+            .counter-text {
+              color: $color-dark-text-secondary;
+              background: $color-dark-surface;
+            }
+          }
+        }
+        
+        .example-description {
+          color: $color-dark-text-secondary;
+        }
+      }
+      
+      .example-navigation {
+        background: linear-gradient(135deg, 
+          rgba($color-primary, 0.1) 0%, 
+          rgba($color-secondary, 0.1) 100%);
+        border-color: rgba($color-primary, 0.3);
+        
+        .nav-button {
+          :deep(.p-button) {
+            background: rgba($color-primary, 0.2);
+            border-color: rgba($color-primary, 0.4);
+            
+            &:hover:not(:disabled) {
+              background: rgba($color-primary, 0.3);
+              border-color: rgba($color-primary, 0.5);
+            }
+          }
+        }
+        
+        .nav-info {
+          .nav-title {
+            color: $color-dark-text;
+          }
+        }
+      }
+      
+      .example-demo {
+        h4 {
+          color: $color-dark-text;
+        }
+        
+        .demo-container {
+          background: $color-dark-surface;
+          border-color: $color-dark-border;
+        }
+      }
+      
+      .example-code {
+        h4 {
+          color: $color-dark-text;
+        }
+        
+        pre {
+          background: $color-dark-bg;
+          border-color: $color-dark-border;
+        }
+      }
+    }
+    
+    .no-example {
+      color: $color-dark-text-secondary;
+    }
+  }
+  
+  .dialog-footer {
+    .footer-navigation {
+      .footer-nav-buttons {
+        .footer-counter {
+          color: $color-dark-text-secondary;
+        }
+      }
+    }
+  }
+  
+  ::ng-deep .example-dialog {
+    .p-dialog-header {
+      background: linear-gradient(135deg, rgba($color-primary, 0.2) 0%, rgba($color-secondary, 0.2) 100%);
+      border-bottom-color: $color-dark-border;
+      
+      .p-dialog-title {
+        color: $color-dark-text;
+      }
+      
+      .p-dialog-header-close {
+        color: $color-dark-text-secondary;
+        
+        &:hover {
+          background: rgba($color-primary, 0.2);
+          color: $color-primary;
+        }
+      }
+    }
+    
+    .p-dialog-footer {
+      background: $color-dark-surface;
+      border-top-color: $color-dark-border;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: $breakpoint-md) {
+  .dialog-content {
+    padding: $space-lg;
+    
+    .example-display {
+      gap: $space-lg;
+      
+      .example-header {
+        .example-title-section {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: $space-sm;
+          
+          h3 {
+            font-size: $font-size-xl;
+          }
+          
+          .example-counter {
+            align-self: flex-end;
+          }
+        }
+      }
+      
+      .example-navigation {
+        flex-direction: column;
+        gap: $space-sm;
+        
+        .nav-button {
+          min-width: 120px;
+          
+          :deep(.p-button) {
+            width: 100%;
+          }
+        }
+        
+        .nav-info {
+          order: -1;
+          
+          .nav-title {
+            font-size: $font-size-md;
+          }
+        }
+      }
+      
+      .example-demo,
+      .example-code {
+        h4 {
+          font-size: $font-size-lg;
+        }
+      }
+      
+      .example-demo {
+        .demo-container {
+          padding: $space-lg;
+        }
+      }
+      
+      .example-code {
+        pre {
+          padding: $space-lg;
+        }
+      }
+    }
+  }
+  
+  .dialog-footer {
+    flex-direction: column;
+    gap: $space-md;
+    
+    .footer-navigation {
+      .footer-nav-buttons {
+        gap: $space-sm;
+        
+        .footer-counter {
+          font-size: $font-size-xs;
+        }
+      }
+    }
+  }
+} 

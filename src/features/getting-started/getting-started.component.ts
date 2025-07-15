@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
 import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
 import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.component';
-import { ButtonModule } from 'primeng/button';
+import { WelcomeButtonExampleComponent } from '@shared/components/examples/welcome-button-example.component';
 
 @Component({
   selector: 'app-getting-started',
@@ -58,11 +58,11 @@ Use the sidebar to navigate between different sections:
 Feel free to contribute to this documentation by adding new examples or improving existing content.
   `);
 
-  examples = signal<ExampleItem[]>([
+  examples = computed<ExampleItem[]>(() => [
     {
       title: 'Welcome Button',
       description: 'A simple button example',
-      component: WelcomeButtonComponent,
+      component: WelcomeButtonExampleComponent,
       code: `
 <p-button 
   label="Welcome!" 
@@ -73,28 +73,4 @@ Feel free to contribute to this documentation by adding new examples or improvin
       `
     }
   ]);
-}
-
-@Component({
-  selector: 'app-welcome-button',
-  template: `
-    <p-button 
-      label="Welcome!" 
-      icon="pi pi-check" 
-      severity="success"
-      (click)="showWelcome()"
-    />
-    @if (showMessage()) {
-      <p class="mt-2 text-green-600">Welcome to Angular Documentation!</p>
-    }
-  `,
-  imports: [ButtonModule]
-})
-export class WelcomeButtonComponent {
-  showMessage = signal(false);
-  
-  showWelcome(): void {
-    this.showMessage.set(true);
-    setTimeout(() => this.showMessage.set(false), 3000);
-  }
 } 

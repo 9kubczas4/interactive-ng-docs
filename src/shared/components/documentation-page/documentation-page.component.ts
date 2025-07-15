@@ -1,6 +1,10 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, inject, OnInit, effect } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MarkdownContentComponent } from '../markdown-content/markdown-content.component';
 import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example-sidebar.component';
+import { ExampleDialogComponent } from '../example-dialog/example-dialog.component';
+import { ExampleDialogService } from '../../services/example-dialog.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-documentation-page',
@@ -14,14 +18,27 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
       @if (examples().length > 0) {
         <div class="examples-section">
           <div class="examples-container">
-            <h2 class="examples-title">
-              <i class="pi pi-code"></i>
-              <span>Interactive Examples</span>
-            </h2>
+            <div class="examples-header">
+              <h2 class="examples-title">
+                <i class="pi pi-code"></i>
+                <span>Interactive Examples</span>
+              </h2>
+              <p-button 
+                icon="pi pi-external-link" 
+                label="Open in Dialog"
+                severity="secondary"
+                size="small"
+                [text]="true"
+                (onClick)="openExamplesDialog()"
+                class="open-dialog-button"
+              />
+            </div>
             <app-example-sidebar [examples]="examples()" />
           </div>
         </div>
       }
+      
+      <app-example-dialog />
     </div>
   `,
   styles: [`
@@ -81,28 +98,46 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
       }
     }
     
-    .examples-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #1a202c;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+    .examples-header {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
       
-      i {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-size: 1.25rem;
-        flex-shrink: 0;
+      .open-dialog-button {
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+        
+        &:hover {
+          opacity: 1;
+        }
       }
-      
-      span {
-        flex: 1;
+    }
+    
+    .examples-header {
+      .examples-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1a202c;
+        margin: 0;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        
+        i {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          font-size: 1.25rem;
+          flex-shrink: 0;
+        }
+        
+        span {
+          flex: 1;
+        }
       }
     }
     
@@ -161,15 +196,40 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
         }
       }
       
-      .examples-title {
-        color: #f7fafc;
-        border-bottom-color: rgba(102, 126, 234, 0.3);
+      .examples-header {
+        .examples-title {
+          color: #f7fafc;
+          border-bottom-color: rgba(102, 126, 234, 0.3);
+        }
       }
     }
   `],
-  imports: [MarkdownContentComponent, ExampleSidebarComponent]
+  imports: [MarkdownContentComponent, ExampleSidebarComponent, ExampleDialogComponent, ButtonModule]
 })
-export class DocumentationPageComponent {
+export class DocumentationPageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private dialogService = inject(ExampleDialogService);
+  
   markdownContent = input<string>('');
   examples = input<ExampleItem[]>([]);
+  
+  constructor() {
+    // Watch for changes in examples and update dialog service
+    effect(() => {
+      const examples = this.examples();
+      this.dialogService.setExamples(examples);
+    });
+  }
+  
+  ngOnInit() {
+    // Set current route for dialog service
+    const currentPath = this.route.snapshot.url.join('/');
+    this.dialogService.setCurrentRoute(currentPath || '');
+  }
+  
+  openExamplesDialog() {
+    if (this.examples().length > 0) {
+      this.dialogService.openExample(this.examples()[0].title);
+    }
+  }
 } 
