@@ -1,88 +1,32 @@
 @import "../../../styles/variables";
 
 .dialog-content {
-  padding: $space-lg;
+  padding: $space-xl;
+  height: 100%;
+  overflow-y: auto;
   
   .example-display {
     display: flex;
     flex-direction: column;
     gap: $space-xl;
+    max-width: 1200px;
+    margin: 0 auto;
     
     .example-header {
       border-bottom: 1px solid $color-gray-300;
       padding-bottom: $space-lg;
       
-      .example-title-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: $space-sm;
-        
-        h3 {
-          margin: 0;
-          font-size: $font-size-2xl;
-          font-weight: $font-weight-bold;
-          color: $color-gray-900;
-        }
-        
-        .example-counter {
-          .counter-text {
-            font-size: $font-size-sm;
-            color: $color-gray-600;
-            background: $color-gray-100;
-            padding: $space-xs $space-md;
-            border-radius: $border-radius-md;
-            font-weight: $font-weight-medium;
-          }
-        }
+      h3 {
+        margin: 0 0 $space-sm 0;
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: $color-gray-900;
       }
       
       .example-description {
         margin: 0;
         color: $color-gray-600;
         font-size: $font-size-lg;
-      }
-    }
-    
-    .example-navigation {
-      display: flex;
-      align-items: center;
-      gap: $space-md;
-      padding: $space-md;
-      background: linear-gradient(135deg, 
-        rgba($color-primary, 0.05) 0%, 
-        rgba($color-secondary, 0.05) 100%);
-      border-radius: $border-radius-lg;
-      border: 1px solid rgba($color-primary, 0.15);
-      
-      .nav-button {
-        min-width: 100px;
-        
-        :deep(.p-button) {
-          background: rgba($color-primary, 0.1);
-          border-color: rgba($color-primary, 0.3);
-          
-          &:hover:not(:disabled) {
-            background: rgba($color-primary, 0.2);
-            border-color: rgba($color-primary, 0.4);
-          }
-          
-          &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-          }
-        }
-      }
-      
-      .nav-info {
-        flex: 1;
-        text-align: center;
-        
-        .nav-title {
-          font-weight: $font-weight-semibold;
-          color: $color-gray-800;
-          font-size: $font-size-lg;
-        }
       }
     }
     
@@ -145,73 +89,132 @@
   }
 }
 
-// Dialog footer navigation
-.dialog-footer {
+// Custom header styles
+.custom-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
+  gap: $space-lg;
+  padding: $space-sm 0;
   
-  .footer-navigation {
-    flex: 1;
+  .header-title {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: $space-md;
+    flex: 1;
     
-    .footer-nav-buttons {
-      display: flex;
-      align-items: center;
-      gap: $space-md;
-      
-      .footer-counter {
-        font-size: $font-size-sm;
-        color: $color-gray-600;
-        font-weight: $font-weight-medium;
-        min-width: 60px;
-        text-align: center;
-      }
-      
+    h2 {
+      margin: 0;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $color-gray-900;
+    }
+    
+    .example-counter {
+      font-size: $font-size-sm;
+      color: $color-gray-600;
+      background: $color-gray-100;
+      padding: $space-xs $space-sm;
+      border-radius: $border-radius-md;
+      font-weight: $font-weight-medium;
+    }
+  }
+  
+  .header-navigation {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    
+    .nav-counter {
+      font-size: $font-size-sm;
+      color: $color-gray-600;
+      font-weight: $font-weight-medium;
+      min-width: 50px;
+      text-align: center;
+    }
+    
+    .nav-button {
       :deep(.p-button) {
+        padding: $space-sm;
+        
         &:disabled {
           opacity: 0.3;
         }
       }
     }
   }
-}
-
-// Dialog-specific styling
-:host ::ng-deep .example-dialog {
-  .p-dialog-header {
-    background: linear-gradient(135deg, rgba($color-primary, 0.1) 0%, rgba($color-secondary, 0.1) 100%);
-    border-bottom: 1px solid $color-gray-300;
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
     
-    .p-dialog-title {
-      font-weight: $font-weight-bold;
-      color: $color-gray-900;
-    }
-    
-    .p-dialog-header-close {
-      color: $color-gray-600;
-      
-      &:hover {
-        background: rgba($color-primary, 0.1);
-        color: $color-primary;
+    .close-button {
+      :deep(.p-button) {
+        padding: $space-sm;
+        color: $color-gray-600;
+        
+        &:hover {
+          color: $color-gray-800;
+          background: $color-gray-100;
+        }
       }
     }
   }
-  
-  .p-dialog-content {
-    padding: 0;
+}
+
+// Full-screen dialog specific styling
+:host ::ng-deep .fullscreen-dialog {
+  &.p-dialog {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
   }
   
-  .p-dialog-footer {
-    background: $color-gray-100;
-    border-top: 1px solid $color-gray-300;
-    padding: $space-lg;
+  .p-dialog {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
     
-    .p-button {
-      margin: 0;
+    .p-dialog-header {
+      background: linear-gradient(135deg, 
+        rgba($color-primary, 0.1) 0%, 
+        rgba($color-secondary, 0.1) 100%);
+      border-bottom: 1px solid $color-gray-300;
+      padding: $space-md $space-xl;
+      border-radius: 0;
+      
+      .p-dialog-title {
+        display: none; // Hide default title since we use custom header
+      }
     }
+    
+    .p-dialog-content {
+      padding: 0;
+      height: calc(100vh - 80px);
+      overflow: auto;
+      background: $color-white;
+    }
+    
+    .p-dialog-footer {
+      display: none; // No footer in full-screen mode
+    }
+  }
+  
+  .p-dialog-mask {
+    background: rgba(0, 0, 0, 0.6);
   }
 }
 
@@ -222,46 +225,12 @@
       .example-header {
         border-bottom-color: $color-dark-border;
         
-        .example-title-section {
-          h3 {
-            color: $color-dark-text;
-          }
-          
-          .example-counter {
-            .counter-text {
-              color: $color-dark-text-secondary;
-              background: $color-dark-surface;
-            }
-          }
+        h3 {
+          color: $color-dark-text;
         }
         
         .example-description {
           color: $color-dark-text-secondary;
-        }
-      }
-      
-      .example-navigation {
-        background: linear-gradient(135deg, 
-          rgba($color-primary, 0.1) 0%, 
-          rgba($color-secondary, 0.1) 100%);
-        border-color: rgba($color-primary, 0.3);
-        
-        .nav-button {
-          :deep(.p-button) {
-            background: rgba($color-primary, 0.2);
-            border-color: rgba($color-primary, 0.4);
-            
-            &:hover:not(:disabled) {
-              background: rgba($color-primary, 0.3);
-              border-color: rgba($color-primary, 0.5);
-            }
-          }
-        }
-        
-        .nav-info {
-          .nav-title {
-            color: $color-dark-text;
-          }
         }
       }
       
@@ -293,38 +262,50 @@
     }
   }
   
-  .dialog-footer {
-    .footer-navigation {
-      .footer-nav-buttons {
-        .footer-counter {
+  .custom-header {
+    .header-title {
+      h2 {
+        color: $color-dark-text;
+      }
+      
+      .example-counter {
+        color: $color-dark-text-secondary;
+        background: $color-dark-surface;
+      }
+    }
+    
+    .header-navigation {
+      .nav-counter {
+        color: $color-dark-text-secondary;
+      }
+    }
+    
+    .header-actions {
+      .close-button {
+        :deep(.p-button) {
           color: $color-dark-text-secondary;
+          
+          &:hover {
+            color: $color-dark-text;
+            background: $color-dark-surface;
+          }
         }
       }
     }
   }
   
-  ::ng-deep .example-dialog {
-    .p-dialog-header {
-      background: linear-gradient(135deg, rgba($color-primary, 0.2) 0%, rgba($color-secondary, 0.2) 100%);
-      border-bottom-color: $color-dark-border;
-      
-      .p-dialog-title {
-        color: $color-dark-text;
+  ::ng-deep .fullscreen-dialog {
+    .p-dialog {
+      .p-dialog-header {
+        background: linear-gradient(135deg, 
+          rgba($color-primary, 0.2) 0%, 
+          rgba($color-secondary, 0.2) 100%);
+        border-bottom-color: $color-dark-border;
       }
       
-      .p-dialog-header-close {
-        color: $color-dark-text-secondary;
-        
-        &:hover {
-          background: rgba($color-primary, 0.2);
-          color: $color-primary;
-        }
+      .p-dialog-content {
+        background: $color-dark-bg;
       }
-    }
-    
-    .p-dialog-footer {
-      background: $color-dark-surface;
-      border-top-color: $color-dark-border;
     }
   }
 }
@@ -338,39 +319,8 @@
       gap: $space-lg;
       
       .example-header {
-        .example-title-section {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: $space-sm;
-          
-          h3 {
-            font-size: $font-size-xl;
-          }
-          
-          .example-counter {
-            align-self: flex-end;
-          }
-        }
-      }
-      
-      .example-navigation {
-        flex-direction: column;
-        gap: $space-sm;
-        
-        .nav-button {
-          min-width: 120px;
-          
-          :deep(.p-button) {
-            width: 100%;
-          }
-        }
-        
-        .nav-info {
-          order: -1;
-          
-          .nav-title {
-            font-size: $font-size-md;
-          }
+        h3 {
+          font-size: $font-size-xl;
         }
       }
       
@@ -390,22 +340,49 @@
       .example-code {
         pre {
           padding: $space-lg;
+          font-size: $font-size-xs;
         }
       }
     }
   }
   
-  .dialog-footer {
+  .custom-header {
     flex-direction: column;
-    gap: $space-md;
+    gap: $space-sm;
+    align-items: flex-start;
     
-    .footer-navigation {
-      .footer-nav-buttons {
-        gap: $space-sm;
-        
-        .footer-counter {
-          font-size: $font-size-xs;
-        }
+    .header-title {
+      width: 100%;
+      justify-content: space-between;
+      
+      h2 {
+        font-size: $font-size-lg;
+      }
+    }
+    
+    .header-navigation {
+      align-self: center;
+      
+      .nav-counter {
+        font-size: $font-size-xs;
+      }
+    }
+    
+    .header-actions {
+      position: absolute;
+      top: $space-sm;
+      right: $space-sm;
+    }
+  }
+  
+  :host ::ng-deep .fullscreen-dialog {
+    .p-dialog {
+      .p-dialog-header {
+        padding: $space-sm $space-md;
+      }
+      
+      .p-dialog-content {
+        height: calc(100vh - 100px);
       }
     }
   }

@@ -21,58 +21,77 @@ import { ConfirmationDiscardExampleComponent } from '../examples/confirmation-di
     <p-dialog 
       [visible]="isVisible()"
       [modal]="true"
-      [closable]="true"
+      [closable]="false"
       [draggable]="false"
       [resizable]="false"
-      [maximizable]="true"
-      [breakpoints]="{'960px': '75vw', '641px': '90vw'}"
-      [style]="{width: '80vw', maxWidth: '1200px'}"
-      [header]="dialogTitle()"
+      [maximizable]="false"
+      [style]="{width: '100vw', height: '100vh'}"
+      [contentStyle]="{padding: '0', height: 'calc(100vh - 120px)', overflow: 'auto'}"
+      [baseZIndex]="10000"
       (onHide)="closeDialog()"
-      styleClass="example-dialog"
+      styleClass="example-dialog fullscreen-dialog"
     >
+      <ng-template pTemplate="header">
+        <div class="custom-header">
+          <div class="header-title">
+            <h2>{{ dialogTitle() }}</h2>
+            @if (availableExamples().length > 1) {
+              <span class="example-counter">{{ currentExampleIndex() + 1 }} of {{ availableExamples().length }}</span>
+            }
+          </div>
+          
+          @if (availableExamples().length > 1) {
+            <div class="header-navigation">
+              <p-button 
+                icon="pi pi-chevron-left" 
+                severity="secondary"
+                size="small"
+                [text]="true"
+                [disabled]="currentExampleIndex() === 0"
+                (onClick)="navigateToPrevious()"
+                pTooltip="Previous example"
+                tooltipPosition="bottom"
+                class="nav-button"
+              />
+              <span class="nav-counter">{{ currentExampleIndex() + 1 }} / {{ availableExamples().length }}</span>
+              <p-button 
+                icon="pi pi-chevron-right" 
+                severity="secondary"
+                size="small"
+                [text]="true"
+                [disabled]="currentExampleIndex() === availableExamples().length - 1"
+                (onClick)="navigateToNext()"
+                pTooltip="Next example"
+                tooltipPosition="bottom"
+                class="nav-button"
+              />
+            </div>
+          }
+          
+          <div class="header-actions">
+            <p-button 
+              icon="pi pi-times" 
+              severity="secondary"
+              size="small"
+              [text]="true"
+              (onClick)="closeDialog()"
+              pTooltip="Close dialog"
+              tooltipPosition="bottom"
+              class="close-button"
+            />
+          </div>
+        </div>
+      </ng-template>
+
       <div class="dialog-content">
         @if (currentExample()) {
           <div class="example-display">
             <div class="example-header">
-              <div class="example-title-section">
-                <h3>{{ currentExample()?.title }}</h3>
-                @if (availableExamples().length > 1) {
-                  <div class="example-counter">
-                    <span class="counter-text">{{ currentExampleIndex() + 1 }} of {{ availableExamples().length }}</span>
-                  </div>
-                }
-              </div>
+              <h3>{{ currentExample()?.title }}</h3>
               @if (currentExample()?.description) {
                 <p class="example-description">{{ currentExample()?.description }}</p>
               }
             </div>
-            
-            @if (availableExamples().length > 1) {
-              <div class="example-navigation">
-                <p-button 
-                  icon="pi pi-chevron-left" 
-                  label="Previous"
-                  severity="secondary"
-                  size="small"
-                  [disabled]="currentExampleIndex() === 0"
-                  (onClick)="navigateToPrevious()"
-                  class="nav-button"
-                />
-                <div class="nav-info">
-                  <span class="nav-title">{{ currentExample()?.title }}</span>
-                </div>
-                <p-button 
-                  icon="pi pi-chevron-right" 
-                  label="Next"
-                  severity="secondary"
-                  size="small"
-                  [disabled]="currentExampleIndex() === availableExamples().length - 1"
-                  (onClick)="navigateToNext()"
-                  class="nav-button"
-                />
-              </div>
-            }
             
             <div class="example-demo">
               <h4>Live Demo</h4>
@@ -94,44 +113,6 @@ import { ConfirmationDiscardExampleComponent } from '../examples/confirmation-di
           </div>
         }
       </div>
-      
-      <ng-template pTemplate="footer">
-        <div class="dialog-footer">
-          <div class="footer-navigation">
-            @if (availableExamples().length > 1) {
-              <div class="footer-nav-buttons">
-                <p-button 
-                  icon="pi pi-chevron-left"
-                  severity="secondary"
-                  size="small"
-                  [text]="true"
-                  [disabled]="currentExampleIndex() === 0"
-                  (onClick)="navigateToPrevious()"
-                  pTooltip="Previous example"
-                  tooltipPosition="top"
-                />
-                <span class="footer-counter">{{ currentExampleIndex() + 1 }} / {{ availableExamples().length }}</span>
-                <p-button 
-                  icon="pi pi-chevron-right"
-                  severity="secondary"
-                  size="small"
-                  [text]="true"
-                  [disabled]="currentExampleIndex() === availableExamples().length - 1"
-                  (onClick)="navigateToNext()"
-                  pTooltip="Next example"
-                  tooltipPosition="top"
-                />
-              </div>
-            }
-          </div>
-          <p-button 
-            label="Close" 
-            icon="pi pi-times" 
-            severity="secondary"
-            (onClick)="closeDialog()"
-          />
-        </div>
-      </ng-template>
     </p-dialog>
   `,
   styleUrls: ['./example-dialog.component.scss'],
