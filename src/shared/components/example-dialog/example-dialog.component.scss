@@ -221,6 +221,7 @@
 // Dark mode styles
 :host-context(.dark-mode) {
   .dialog-content {
+    background: $color-dark-bg;
     .example-display {
       .example-header {
         border-bottom-color: $color-dark-border;
@@ -295,7 +296,13 @@
   }
   
   ::ng-deep .fullscreen-dialog {
+    &.p-dialog {
+      background: $color-dark-bg !important;
+    }
+    
     .p-dialog {
+      background: $color-dark-bg !important;
+      
       .p-dialog-header {
         background: linear-gradient(135deg, 
           rgba($color-primary, 0.2) 0%, 
@@ -303,12 +310,16 @@
         border-bottom-color: $color-dark-border;
       }
       
-      .p-dialog-content {
-        background: $color-dark-bg;
+              .p-dialog-content {
+          background: $color-dark-bg !important;
+        }
       }
     }
+    
+    .p-dialog-mask {
+      background: rgba(0, 0, 0, 0.8);
+    }
   }
-}
 
 // Responsive design
 @media (max-width: $breakpoint-md) {
