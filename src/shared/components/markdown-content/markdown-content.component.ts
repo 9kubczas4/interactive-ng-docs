@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, input, computed, inject, AfterViewI
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MarkdownService } from '@core/services/markdown.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import hljs from 'highlight.js';
 
 @Component({
   selector: 'app-markdown-content',
@@ -54,24 +55,168 @@ import { Clipboard } from '@angular/cdk/clipboard';
       font-size: 11px;
     }
     
-    // Dark mode styles
-    :host-context(.dark-mode) {
-      .markdown-content :deep(.code-copy-button) {
-        background: rgba(0, 0, 0, 0.9);
-        color: #e2e8f0;
-        border-color: #4a5568;
-        
-        &:hover:not(.copied) {
-          background: rgba(102, 126, 234, 0.9);
-          border-color: #667eea;
-        }
-        
-        &.copied {
-          background: rgba(104, 211, 145, 0.9);
-          border-color: #68d391;
-        }
-      }
-    }
+         // Highlight.js Light Theme
+     ::ng-deep .markdown-content .hljs {
+       background: #f8f9fa !important;
+       color: #383a42 !important;
+     }
+     
+     ::ng-deep .markdown-content .hljs-comment,
+     ::ng-deep .markdown-content .hljs-quote {
+       color: #a0a1a7 !important;
+       font-style: italic;
+     }
+     
+     ::ng-deep .markdown-content .hljs-keyword,
+     ::ng-deep .markdown-content .hljs-selector-tag,
+     ::ng-deep .markdown-content .hljs-addition {
+       color: #a626a4 !important;
+     }
+     
+     ::ng-deep .markdown-content .hljs-number,
+     ::ng-deep .markdown-content .hljs-string,
+     ::ng-deep .markdown-content .hljs-meta .hljs-meta-string,
+     ::ng-deep .markdown-content .hljs-literal,
+     ::ng-deep .markdown-content .hljs-doctag,
+     ::ng-deep .markdown-content .hljs-regexp {
+       color: #50a14f !important;
+     }
+     
+     ::ng-deep .markdown-content .hljs-title,
+     ::ng-deep .markdown-content .hljs-section,
+     ::ng-deep .markdown-content .hljs-name,
+     ::ng-deep .markdown-content .hljs-selector-id,
+     ::ng-deep .markdown-content .hljs-selector-class {
+       color: #c18401 !important;
+     }
+     
+     ::ng-deep .markdown-content .hljs-attribute,
+     ::ng-deep .markdown-content .hljs-attr,
+     ::ng-deep .markdown-content .hljs-variable,
+     ::ng-deep .markdown-content .hljs-template-variable,
+     ::ng-deep .markdown-content .hljs-class .hljs-title,
+     ::ng-deep .markdown-content .hljs-type {
+       color: #986801 !important;
+     }
+     
+     ::ng-deep .markdown-content .hljs-symbol,
+     ::ng-deep .markdown-content .hljs-bullet,
+     ::ng-deep .markdown-content .hljs-subst,
+     ::ng-deep .markdown-content .hljs-meta,
+     ::ng-deep .markdown-content .hljs-meta .hljs-keyword,
+     ::ng-deep .markdown-content .hljs-selector-attr,
+     ::ng-deep .markdown-content .hljs-selector-pseudo,
+     ::ng-deep .markdown-content .hljs-link {
+       color: #4078f2 !important;
+     }
+     
+     ::ng-deep .markdown-content .hljs-built_in,
+     ::ng-deep .markdown-content .hljs-deletion {
+       color: #e45649 !important;
+     }
+     
+     ::ng-deep .markdown-content .hljs-formula {
+       background: #eee8d5 !important;
+     }
+     
+     ::ng-deep .markdown-content .hljs-emphasis {
+       font-style: italic;
+     }
+     
+     ::ng-deep .markdown-content .hljs-strong {
+       font-weight: bold;
+     }
+
+     // Dark mode styles
+     :host-context(.dark-mode) {
+       .markdown-content :deep(.code-copy-button) {
+         background: rgba(0, 0, 0, 0.9);
+         color: #e2e8f0;
+         border-color: #4a5568;
+         
+         &:hover:not(.copied) {
+           background: rgba(102, 126, 234, 0.9);
+           border-color: #667eea;
+         }
+         
+         &.copied {
+           background: rgba(104, 211, 145, 0.9);
+           border-color: #68d391;
+         }
+       }
+       
+       // Highlight.js Dark Theme
+       ::ng-deep .markdown-content .hljs {
+         background: #282c34 !important;
+         color: #abb2bf !important;
+       }
+       
+       ::ng-deep .markdown-content .hljs-comment,
+       ::ng-deep .markdown-content .hljs-quote {
+         color: #5c6370 !important;
+         font-style: italic;
+       }
+       
+       ::ng-deep .markdown-content .hljs-keyword,
+       ::ng-deep .markdown-content .hljs-selector-tag,
+       ::ng-deep .markdown-content .hljs-addition {
+         color: #c678dd !important;
+       }
+       
+       ::ng-deep .markdown-content .hljs-number,
+       ::ng-deep .markdown-content .hljs-string,
+       ::ng-deep .markdown-content .hljs-meta .hljs-meta-string,
+       ::ng-deep .markdown-content .hljs-literal,
+       ::ng-deep .markdown-content .hljs-doctag,
+       ::ng-deep .markdown-content .hljs-regexp {
+         color: #98c379 !important;
+       }
+       
+       ::ng-deep .markdown-content .hljs-title,
+       ::ng-deep .markdown-content .hljs-section,
+       ::ng-deep .markdown-content .hljs-name,
+       ::ng-deep .markdown-content .hljs-selector-id,
+       ::ng-deep .markdown-content .hljs-selector-class {
+         color: #e06c75 !important;
+       }
+       
+       ::ng-deep .markdown-content .hljs-attribute,
+       ::ng-deep .markdown-content .hljs-attr,
+       ::ng-deep .markdown-content .hljs-variable,
+       ::ng-deep .markdown-content .hljs-template-variable,
+       ::ng-deep .markdown-content .hljs-class .hljs-title,
+       ::ng-deep .markdown-content .hljs-type {
+         color: #d19a66 !important;
+       }
+       
+       ::ng-deep .markdown-content .hljs-symbol,
+       ::ng-deep .markdown-content .hljs-bullet,
+       ::ng-deep .markdown-content .hljs-subst,
+       ::ng-deep .markdown-content .hljs-meta,
+       ::ng-deep .markdown-content .hljs-meta .hljs-keyword,
+       ::ng-deep .markdown-content .hljs-selector-attr,
+       ::ng-deep .markdown-content .hljs-selector-pseudo,
+       ::ng-deep .markdown-content .hljs-link {
+         color: #61afef !important;
+       }
+       
+       ::ng-deep .markdown-content .hljs-built_in,
+       ::ng-deep .markdown-content .hljs-deletion {
+         color: #e06c75 !important;
+       }
+       
+       ::ng-deep .markdown-content .hljs-formula {
+         background: #3e4451 !important;
+       }
+       
+       ::ng-deep .markdown-content .hljs-emphasis {
+         font-style: italic;
+       }
+       
+       ::ng-deep .markdown-content .hljs-strong {
+         font-weight: bold;
+       }
+     }
   `]
 })
 export class MarkdownContentComponent implements AfterViewInit {
@@ -110,16 +255,64 @@ export class MarkdownContentComponent implements AfterViewInit {
   }
   
   private addCopyButtonsToCodeBlocks(html: string): string {
+    // Helper function to escape HTML for data attributes
+    const escapeHtml = (text: string): string => {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    };
+    
+    // Helper function to decode HTML entities
+    const decodeHtmlEntities = (html: string): string => {
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      return div.textContent || div.innerText || '';
+    };
+    
     // Replace <pre><code> blocks with wrapped containers that include copy buttons
     return html.replace(/<pre><code([^>]*)>([\s\S]*?)<\/code><\/pre>/g, (match, attributes, content) => {
       const codeId = 'code-' + Math.random().toString(36).substr(2, 9);
+      
+      // Extract language from class attribute if present
+      const languageMatch = attributes.match(/class="language-(\w+)"/);
+      const language = languageMatch ? languageMatch[1] : '';
+      
+      // Decode HTML entities before syntax highlighting
+      const decodedContent = decodeHtmlEntities(content);
+      
+      // Apply syntax highlighting
+      let highlightedContent = decodedContent;
+      if (language) {
+        try {
+          highlightedContent = hljs.highlight(decodedContent, { language }).value;
+        } catch (error) {
+          // If language is not supported, try auto-detection
+          try {
+            highlightedContent = hljs.highlightAuto(decodedContent).value;
+          } catch (autoError) {
+            // If all fails, use original content
+            highlightedContent = decodedContent;
+          }
+        }
+      } else {
+        // Try auto-detection for code blocks without language specification
+        try {
+          highlightedContent = hljs.highlightAuto(decodedContent).value;
+        } catch (autoError) {
+          highlightedContent = decodedContent;
+        }
+      }
+      
+      // Escape the original decoded content for storing in data attribute
+      const escapedContent = escapeHtml(decodedContent);
+      
       return `
         <div class="code-block-container">
-          <button class="code-copy-button" data-code-id="${codeId}" aria-label="Copy code">
+          <button class="code-copy-button" data-code-id="${codeId}" data-original-content="${escapedContent}" aria-label="Copy code">
             <i class="pi pi-copy code-copy-icon"></i>
             <span class="copy-text">Copy</span>
           </button>
-          <pre><code${attributes} data-code-id="${codeId}">${content}</code></pre>
+          <pre><code${attributes} data-code-id="${codeId}" class="hljs ${language ? `language-${language}` : ''}">${highlightedContent}</code></pre>
         </div>
       `;
     });
@@ -139,12 +332,12 @@ export class MarkdownContentComponent implements AfterViewInit {
   }
   
   private handleCopyClick(button: HTMLElement) {
-    const codeId = button.getAttribute('data-code-id');
-    const codeElement = this.elementRef.nativeElement.querySelector(`code[data-code-id="${codeId}"]`);
+    // Get the original content from the button's data attribute
+    const originalContent = button.getAttribute('data-original-content');
     
-    if (codeElement) {
-      const codeText = codeElement.textContent || '';
-      const success = this.clipboard.copy(codeText);
+    if (originalContent) {
+      const decodedContent = this.unescapeHtml(originalContent);
+      const success = this.clipboard.copy(decodedContent);
       
       if (success) {
         // Update button appearance
@@ -163,5 +356,13 @@ export class MarkdownContentComponent implements AfterViewInit {
         }, 2000);
       }
     }
+  }
+  
+
+  
+  private unescapeHtml(html: string): string {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
   }
 } 
