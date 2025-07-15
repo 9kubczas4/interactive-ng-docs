@@ -3,16 +3,48 @@
 :host {
   width: 100vw;
   height: $header-height;
-  background: $color-white;
-  border-bottom: 1px solid $color-gray-300;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   padding: 0 $space-2xl;
-  box-shadow: $shadow-md;
-  position: sticky;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: $z-index-header;
   flex-shrink: 0;
+  transition: all 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%, 
+      rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.3) 20%, 
+      rgba(255, 255, 255, 0.3) 80%, 
+      transparent 100%);
+    pointer-events: none;
+  }
 }
 
 .header-content {
@@ -21,6 +53,8 @@
   justify-content: space-between;
   width: 100%;
   padding: $space-sm 0;
+  position: relative;
+  z-index: 1;
 }
 
 .header-left {
@@ -30,13 +64,21 @@
 }
 
 :host ::ng-deep .hamburger-button {
+  transition: all 0.3s ease;
+  
   .p-button-icon {
     font-size: $font-size-lg;
     color: $color-gray-600;
   }
   
-  &:hover .p-button-icon {
-    color: $color-primary;
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    .p-button-icon {
+      color: $color-primary;
+    }
   }
 }
 
@@ -72,14 +114,24 @@
 }
 
 :host ::ng-deep .github-button {
+  transition: all 0.3s ease;
+  
   .p-button-label {
     font-weight: $font-weight-medium;
+  }
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 }
 
 @media (max-width: $breakpoint-md) {
   :host {
     padding: 0 $space-lg;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
   }
   
   .header-left {
@@ -97,16 +149,39 @@
 
 // Dark mode styles
 :host-context(.dark-mode) {
-  background: $color-dark-surface;
-  border-bottom-color: $color-dark-border;
+  background: rgba(45, 55, 72, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  
+  &::before {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.05) 0%, 
+      rgba(255, 255, 255, 0.02) 100%);
+  }
+  
+  &::after {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.1) 20%, 
+      rgba(255, 255, 255, 0.1) 80%, 
+      transparent 100%);
+  }
   
   ::ng-deep .hamburger-button {
     .p-button-icon {
       color: $color-dark-text-secondary;
     }
     
-    &:hover .p-button-icon {
-      color: $color-primary;
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      
+      .p-button-icon {
+        color: $color-primary;
+      }
     }
   }
   
@@ -120,6 +195,10 @@
     }
     
     &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      
       .p-button-icon,
       .p-button-label {
         color: $color-primary;

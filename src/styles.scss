@@ -24,7 +24,14 @@ body {
   flex-direction: column;
   height: 100vh;
   margin: 0;
-  background: $color-white;
+  background: linear-gradient(135deg, 
+    rgba(102, 126, 234, 0.02) 0%, 
+    rgba(118, 75, 162, 0.02) 25%, 
+    rgba(255, 255, 255, 1) 25%, 
+    rgba(255, 255, 255, 1) 75%, 
+    rgba(102, 126, 234, 0.02) 75%, 
+    rgba(118, 75, 162, 0.02) 100%);
+  background-size: 60px 60px;
 }
 
 aside[appSidebar] {
@@ -42,12 +49,13 @@ aside[appSidebar] {
 .content-container {
   display: flex;
   flex-direction: row;
-  flex: 1;
+  height: 100vh;
   overflow: hidden;
 }
 
 .main-content {
   padding: $space-2xl;
+  padding-top: calc(#{$header-height} + #{$space-2xl});
   overflow-y: auto;
   background: $color-white;
   flex: 1;
@@ -213,6 +221,7 @@ aside[appSidebar] {
   
   .main-content {
     padding: $space-lg;
+    padding-top: calc(#{$header-height} + #{$space-lg});
     border-left: none;
     
     &.sidebar-collapsed {
@@ -260,6 +269,17 @@ aside[appSidebar] {
 // Dark mode styles
 .dark-mode {
   .documentation-layout {
+    background: linear-gradient(135deg, 
+      rgba(102, 126, 234, 0.05) 0%, 
+      rgba(118, 75, 162, 0.05) 25%, 
+      rgba(26, 32, 44, 1) 25%, 
+      rgba(26, 32, 44, 1) 75%, 
+      rgba(102, 126, 234, 0.05) 75%, 
+      rgba(118, 75, 162, 0.05) 100%);
+    background-size: 60px 60px;
+  }
+  
+  .content-container {
     background: $color-dark-bg;
   }
   

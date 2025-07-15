@@ -11,13 +11,13 @@ import { FloatingActionButtonsComponent } from '@shared/components/floating-acti
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="documentation-layout" [class.sidebar-collapsed]="!sidebarService.isOpen()">
-      <header appHeader></header>
       <div class="content-container">
         <aside appSidebar [class.sidebar-collapsed]="!sidebarService.isOpen()"></aside>
         <main class="main-content" [class.sidebar-collapsed]="!sidebarService.isOpen()" (click)="closeSidebarOnMobile()">
           <router-outlet />
         </main>
       </div>
+      <header appHeader></header>
       <app-floating-action-buttons />
     </div>
   `,

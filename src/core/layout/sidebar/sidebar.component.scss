@@ -10,6 +10,7 @@
   max-width: $sidebar-width;
   flex-shrink: 0;
   transition: all 0.3s ease;
+  padding-top: $header-height;
   
   &.sidebar-collapsed {
     width: 0;
@@ -180,6 +181,7 @@
     z-index: $z-index-sidebar;
     border-left: none;
     border-right: 1px solid $color-gray-300;
+    padding-top: 0;
     
     &.sidebar-collapsed {
       transform: translateX(-100%);
