@@ -1,15 +1,17 @@
+@import "../../../styles/variables";
+
 :host {
   width: 100vw;
-  height: 70px;
-  background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
+  height: $header-height;
+  background: $color-white;
+  border-bottom: 1px solid $color-gray-300;
   display: flex;
   align-items: center;
-  padding: 0 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0 $space-2xl;
+  box-shadow: $shadow-md;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: $z-index-header;
   flex-shrink: 0;
 }
 
@@ -18,56 +20,56 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0.5rem 0;
+  padding: $space-sm 0;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: $space-md;
 }
 
 .logo-icon {
-  font-size: 1.75rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-size: $font-size-3xl;
+  background: $gradient-primary;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .logo-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
   margin: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: $gradient-primary;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.025em;
+  letter-spacing: $letter-spacing-tight;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: $space-lg;
 }
 
 :host ::ng-deep .github-button {
   .p-button-label {
-    font-weight: 500;
+    font-weight: $font-weight-medium;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md) {
   :host {
-    padding: 0 1rem;
+    padding: 0 $space-lg;
   }
   
   .logo-title {
-    font-size: 1.25rem;
+    font-size: $font-size-xl;
   }
   
   .logo-icon {
-    font-size: 1.5rem;
+    font-size: $font-size-2xl;
   }
 } 

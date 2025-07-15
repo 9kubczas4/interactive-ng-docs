@@ -19,44 +19,46 @@ import { MenuItem } from 'primeng/api';
     </div>
   `,
   styles: [`
+    @import "../../../styles/variables.scss";
+    
     .sidebar-content {
       height: 100%;
       display: flex;
       flex-direction: column;
-      background: #ffffff;
-      width: 320px;
-      max-width: 320px;
+      background: $color-white;
+      width: $sidebar-width;
+      max-width: $sidebar-width;
       box-sizing: border-box;
     }
     
     .sidebar-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid #e2e8f0;
-      background: #ffffff;
+      padding: $space-xl;
+      border-bottom: 1px solid $color-gray-300;
+      background: $color-white;
     }
     
     .sidebar-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #1e40af;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-blue-800;
       margin: 0;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: $space-sm;
       
       i {
-        color: #1e40af;
+        color: $color-blue-800;
       }
     }
     
     .menu-container {
       flex: 1;
-      padding: 1rem;
+      padding: $space-lg;
       overflow-y: auto;
-      background: #ffffff;
+      background: $color-white;
     }
     
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-md) {
       .sidebar-content {
         width: 100%;
         max-width: 100%;
