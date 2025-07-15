@@ -11,10 +11,6 @@ export const appRoutes: Routes = [
     loadComponent: () => import('@features/getting-started/getting-started.component').then(c => c.GettingStartedComponent)
   },
   {
-    path: 'components',
-    loadChildren: () => import('@features/components/components.routes').then(r => r.componentsRoutes)
-  },
-  {
     path: 'use-cases',
     loadChildren: () => import('@features/use-cases/use-cases.routes').then(r => r.useCasesRoutes)
   },

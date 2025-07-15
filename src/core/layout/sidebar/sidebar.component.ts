@@ -73,28 +73,6 @@ export class SidebarComponent {
       routerLink: '/getting-started'
     },
     {
-      label: 'Components',
-      icon: 'pi pi-fw pi-th-large',
-      expanded: true,
-      items: [
-        {
-          label: 'Buttons',
-          icon: 'pi pi-fw pi-circle',
-          routerLink: '/components/buttons'
-        },
-        {
-          label: 'Forms',
-          icon: 'pi pi-fw pi-circle',
-          routerLink: '/components/forms'
-        },
-        {
-          label: 'Tables',
-          icon: 'pi pi-fw pi-circle',
-          routerLink: '/components/tables'
-        }
-      ]
-    },
-    {
       label: 'Use Cases',
       icon: 'pi pi-fw pi-bookmark',
       expanded: true,
