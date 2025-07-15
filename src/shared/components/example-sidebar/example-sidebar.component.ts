@@ -92,6 +92,50 @@ export interface ExampleItem {
       }
     }
     
+    // General accordion styling
+    ::ng-deep .p-accordion {
+      .p-accordionpanel {
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        
+        .p-accordionheader {
+          transition: all 0.2s ease;
+          font-weight: 500;
+          padding: 1rem 1.25rem;
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+          color: #1a202c;
+          
+          &:hover {
+            background: #f8fafc;
+          }
+          
+          &:focus {
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+          }
+        }
+        
+        .p-accordioncontent {
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+          border-top: none;
+          
+          .p-accordioncontent-content {
+            padding: 1rem 1.25rem;
+          }
+        }
+        
+        &.p-accordionpanel-active {
+          .p-accordionheader {
+            background: #f1f5f9;
+            color: #1a202c;
+          }
+        }
+      }
+    }
+    
     // Dark mode styles
     :host-context(.dark-mode) {
       .example-sidebar {
@@ -114,6 +158,48 @@ export interface ExampleItem {
       .example-code {
         background: #0d1117;
         border: 1px solid #4a5568;
+      }
+      
+      // PrimeNG accordion dark mode overrides
+      ::ng-deep .p-accordion {
+        .p-accordionpanel {
+          background: #2d3748;
+          border-color: #4a5568;
+          
+          .p-accordionheader {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #f7fafc;
+            
+            &:hover {
+              background: #4a5568;
+              color: #f7fafc;
+            }
+            
+            &:focus {
+              background: #4a5568;
+              color: #f7fafc;
+              box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.5);
+            }
+            
+            .p-accordionheader-toggle-icon {
+              color: #e2e8f0;
+            }
+          }
+          
+          .p-accordioncontent {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #e2e8f0;
+          }
+          
+          &.p-accordionpanel-active {
+            .p-accordionheader {
+              background: #4a5568;
+              color: #f7fafc;
+            }
+          }
+        }
       }
     }
   `],
