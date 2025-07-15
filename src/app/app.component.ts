@@ -9,10 +9,12 @@ import { SidebarComponent } from '@core/layout/sidebar/sidebar.component';
   template: `
     <div class="documentation-layout">
       <app-header />
-      <app-sidebar />
-      <main class="main-content">
-        <router-outlet />
-      </main>
+      <div class="content-container">
+        <main class="main-content">
+          <router-outlet />
+        </main>
+        <app-sidebar />
+      </div>
     </div>
   `,
   imports: [RouterOutlet, HeaderComponent, SidebarComponent]

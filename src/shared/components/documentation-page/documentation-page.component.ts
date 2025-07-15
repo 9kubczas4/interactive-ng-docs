@@ -12,7 +12,11 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
       </div>
       
       @if (examples().length > 0) {
-        <div class="example-sidebar">
+        <div class="examples-section">
+          <h2 class="examples-title">
+            <i class="pi pi-code mr-2"></i>
+            Interactive Examples
+          </h2>
           <app-example-sidebar [examples]="examples()" />
         </div>
       }
@@ -20,29 +24,46 @@ import { ExampleSidebarComponent, ExampleItem } from '../example-sidebar/example
   `,
   styles: [`
     .documentation-page {
-      display: grid;
-      grid-template-columns: 1fr 320px;
+      display: flex;
+      flex-direction: column;
       gap: 2rem;
-      height: 100%;
+      min-height: 100%;
     }
     
     .content-area {
-      overflow-y: auto;
+      flex: 1;
     }
     
-    .example-sidebar {
-      border-left: 1px solid #dee2e6;
-      padding-left: 1rem;
-      overflow-y: auto;
+    .examples-section {
+      margin-top: 2rem;
     }
     
-    @media (max-width: 1024px) {
+    .examples-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid;
+      border-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) 1;
+      display: flex;
+      align-items: center;
+      
+      i {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+    
+    @media (max-width: 768px) {
       .documentation-page {
-        grid-template-columns: 1fr;
+        gap: 1rem;
       }
       
-      .example-sidebar {
-        display: none;
+      .examples-title {
+        font-size: 1.25rem;
       }
     }
   `],
