@@ -11,10 +11,10 @@ import { SidebarService } from '@core/services/sidebar.service';
     <div class="documentation-layout" [class.sidebar-collapsed]="!sidebarService.isOpen()">
       <header appHeader></header>
       <div class="content-container">
+        <aside appSidebar [class.sidebar-collapsed]="!sidebarService.isOpen()"></aside>
         <main class="main-content" [class.sidebar-collapsed]="!sidebarService.isOpen()" (click)="closeSidebarOnMobile()">
           <router-outlet />
         </main>
-        <aside appSidebar [class.sidebar-collapsed]="!sidebarService.isOpen()"></aside>
       </div>
     </div>
   `,
