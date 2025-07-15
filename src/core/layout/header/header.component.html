@@ -1,7 +1,17 @@
 <div class="header-content">
-  <div class="logo-section">
-    <i class="pi pi-book logo-icon"></i>
-    <h1 class="logo-title">Interactive Angular Docs</h1>
+  <div class="header-left">
+    <p-button 
+      icon="pi pi-bars" 
+      [text]="true" 
+      (click)="toggleSidebar()"
+      class="hamburger-button"
+      severity="secondary"
+      aria-label="Toggle sidebar"
+    />
+    <div class="logo-section">
+      <i class="pi pi-book logo-icon"></i>
+      <h1 class="logo-title">Interactive Angular Docs</h1>
+    </div>
   </div>
   <div class="header-actions">
     <p-button

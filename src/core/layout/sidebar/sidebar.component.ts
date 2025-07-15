@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'aside[appSidebar]',
@@ -11,6 +12,10 @@ import { MenuItem } from 'primeng/api';
   imports: [PanelMenuModule]
 })
 export class SidebarComponent {
+  private sidebarService = inject(SidebarService);
+  
+  readonly isOpen = this.sidebarService.isOpen;
+  
   menuItems = signal<MenuItem[]>([
     {
       label: 'Getting Started',

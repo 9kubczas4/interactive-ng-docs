@@ -23,6 +23,23 @@
   padding: $space-sm 0;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+}
+
+:host ::ng-deep .hamburger-button {
+  .p-button-icon {
+    font-size: $font-size-lg;
+    color: $color-gray-600;
+  }
+  
+  &:hover .p-button-icon {
+    color: $color-primary;
+  }
+}
+
 .logo-section {
   display: flex;
   align-items: center;
@@ -63,6 +80,10 @@
 @media (max-width: $breakpoint-md) {
   :host {
     padding: 0 $space-lg;
+  }
+  
+  .header-left {
+    gap: $space-md;
   }
   
   .logo-title {
