@@ -23,17 +23,17 @@ export class SidebarComponent {
       items: [
         {
           label: 'Discard Changes',
-          icon: 'pi pi-fw pi-circle',
+          icon: 'pi pi-fw pi-undo',
           routerLink: '/use-cases/discard-changes'
         },
         {
           label: 'Form Validation',
-          icon: 'pi pi-fw pi-circle',
+          icon: 'pi pi-fw pi-check-circle',
           routerLink: '/use-cases/form-validation'
         },
         {
           label: 'Data Loading',
-          icon: 'pi pi-fw pi-circle',
+          icon: 'pi pi-fw pi-spinner',
           routerLink: '/use-cases/data-loading'
         }
       ]
