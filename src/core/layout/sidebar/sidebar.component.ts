@@ -23,7 +23,7 @@ import { MenuItem } from 'primeng/api';
       height: 100%;
       display: flex;
       flex-direction: column;
-      background: #fafafa;
+      background: #ffffff;
       width: 320px;
       max-width: 320px;
       box-sizing: border-box;
@@ -32,20 +32,20 @@ import { MenuItem } from 'primeng/api';
     .sidebar-header {
       padding: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
-      background: #fafafa;
+      background: #ffffff;
     }
     
     .sidebar-title {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #2563eb;
+      color: #1e40af;
       margin: 0;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       
       i {
-        color: #2563eb;
+        color: #1e40af;
       }
     }
     
@@ -53,85 +53,7 @@ import { MenuItem } from 'primeng/api';
       flex: 1;
       padding: 1rem;
       overflow-y: auto;
-      background: #fafafa;
-    }
-    
-    :host ::ng-deep .p-panelmenu {
-      background: #fafafa;
-      
-      .p-panelmenu-header {
-        .p-panelmenu-header-content {
-          background: #fafafa;
-          border: none;
-          padding: 0.75rem 1rem;
-          margin-bottom: 0.5rem;
-          border-radius: 8px;
-          transition: all 0.2s ease;
-          border-left: 3px solid transparent;
-          
-          &:hover {
-            background: #dbeafe;
-            border-left-color: #2563eb;
-          }
-          
-          .p-panelmenu-header-action {
-            color: #2563eb;
-            font-weight: 600;
-            font-size: 0.95rem;
-            
-            .p-menuitem-icon {
-              color: #2563eb;
-              margin-right: 0.5rem;
-            }
-          }
-        }
-      }
-      
-      .p-panelmenu-content {
-        background: #fafafa;
-        border: none;
-        padding: 0;
-        margin-left: 1rem;
-        border-left: 2px solid #93c5fd;
-        
-        .p-panelmenu-root-list {
-          .p-menuitem {
-            .p-menuitem-content {
-              padding: 0.5rem 1rem;
-              margin-bottom: 0.25rem;
-              border-radius: 6px;
-              transition: all 0.2s ease;
-              position: relative;
-              background: #fafafa;
-              
-              &:before {
-                content: '';
-                position: absolute;
-                left: -1rem;
-                top: 50%;
-                width: 12px;
-                height: 1px;
-                background: #93c5fd;
-              }
-              
-              &:hover {
-                background: #dbeafe;
-                transform: translateX(4px);
-              }
-              
-              .p-menuitem-link {
-                color: #1e40af;
-                font-weight: 400;
-                font-size: 0.9rem;
-                
-                &:hover {
-                  color: #2563eb;
-                }
-              }
-            }
-          }
-        }
-      }
+      background: #ffffff;
     }
     
     @media (max-width: 768px) {
