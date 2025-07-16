@@ -1,7 +1,10 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 export interface ExampleItem {
   title: string;
@@ -31,6 +34,20 @@ export interface ExampleItem {
               </div>
               @if (example.code) {
                 <div class="example-code">
+                  <div class="code-header">
+                    <span class="code-title">Code</span>
+                    <p-button 
+                      [icon]="copySuccess() ? 'pi pi-check' : 'pi pi-copy'"
+                      severity="secondary"
+                      size="small"
+                      [text]="true"
+                      [disabled]="copySuccess()"
+                      (onClick)="copyCode(example.code)"
+                      [pTooltip]="copySuccess() ? 'Copied!' : 'Copy code'"
+                      tooltipPosition="left"
+                      class="copy-button"
+                    />
+                  </div>
                   <pre><code>{{ example.code }}</code></pre>
                 </div>
               }
@@ -41,8 +58,19 @@ export interface ExampleItem {
     </div>
   `,
   styleUrls: ['./example-sidebar.component.scss'],
-  imports: [CommonModule, AccordionModule, CardModule]
+  imports: [CommonModule, AccordionModule, CardModule, ButtonModule, TooltipModule]
 })
 export class ExampleSidebarComponent {
+  private clipboard = inject(Clipboard);
+  
   examples = input<ExampleItem[]>([]);
+  copySuccess = signal(false);
+  
+  copyCode(code: string) {
+    const success = this.clipboard.copy(code);
+    if (success) {
+      this.copySuccess.set(true);
+      setTimeout(() => this.copySuccess.set(false), 2000);
+    }
+  }
 } 
