@@ -8,11 +8,11 @@ export const appRoutes: Routes = [
   },
   {
     path: 'getting-started',
-    loadComponent: () => import('@features/getting-started/getting-started.component').then(c => c.GettingStartedComponent)
+    loadComponent: () => import('src/app/features/getting-started/getting-started.component').then(c => c.GettingStartedComponent)
   },
   {
     path: 'use-cases',
-    loadChildren: () => import('@features/use-cases/use-cases.routes').then(r => r.useCasesRoutes)
+    loadChildren: () => import('src/app/features/use-cases/use-cases.routes').then(r => r.useCasesRoutes)
   },
   {
     path: '**',

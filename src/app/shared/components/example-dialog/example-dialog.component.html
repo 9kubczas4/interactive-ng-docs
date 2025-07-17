@@ -1,0 +1,109 @@
+<p-dialog 
+[visible]="isVisible()"
+[modal]="true"
+[closable]="false"
+[draggable]="false"
+[resizable]="false"
+[maximizable]="false"
+[style]="{width: '100vw', height: '100vh'}"
+[contentStyle]="{padding: '0', height: 'calc(100vh - 120px)', overflow: 'auto'}"
+[baseZIndex]="10000"
+(onHide)="closeDialog()"
+styleClass="example-dialog fullscreen-dialog"
+>
+<ng-template pTemplate="header">
+  <div class="custom-header">
+    <div class="header-title">
+      <h2>{{ dialogTitle() }}</h2>
+      @if (availableExamples().length > 1) {
+        <span class="example-counter">{{ currentExampleIndex() + 1 }} of {{ availableExamples().length }}</span>
+      }
+    </div>
+    
+    @if (availableExamples().length > 1) {
+      <div class="header-navigation">
+        <p-button 
+          icon="pi pi-chevron-left" 
+          severity="secondary"
+          size="small"
+          [text]="true"
+          [disabled]="currentExampleIndex() === 0"
+          (onClick)="navigateToPrevious()"
+          pTooltip="Previous example"
+          tooltipPosition="bottom"
+          class="nav-button"
+        />
+        <span class="nav-counter">{{ currentExampleIndex() + 1 }} / {{ availableExamples().length }}</span>
+        <p-button 
+          icon="pi pi-chevron-right" 
+          severity="secondary"
+          size="small"
+          [text]="true"
+          [disabled]="currentExampleIndex() === availableExamples().length - 1"
+          (onClick)="navigateToNext()"
+          pTooltip="Next example"
+          tooltipPosition="bottom"
+          class="nav-button"
+        />
+      </div>
+    }
+    
+    <div class="header-actions">
+      <p-button 
+        icon="pi pi-times" 
+        severity="secondary"
+        size="small"
+        [text]="true"
+        (onClick)="closeDialog()"
+        pTooltip="Close dialog"
+        tooltipPosition="bottom"
+        class="close-button"
+      />
+    </div>
+  </div>
+</ng-template>
+
+<div class="dialog-content">
+  @if (currentExample()) {
+    <div class="example-display">
+      <div class="example-header">
+        <h3>{{ currentExample()?.title }}</h3>
+        @if (currentExample()?.description) {
+          <p class="example-description">{{ currentExample()?.description }}</p>
+        }
+      </div>
+      
+      <div class="example-demo">
+        <h4>Live Demo</h4>
+        <div class="demo-container">
+          <ng-container [ngComponentOutlet]="currentExample()?.component" />
+        </div>
+      </div>
+      
+      @if (currentExample()?.code) {
+        <div class="example-code">
+          <div class="code-header">
+            <h4>Code</h4>
+            <p-button 
+              [icon]="copySuccess() ? 'pi pi-check' : 'pi pi-copy'"
+              severity="secondary"
+              size="small"
+              [text]="true"
+              [disabled]="copySuccess()"
+              (onClick)="copyCode(currentExample()?.code || '')"
+              [pTooltip]="copySuccess() ? 'Copied!' : 'Copy code'"
+              tooltipPosition="left"
+              class="copy-button"
+            />
+          </div>
+          <pre><code>{{ currentExample()?.code }}</code></pre>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="no-example">
+      <p>Example not found</p>
+    </div>
+  }
+</div>
+</p-dialog>
