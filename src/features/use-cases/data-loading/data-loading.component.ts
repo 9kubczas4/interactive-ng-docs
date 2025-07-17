@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject, OnInit } from '@angular/core';
 import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
 import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.component';
+import { MarkdownService } from '@core/services/markdown.service';
 
 @Component({
   selector: 'app-data-loading',
@@ -13,22 +14,16 @@ import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.
   `,
   imports: [DocumentationPageComponent]
 })
-export class DataLoadingComponent {
-  markdownContent = signal(`
-# Data Loading Patterns
-
-Data loading is a crucial aspect of web applications. This section covers various patterns for loading, caching, and displaying data efficiently.
-
-## Coming Soon
-
-This section will cover:
-- Loading states and spinners
-- Error handling
-- Retry mechanisms
-- Caching strategies
-- Optimistic updates
-- Skeleton screens
-  `);
+export class DataLoadingComponent implements OnInit {
+  private markdownService = inject(MarkdownService);
+  
+  markdownContent = signal('');
+  
+  ngOnInit(): void {
+    this.markdownService.loadMarkdownFile('docs/use-cases/data-loading.md').subscribe(content => {
+      this.markdownContent.set(content);
+    });
+  }
 
   examples = signal<ExampleItem[]>([]);
 } 

@@ -2,6 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
@@ -33,6 +34,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(BrowserModule),
     provideRouter(appRoutes),
     provideAnimations(),
+    provideHttpClient(),
     providePrimeNG({
       ripple: true,
       theme: {

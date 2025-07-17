@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, inject, OnInit } from '@angular/core';
 import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
 import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.component';
 import { BasicDiscardExampleComponent } from '@shared/components/examples/basic-discard-example.component';
 import { ConfirmationDiscardExampleComponent } from '@shared/components/examples/confirmation-discard-example.component';
 import { ConfirmationService } from 'primeng/api';
+import { MarkdownService } from '@core/services/markdown.service';
 
 @Component({
   selector: 'app-discard-changes',
@@ -17,81 +18,16 @@ import { ConfirmationService } from 'primeng/api';
   imports: [DocumentationPageComponent],
   providers: [ConfirmationService]
 })
-export class DiscardChangesComponent {
-  markdownContent = signal(`
-# Discard Changes Pattern
-
-The discard changes pattern is a common UX pattern that allows users to abandon their current work and revert to a previous state. This is particularly important in forms and editors where users might want to cancel their changes.
-
-## When to Use
-
-- **Form editing**: When users are editing a form and want to cancel
-- **Content creation**: When users are creating content and want to start over
-- **Settings changes**: When users modify settings but want to revert
-- **Data entry**: When users want to clear their current input
-
-## Implementation Strategies
-
-### 1. Confirmation Dialog
-
-Always ask for confirmation before discarding changes to prevent accidental data loss:
-
-\`\`\`typescript
-discardChanges(): void {
-  this.confirmationService.confirm({
-    message: 'Are you sure you want to discard your changes?',
-    header: 'Discard Changes',
-    icon: 'pi pi-exclamation-triangle',
-    accept: () => {
-      this.resetForm();
-    }
-  });
-}
-\`\`\`
-
-### 2. Form State Management
-
-Keep track of the original state to enable proper reset functionality:
-
-\`\`\`typescript
-export class MyComponent {
-  private originalFormValue: any;
+export class DiscardChangesComponent implements OnInit {
+  private markdownService = inject(MarkdownService);
+  
+  markdownContent = signal('');
   
   ngOnInit(): void {
-    this.originalFormValue = this.form.value;
-  }
-  
-  resetForm(): void {
-    this.form.patchValue(this.originalFormValue);
-  }
-}
-\`\`\`
-
-### 3. Dirty State Detection
-
-Detect when the form has been modified to show/hide the discard button:
-
-\`\`\`typescript
-get hasChanges(): boolean {
-  return this.form.dirty;
-}
-\`\`\`
-
-## Best Practices
-
-1. **Always confirm**: Never discard changes without user confirmation
-2. **Visual feedback**: Show different states (pristine, dirty, saving)
-3. **Keyboard shortcuts**: Support Ctrl+Z or Escape for quick discard
-4. **Auto-save**: Consider implementing auto-save for critical data
-5. **Clear messaging**: Make it clear what will be lost
-
-## Accessibility Considerations
-
-- Use proper ARIA labels for screen readers
-- Ensure keyboard navigation works correctly
-- Provide clear error messages and confirmations
-- Use semantic HTML elements
-  `);
+    this.markdownService.loadMarkdownFile('docs/use-cases/discard-changes.md').subscribe(content => {
+      this.markdownContent.set(content);
+    });
+  };
 
   examples = computed<ExampleItem[]>(() => [
     {
