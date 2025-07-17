@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy, signal, computed, inject, OnInit } from '@angular/core';
-import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
-import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.component';
-import { BasicDiscardExampleComponent } from '@shared/components/examples/basic-discard-example.component';
-import { ConfirmationDiscardExampleComponent } from '@shared/components/examples/confirmation-discard-example.component';
+import { DocumentationPageComponent } from 'src/app/shared/components/documentation-page/documentation-page.component';
+import { ExampleItem } from 'src/app/shared/components/example-sidebar/example-sidebar.component';
+import { BasicDiscardExampleComponent } from 'src/app/shared/components/examples/basic-discard-example.component';
+import { ConfirmationDiscardExampleComponent } from 'src/app/shared/components/examples/confirmation-discard-example.component';
 import { ConfirmationService } from 'primeng/api';
-import { MarkdownService } from '@core/services/markdown.service';
+import { MarkdownService } from 'src/app/core/services/markdown.service';
 
 @Component({
   selector: 'app-discard-changes',

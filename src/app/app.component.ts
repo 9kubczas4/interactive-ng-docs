@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from '@core/layout/header/header.component';
-import { SidebarComponent } from '@core/layout/sidebar/sidebar.component';
-import { SidebarService } from '@core/services/sidebar.service';
-import { ThemeService } from '@core/services/theme.service';
-import { FloatingActionButtonsComponent } from '@shared/components/floating-action-buttons/floating-action-buttons.component';
+import { HeaderComponent } from 'src/app/core/layout/header/header.component';
+import { SidebarComponent } from 'src/app/core/layout/sidebar/sidebar.component';
+import { SidebarService } from 'src/app/core/services/sidebar.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
+import { FloatingActionButtonsComponent } from 'src/app/shared/components/floating-action-buttons/floating-action-buttons.component';
 
 @Component({
   selector: 'app-root',

@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, inject, signal, computed, effect } 
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { ThemeService, Theme } from '@core/services/theme.service';
+import { ThemeService, Theme } from 'src/app/core/services/theme.service';
 import { DOCUMENT } from '@angular/common';
 
 @Component({

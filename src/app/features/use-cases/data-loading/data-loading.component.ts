@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, signal, inject, OnInit } from '@angular/core';
-import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
-import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.component';
-import { MarkdownService } from '@core/services/markdown.service';
+import { DocumentationPageComponent } from 'src/app/shared/components/documentation-page/documentation-page.component';
+import { ExampleItem } from 'src/app/shared/components/example-sidebar/example-sidebar.component';
+import { MarkdownService } from 'src/app/core/services/markdown.service';
 
 @Component({
   selector: 'app-data-loading',
