@@ -1,0 +1,30 @@
+<div class="documentation-page">
+  <div class="content-area">
+    <app-markdown-content [markdown]="markdownContent()" />
+  </div>
+  
+  @if (examples().length > 0) {
+    <div class="examples-section">
+      <div class="examples-container">
+        <div class="examples-header">
+          <h2 class="examples-title">
+            <i class="pi pi-code"></i>
+            <span>Interactive Examples</span>
+          </h2>
+          <p-button 
+            icon="pi pi-external-link" 
+            label="Open in Dialog"
+            severity="secondary"
+            size="small"
+            [text]="true"
+            (onClick)="openExamplesDialog()"
+            class="open-dialog-button"
+          />
+        </div>
+        <app-example-sidebar [examples]="examples()" />
+      </div>
+    </div>
+  }
+  
+  <app-example-dialog />
+</div>
