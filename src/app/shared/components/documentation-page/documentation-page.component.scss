@@ -5,6 +5,33 @@
   min-height: 100%;
 }
 
+.breadcrumbs {
+  margin-bottom: 2rem;
+  
+  ol {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+    li {
+      color: #6b7280;
+      font-size: 0.875rem;
+      
+      &:not(:last-child)::after {
+        content: ' / ';
+        margin: 0 0.5rem;
+        color: #9ca3af;
+      }
+      
+      &:last-child {
+        color: #374151;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
 .content-area {
   flex: 1;
 }
@@ -70,30 +97,28 @@
   }
 }
 
-.examples-header {
-  .examples-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin: 0;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(102, 126, 234, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    
-    i {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-size: 1.25rem;
-      flex-shrink: 0;
-    }
-    
-    span {
-      flex: 1;
-    }
+.examples-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  i {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+  
+  span {
+    flex: 1;
   }
 }
 
@@ -128,6 +153,14 @@
 
 // Dark mode styles
 :host-context(.dark-mode) {
+  .breadcrumbs ol li {
+    color: #9ca3af;
+    
+    &:last-child {
+      color: #f3f4f6;
+    }
+  }
+  
   .examples-section {
     &::before {
       background: linear-gradient(90deg, 
@@ -152,10 +185,8 @@
     }
   }
   
-  .examples-header {
-    .examples-title {
-      color: #f7fafc;
-      border-bottom-color: rgba(102, 126, 234, 0.3);
-    }
+  .examples-title {
+    color: #f7fafc;
+    border-bottom-color: rgba(102, 126, 234, 0.3);
   }
 }

@@ -1,4 +1,10 @@
 import { Routes } from '@angular/router';
+import { DocumentationPageComponent } from '../../shared/components/documentation-page/documentation-page.component';
+import { documentationResolver } from '../../core/resolvers/documentation.resolver';
+
+// Import example components
+import { BasicDiscardExampleComponent } from './discard-changes/basic-discard-example.component';
+import { ConfirmationDiscardExampleComponent } from './discard-changes/confirmation-discard-example.component';
 
 export const useCasesRoutes: Routes = [
   {
@@ -8,14 +14,64 @@ export const useCasesRoutes: Routes = [
   },
   {
     path: 'discard-changes',
-    loadComponent: () => import('./discard-changes/discard-changes.component').then(c => c.DiscardChangesComponent)
+    component: DocumentationPageComponent,
+    resolve: {
+      documentationData: documentationResolver
+    },
+    data: {
+      title: 'Discard Changes Pattern',
+      markdownPath: 'docs/use-cases/discard-changes.md',
+      breadcrumbs: ['Documentation', 'Use Cases', 'Discard Changes'],
+      examples: [
+        {
+          title: 'Basic Discard Pattern',
+          description: 'Simple form with discard functionality',
+          component: BasicDiscardExampleComponent,
+          code: `<form [formGroup]="form">
+  <input pInputText formControlName="name" />
+  <button pButton (click)="discardChanges()" [disabled]="!form.dirty">
+    Discard Changes
+  </button>
+</form>`
+        },
+        {
+          title: 'Confirmation Dialog',
+          description: 'Discard with confirmation dialog',
+          component: ConfirmationDiscardExampleComponent,
+          code: `discardChanges(): void {
+  this.confirmationService.confirm({
+    message: 'Are you sure you want to discard your changes?',
+    accept: () => this.resetForm()
+  });
+}`
+        }
+      ]
+    }
   },
   {
     path: 'form-validation',
-    loadComponent: () => import('./form-validation/form-validation.component').then(c => c.FormValidationComponent)
+    component: DocumentationPageComponent,
+    resolve: {
+      documentationData: documentationResolver
+    },
+    data: {
+      title: 'Form Validation',
+      markdownPath: 'docs/use-cases/form-validation.md',
+      breadcrumbs: ['Documentation', 'Use Cases', 'Form Validation'],
+      examples: []
+    }
   },
   {
     path: 'data-loading',
-    loadComponent: () => import('./data-loading/data-loading.component').then(c => c.DataLoadingComponent)
+    component: DocumentationPageComponent,
+    resolve: {
+      documentationData: documentationResolver
+    },
+    data: {
+      title: 'Data Loading Patterns',
+      markdownPath: 'docs/use-cases/data-loading.md',
+      breadcrumbs: ['Documentation', 'Use Cases', 'Data Loading'],
+      examples: []
+    }
   }
 ]; 
