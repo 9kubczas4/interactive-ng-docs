@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentationPageData, ExampleItem } from '@core/resolvers/documentation.resolver';
+import { DocumentationPageData } from '@shared/interfaces/documentation-page-data';
 import { MarkdownContentComponent } from '@shared/components/markdown-content/markdown-content.component';
 import { ExampleSidebarComponent } from '@shared/components/example-sidebar/example-sidebar.component';
 import { ExampleDialogComponent } from '@shared/components/example-dialog/example-dialog.component';
@@ -22,8 +22,6 @@ import { ButtonModule } from 'primeng/button';
 export class DocumentationPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private dialogService = inject(ExampleDialogService);
-
-  private temp: ExampleItem | null = null;
 
   pageData = signal<DocumentationPageData>({
     title: '',

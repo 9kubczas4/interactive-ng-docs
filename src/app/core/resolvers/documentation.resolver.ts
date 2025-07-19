@@ -1,28 +1,9 @@
-import { inject, Type } from '@angular/core';
+import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { map, catchError, of } from 'rxjs';
 import { MarkdownService } from '@core/services/markdown.service';
-
-export interface DocumentationPageData {
-  title: string;
-  markdownContent: string;
-  examples: ExampleItem[];
-  breadcrumbs?: string[];
-}
-
-export interface ExampleItem {
-  title: string;
-  description: string;
-  component: Type<unknown>;
-  code: string;
-}
-
-export interface DocumentationRouteData {
-  title: string;
-  markdownPath: string;
-  examples?: ExampleItem[];
-  breadcrumbs?: string[];
-}
+import { DocumentationPageData } from '@shared/interfaces/documentation-page-data';
+import { DocumentationRouteData } from '@shared/interfaces/documentation-route-data';
 
 export const documentationResolver: ResolveFn<DocumentationPageData> = route => {
   const markdownService = inject(MarkdownService);
