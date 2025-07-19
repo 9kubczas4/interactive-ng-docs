@@ -2,8 +2,6 @@ import { Routes } from '@angular/router';
 import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
 import { documentationResolver } from '@core/resolvers/documentation.resolver';
 
-import { WelcomeButtonExampleComponent } from '@features/getting-started/welcome-button-example.component';
-
 export const gettingStartedRoutes: Routes = [
   {
     path: '',
@@ -19,7 +17,10 @@ export const gettingStartedRoutes: Routes = [
         {
           title: 'Welcome Button',
           description: 'A simple button example',
-          component: WelcomeButtonExampleComponent,
+          component: () =>
+            import('@features/getting-started/welcome-button-example.component').then(
+              m => m.WelcomeButtonExampleComponent
+            ),
           code: `<p-button
   label="Welcome!"
   icon="pi pi-check"

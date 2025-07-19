@@ -2,9 +2,6 @@ import { Routes } from '@angular/router';
 import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
 import { documentationResolver } from '@core/resolvers/documentation.resolver';
 
-import { BasicDiscardExampleComponent } from '@features/use-cases/discard-changes/basic-discard-example.component';
-import { ConfirmationDiscardExampleComponent } from '@features/use-cases/discard-changes/confirmation-discard-example.component';
-
 export const useCasesRoutes: Routes = [
   {
     path: '',
@@ -25,7 +22,10 @@ export const useCasesRoutes: Routes = [
         {
           title: 'Basic Discard Pattern',
           description: 'Simple form with discard functionality',
-          component: BasicDiscardExampleComponent,
+          component: () =>
+            import('@features/use-cases/discard-changes/basic-discard-example.component').then(
+              m => m.BasicDiscardExampleComponent
+            ),
           code: `<form [formGroup]="form">
   <input pInputText formControlName="name" />
   <button pButton (click)="discardChanges()" [disabled]="!form.dirty">
@@ -36,7 +36,10 @@ export const useCasesRoutes: Routes = [
         {
           title: 'Confirmation Dialog',
           description: 'Discard with confirmation dialog',
-          component: ConfirmationDiscardExampleComponent,
+          component: () =>
+            import(
+              '@features/use-cases/discard-changes/confirmation-discard-example.component'
+            ).then(m => m.ConfirmationDiscardExampleComponent),
           code: `discardChanges(): void {
   this.confirmationService.confirm({
     message: 'Are you sure you want to discard your changes?',
