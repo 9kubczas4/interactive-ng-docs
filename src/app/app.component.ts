@@ -19,6 +19,8 @@ import { FloatingActionButtonsComponent } from '@shared/components/floating-acti
           class="main-content"
           [class.sidebar-collapsed]="!sidebarService.isOpen()"
           (click)="closeSidebarOnMobile()"
+          (keyup.escape)="closeSidebarOnMobile()"
+          tabindex="-1"
         >
           <router-outlet />
         </main>
