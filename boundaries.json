@@ -25,18 +25,17 @@
     {
       "from": "shared",
       "allow": [
-        "core",
         "shared"
       ]
     },
     {
       "from": "core",
       "allow": [
-        "core"
+        "core",
+        "shared"
       ],
       "disallow": [
-        "features",
-        "shared"
+        "features"
       ]
     }
   ]
