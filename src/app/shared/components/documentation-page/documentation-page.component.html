@@ -1,39 +1,22 @@
 <div class="documentation-page">
-  @if (pageData().breadcrumbs && pageData().breadcrumbs!.length > 0) {
-    <nav class="breadcrumbs">
-      <ol>
-        @for (breadcrumb of pageData().breadcrumbs; track breadcrumb) {
-          <li>{{ breadcrumb }}</li>
-        }
-      </ol>
-    </nav>
-  }
-
   <div class="content-area">
     <app-markdown-content [markdown]="pageData().markdownContent" />
   </div>
 
   @if (pageData().examples.length > 0) {
-    <div class="examples-section">
-      <div class="examples-container">
-        <div class="examples-header">
-          <h2 class="examples-title">
-            <i class="pi pi-code"></i>
-            <span>Interactive Examples</span>
-          </h2>
-          <p-button
-            icon="pi pi-external-link"
-            label="Open in Dialog"
-            severity="secondary"
-            size="small"
-            [text]="true"
-            (onClick)="openExamplesDialog()"
-            class="open-dialog-button"
-          />
-        </div>
-        <app-example-sidebar [examples]="pageData().examples" />
+  <div class="examples-section">
+    <div class="examples-container">
+      <div class="examples-header">
+        <h2 class="examples-title">
+          <i class="pi pi-code"></i>
+          <span>Interactive Examples</span>
+        </h2>
+        <p-button icon="pi pi-external-link" label="Open in Dialog" severity="secondary" size="small" [text]="true"
+          (onClick)="openExamplesDialog()" class="open-dialog-button" />
       </div>
+      <app-example-sidebar [examples]="pageData().examples" />
     </div>
+  </div>
   }
 
   <app-example-dialog />

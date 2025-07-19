@@ -4,5 +4,4 @@ export interface DocumentationPageData {
   title: string;
   markdownContent: string;
   examples: ExampleItem[];
-  breadcrumbs?: string[];
 }

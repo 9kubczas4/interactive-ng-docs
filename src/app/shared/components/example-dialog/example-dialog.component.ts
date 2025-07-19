@@ -18,13 +18,16 @@ import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
+import { MarkdownService } from '@shared/services/markdown.service';
+import { MarkdownContentComponent } from '@shared/components/markdown-content/markdown-content.component';
 
 interface LoadedExampleItem {
   title: string;
   description?: string;
   component: Type<unknown> | null;
   loading: boolean;
-  code?: string;
+  markdownPath?: string;
+  markdownContent?: string;
 }
 
 @Component({
@@ -32,7 +35,14 @@ interface LoadedExampleItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './example-dialog.component.html',
   styleUrls: ['./example-dialog.component.scss'],
-  imports: [DialogModule, ButtonModule, AccordionModule, TooltipModule, CommonModule],
+  imports: [
+    DialogModule,
+    ButtonModule,
+    AccordionModule,
+    TooltipModule,
+    CommonModule,
+    MarkdownContentComponent,
+  ],
 })
 export class ExampleDialogComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -40,6 +50,7 @@ export class ExampleDialogComponent implements OnInit {
   private readonly dialogService = inject(ExampleDialogService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly clipboard = inject(Clipboard);
+  private readonly markdownService = inject(MarkdownService);
 
   readonly isVisible = signal(false);
   readonly currentExample = signal<LoadedExampleItem | null>(null);
@@ -61,15 +72,34 @@ export class ExampleDialogComponent implements OnInit {
         description: example.description,
         component: null,
         loading: true,
-        code: example.code,
+        markdownPath: example.markdownPath,
+        markdownContent: '',
       }));
 
       this.loadedExamples.set(loadedItems);
 
-      // Load each component
+      // Load each component and markdown
       for (let i = 0; i < rawExamples.length; i++) {
         try {
+          // Load component
           const componentClass = await rawExamples[i].component();
+
+          // Load markdown if path is provided
+          let markdownContent = '';
+          if (rawExamples[i].markdownPath) {
+            try {
+              markdownContent =
+                (await this.markdownService
+                  .loadMarkdownFile(rawExamples[i].markdownPath!)
+                  .toPromise()) || '';
+            } catch (markdownError) {
+              console.error(
+                `Failed to load markdown for example: ${rawExamples[i].title}`,
+                markdownError
+              );
+              markdownContent = 'Failed to load example documentation.';
+            }
+          }
 
           // Update the specific item
           const currentLoaded = this.loadedExamples();
@@ -77,6 +107,7 @@ export class ExampleDialogComponent implements OnInit {
           updatedLoaded[i] = {
             ...updatedLoaded[i],
             component: componentClass,
+            markdownContent,
             loading: false,
           };
           this.loadedExamples.set(updatedLoaded);
@@ -156,8 +187,8 @@ export class ExampleDialogComponent implements OnInit {
     this.dialogService.closeExample();
   }
 
-  copyCode(code: string): void {
-    const success = this.clipboard.copy(code);
+  copyMarkdown(markdown: string): void {
+    const success = this.clipboard.copy(markdown);
     if (success) {
       this.copySuccess.set(true);
       setTimeout(() => this.copySuccess.set(false), 2000);

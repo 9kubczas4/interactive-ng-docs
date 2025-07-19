@@ -12,7 +12,6 @@ export const gettingStartedRoutes: Routes = [
     data: {
       title: 'Getting Started',
       markdownPath: 'docs/getting-started.md',
-      breadcrumbs: ['Documentation', 'Getting Started'],
       examples: [
         {
           title: 'Welcome Button',
@@ -21,12 +20,7 @@ export const gettingStartedRoutes: Routes = [
             import('@features/getting-started/welcome-button-example.component').then(
               m => m.WelcomeButtonExampleComponent
             ),
-          code: `<p-button
-  label="Welcome!"
-  icon="pi pi-check"
-  severity="success"
-  (click)="showWelcome()"
-/>`,
+          markdownPath: 'docs/examples/getting-started/welcome-button.md',
         },
       ],
     },

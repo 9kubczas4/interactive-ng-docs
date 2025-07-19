@@ -4,5 +4,4 @@ export interface DocumentationRouteData {
   title: string;
   markdownPath: string;
   examples?: ExampleItem[];
-  breadcrumbs?: string[];
 }

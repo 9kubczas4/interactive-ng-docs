@@ -2,50 +2,43 @@
   <h4 class="mb-3">Live Examples</h4>
   <p-accordion [multiple]="true">
     @for (example of loadedExamplesComputed(); track example.title) {
-      <p-accordionTab [header]="example.title">
-        <div class="example-container">
-          <div class="example-header">
-            {{ example.title }}
+    <p-accordionTab [header]="example.title">
+      <div class="example-container">
+        <div class="example-header">
+          {{ example.title }}
+        </div>
+        <div class="example-content">
+          @if (example.description) {
+          <p class="text-600 mb-3">{{ example.description }}</p>
+          }
+          @if (example.loading) {
+          <div class="loading-state">
+            <i class="pi pi-spin pi-spinner"></i>
+            <span class="ml-2">Loading component...</span>
           </div>
-          <div class="example-content">
-            @if (example.description) {
-              <p class="text-600 mb-3">{{ example.description }}</p>
-            }
-            @if (example.loading) {
-              <div class="loading-state">
-                <i class="pi pi-spin pi-spinner"></i>
-                <span class="ml-2">Loading component...</span>
-              </div>
-            } @else if (example.component) {
-              <ng-container [ngComponentOutlet]="example.component" />
-            } @else {
-              <div class="error-state">
-                <i class="pi pi-exclamation-triangle text-orange-500"></i>
-                <span class="ml-2 text-orange-600">Failed to load component</span>
-              </div>
-            }
+          } @else if (example.component) {
+          <ng-container [ngComponentOutlet]="example.component" />
+          } @else {
+          <div class="error-state">
+            <i class="pi pi-exclamation-triangle text-orange-500"></i>
+            <span class="ml-2 text-orange-600">Failed to load component</span>
           </div>
-          @if (example.code) {
-            <div class="example-code">
-              <div class="code-header">
-                <span class="code-title">Code</span>
-                <p-button
-                  [icon]="copySuccess() ? 'pi pi-check' : 'pi pi-copy'"
-                  severity="secondary"
-                  size="small"
-                  [text]="true"
-                  [disabled]="copySuccess()"
-                  (onClick)="copyCode(example.code)"
-                  [pTooltip]="copySuccess() ? 'Copied!' : 'Copy code'"
-                  tooltipPosition="left"
-                  class="copy-button"
-                />
-              </div>
-              <pre><code>{{ example.code }}</code></pre>
-            </div>
           }
         </div>
-      </p-accordionTab>
+        @if (example.markdownContent) {
+        <div class="example-documentation">
+          <div class="docs-header">
+            <span class="docs-title">Documentation</span>
+            <p-button [icon]="copySuccess() ? 'pi pi-check' : 'pi pi-copy'" severity="secondary" size="small"
+              [text]="true" [disabled]="copySuccess()" (onClick)="copyMarkdown(example.markdownContent)"
+              [pTooltip]="copySuccess() ? 'Copied!' : 'Copy documentation'" tooltipPosition="left"
+              class="copy-button" />
+          </div>
+          <app-markdown-content [markdown]="example.markdownContent" />
+        </div>
+        }
+      </div>
+    </p-accordionTab>
     }
   </p-accordion>
 </div>
