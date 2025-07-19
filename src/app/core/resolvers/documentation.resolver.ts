@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { map, catchError, of } from 'rxjs';
-import { MarkdownService } from '@core/services/markdown.service';
+import { MarkdownService } from '@shared/services/markdown.service';
 import { DocumentationPageData } from '@shared/interfaces/documentation-page-data';
 import { DocumentationRouteData } from '@shared/interfaces/documentation-route-data';
 
