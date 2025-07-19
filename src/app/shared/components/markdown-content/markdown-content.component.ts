@@ -9,7 +9,7 @@ import {
   effect,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MarkdownService } from 'src/app/core/services/markdown.service';
+import { MarkdownService } from '@core/services/markdown.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import hljs from 'highlight.js';
 
