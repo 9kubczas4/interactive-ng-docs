@@ -1,74 +1,59 @@
-import js from '@eslint/js';
-import tsParser from '@typescript-eslint/parser';
-import boundaries from 'eslint-plugin-boundaries';
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
+const boundariesPlugin = require('eslint-plugin-boundaries');
+const boundariesConfig = require('./boundaries.json');
 
-export default [
-  js.configs.recommended,
+module.exports = tseslint.config(
   {
-    files: ['src/**/*.ts'],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: 2022,
-        sourceType: 'module',
-      },
-    },
+    files: ['**/*.ts'],
     plugins: {
-      boundaries,
+      boundaries: boundariesPlugin,
     },
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+    ],
+    processor: angular.processInlineTemplates,
     rules: {
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case',
+        },
+      ],
       'boundaries/element-types': [
         'error',
         {
           default: 'disallow',
-          rules: [
-            {
-              from: 'shared',
-              allow: ['shared'],
-            },
-            {
-              from: 'core',
-              allow: ['shared', 'core'],
-            },
-            {
-              from: 'features',
-              allow: ['shared', 'core', 'features'],
-            },
-          ],
+          message: '${file.type} is not allowed to import ${dependency.type}',
+          rules: boundariesConfig.rules,
         },
       ],
     },
     settings: {
-      'boundaries/dependency-nodes': ['import'],
-      'boundaries/elements': [
-        {
-          type: 'shared',
-          pattern: 'src/app/shared/**',
-        },
-        {
-          type: 'core',
-          pattern: 'src/app/core/**',
-        },
-        {
-          type: 'features',
-          pattern: 'src/app/features/**',
-        },
-      ],
-    },
-  },
-  {
-    files: ['*.js', '*.mjs', '*.cjs'],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
-      globals: {
-        process: 'readonly',
-        Buffer: 'readonly',
-        global: 'readonly',
+      'boundaries/elements': boundariesConfig.elements,
+      'boundaries/ignore': ['**/**.spec.ts'],
+      'import/resolver': {
+        typescript: {},
       },
     },
   },
   {
-    ignores: ['node_modules/**', 'dist/**', '.angular/**', 'coverage/**', '*.d.ts'],
-  },
-];
+    files: ['**/*.html'],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+    rules: {},
+  }
+);

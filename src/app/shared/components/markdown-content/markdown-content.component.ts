@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MarkdownService } from '@core/services/markdown.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import hljs from 'highlight.js';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-markdown-content',
@@ -20,10 +21,11 @@ import hljs from 'highlight.js';
   styleUrl: './markdown-content.component.scss',
 })
 export class MarkdownContentComponent implements AfterViewInit {
-  private markdownService = inject(MarkdownService);
-  private sanitizer = inject(DomSanitizer);
-  private clipboard = inject(Clipboard);
-  private elementRef = inject(ElementRef);
+  private readonly markdownService = inject(MarkdownService);
+  private readonly sanitizer = inject(DomSanitizer);
+  private readonly clipboard = inject(Clipboard);
+  private readonly elementRef = inject(ElementRef);
+  private readonly document = inject(DOCUMENT);
 
   markdown = input<string>('');
 
@@ -57,14 +59,14 @@ export class MarkdownContentComponent implements AfterViewInit {
   private addCopyButtonsToCodeBlocks(html: string): string {
     // Helper function to escape HTML for data attributes
     const escapeHtml = (text: string): string => {
-      const div = document.createElement('div');
+      const div = this.document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
     };
 
     // Helper function to decode HTML entities
     const decodeHtmlEntities = (html: string): string => {
-      const div = document.createElement('div');
+      const div = this.document.createElement('div');
       div.innerHTML = html;
       return div.textContent || div.innerText || '';
     };
@@ -87,11 +89,11 @@ export class MarkdownContentComponent implements AfterViewInit {
         if (language) {
           try {
             highlightedContent = hljs.highlight(decodedContent, { language }).value;
-          } catch (error) {
+          } catch {
             // If language is not supported, try auto-detection
             try {
               highlightedContent = hljs.highlightAuto(decodedContent).value;
-            } catch (autoError) {
+            } catch {
               // If all fails, use original content
               highlightedContent = decodedContent;
             }
@@ -100,7 +102,7 @@ export class MarkdownContentComponent implements AfterViewInit {
           // Try auto-detection for code blocks without language specification
           try {
             highlightedContent = hljs.highlightAuto(decodedContent).value;
-          } catch (autoError) {
+          } catch {
             highlightedContent = decodedContent;
           }
         }
@@ -162,7 +164,7 @@ export class MarkdownContentComponent implements AfterViewInit {
   }
 
   private unescapeHtml(html: string): string {
-    const div = document.createElement('div');
+    const div = this.document.createElement('div');
     div.innerHTML = html;
     return div.textContent || div.innerText || '';
   }

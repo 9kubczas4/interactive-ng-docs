@@ -8,13 +8,12 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prerender": "ng build --configuration production && ng run interactive-ng-docs:prerender",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
+    "lint": "eslint . --config eslint.config.js",
+    "lint:fix": "eslint . --config eslint.config.js --fix",
     "format": "prettier --write src/**/*.{ts,html,scss}",
     "format:check": "prettier --check src/**/*.{ts,html,scss}",
     "check": "npm run lint && npm run format:check"
   },
-  "type": "module",
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.0.0",
@@ -40,6 +39,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.0",
+    "@angular-eslint/eslint-plugin": "^20.1.1",
+    "@angular-eslint/template-parser": "^20.1.1",
     "@angular/cli": "^19.0.0",
     "@angular/compiler-cli": "^19.0.0",
     "@eslint/js": "^9.31.0",
@@ -48,6 +49,7 @@
     "@types/node": "^18.18.0",
     "@typescript-eslint/eslint-plugin": "^8.37.0",
     "@typescript-eslint/parser": "^8.37.0",
+    "angular-eslint": "^20.1.1",
     "eslint": "^9.31.0",
     "eslint-plugin-boundaries": "^5.0.1",
     "jasmine-core": "~5.1.0",
@@ -57,6 +59,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "^3.6.2",
-    "typescript": "~5.6.0"
+    "typescript": "~5.6.0",
+    "typescript-eslint": "^8.37.0"
   }
 }
