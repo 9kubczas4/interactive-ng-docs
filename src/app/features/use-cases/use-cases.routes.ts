@@ -17,7 +17,6 @@ export const useCasesRoutes: Routes = [
     data: {
       title: 'Discard Changes Pattern',
       markdownPath: 'docs/use-cases/discard-changes.md',
-      breadcrumbs: ['Documentation', 'Use Cases', 'Discard Changes'],
       examples: [
         {
           title: 'Basic Discard Pattern',
@@ -26,12 +25,7 @@ export const useCasesRoutes: Routes = [
             import('@features/use-cases/discard-changes/basic-discard-example.component').then(
               m => m.BasicDiscardExampleComponent
             ),
-          code: `<form [formGroup]="form">
-  <input pInputText formControlName="name" />
-  <button pButton (click)="discardChanges()" [disabled]="!form.dirty">
-    Discard Changes
-  </button>
-</form>`,
+          markdownPath: 'docs/examples/use-cases/basic-discard-pattern.md',
         },
         {
           title: 'Confirmation Dialog',
@@ -40,12 +34,7 @@ export const useCasesRoutes: Routes = [
             import(
               '@features/use-cases/discard-changes/confirmation-discard-example.component'
             ).then(m => m.ConfirmationDiscardExampleComponent),
-          code: `discardChanges(): void {
-  this.confirmationService.confirm({
-    message: 'Are you sure you want to discard your changes?',
-    accept: () => this.resetForm()
-  });
-}`,
+          markdownPath: 'docs/examples/use-cases/confirmation-discard-pattern.md',
         },
       ],
     },
@@ -59,7 +48,6 @@ export const useCasesRoutes: Routes = [
     data: {
       title: 'Form Validation',
       markdownPath: 'docs/use-cases/form-validation.md',
-      breadcrumbs: ['Documentation', 'Use Cases', 'Form Validation'],
       examples: [],
     },
   },
@@ -72,7 +60,6 @@ export const useCasesRoutes: Routes = [
     data: {
       title: 'Data Loading Patterns',
       markdownPath: 'docs/use-cases/data-loading.md',
-      breadcrumbs: ['Documentation', 'Use Cases', 'Data Loading'],
       examples: [],
     },
   },

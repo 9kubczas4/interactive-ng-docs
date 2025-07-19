@@ -27,7 +27,6 @@ export class DocumentationPageComponent implements OnInit {
     title: '',
     markdownContent: '',
     examples: [],
-    breadcrumbs: [],
   });
 
   ngOnInit(): void {

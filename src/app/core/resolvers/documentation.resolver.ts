@@ -16,7 +16,6 @@ export const documentationResolver: ResolveFn<DocumentationPageData> = route => 
       title: 'Documentation',
       markdownContent: '# Page Not Found\n\nThe requested documentation page could not be found.',
       examples: [],
-      breadcrumbs: [],
     });
   }
 
@@ -26,7 +25,6 @@ export const documentationResolver: ResolveFn<DocumentationPageData> = route => 
       title: routeData.title,
       markdownContent: content,
       examples: routeData.examples || [],
-      breadcrumbs: routeData.breadcrumbs || [],
     })),
     catchError(error => {
       console.error('Error loading documentation:', error);
@@ -34,7 +32,6 @@ export const documentationResolver: ResolveFn<DocumentationPageData> = route => 
         title: routeData.title,
         markdownContent: `# Error Loading Content\n\nFailed to load documentation content for "${routeData.title}".`,
         examples: routeData.examples || [],
-        breadcrumbs: routeData.breadcrumbs || [],
       });
     })
   );

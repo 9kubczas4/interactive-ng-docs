@@ -14,12 +14,14 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { MarkdownService } from '@shared/services/markdown.service';
+import { MarkdownContentComponent } from '@shared/components/markdown-content/markdown-content.component';
 
 export interface ExampleItem {
   title: string;
   description?: string;
   component: () => Promise<Type<unknown>>;
-  code?: string;
+  markdownPath?: string;
 }
 
 interface LoadedExampleItem {
@@ -27,7 +29,8 @@ interface LoadedExampleItem {
   description?: string;
   component: Type<unknown> | null;
   loading: boolean;
-  code?: string;
+  markdownPath?: string;
+  markdownContent?: string;
 }
 
 @Component({
@@ -35,10 +38,18 @@ interface LoadedExampleItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './example-sidebar.component.html',
   styleUrls: ['./example-sidebar.component.scss'],
-  imports: [CommonModule, AccordionModule, CardModule, ButtonModule, TooltipModule],
+  imports: [
+    CommonModule,
+    AccordionModule,
+    CardModule,
+    ButtonModule,
+    TooltipModule,
+    MarkdownContentComponent,
+  ],
 })
 export class ExampleSidebarComponent {
   private readonly clipboard = inject(Clipboard);
+  private readonly markdownService = inject(MarkdownService);
 
   readonly examples = input<ExampleItem[]>([]);
   readonly copySuccess = signal(false);
@@ -57,15 +68,34 @@ export class ExampleSidebarComponent {
         description: example.description,
         component: null,
         loading: true,
-        code: example.code,
+        markdownPath: example.markdownPath,
+        markdownContent: '',
       }));
 
       this.loadedExamples.set(loadedItems);
 
-      // Load each component
+      // Load each component and markdown
       for (let i = 0; i < currentExamples.length; i++) {
         try {
+          // Load component
           const componentClass = await currentExamples[i].component();
+
+          // Load markdown if path is provided
+          let markdownContent = '';
+          if (currentExamples[i].markdownPath) {
+            try {
+              markdownContent =
+                (await this.markdownService
+                  .loadMarkdownFile(currentExamples[i].markdownPath!)
+                  .toPromise()) || '';
+            } catch (markdownError) {
+              console.error(
+                `Failed to load markdown for example: ${currentExamples[i].title}`,
+                markdownError
+              );
+              markdownContent = 'Failed to load example documentation.';
+            }
+          }
 
           // Update the specific item
           const currentLoaded = this.loadedExamples();
@@ -73,6 +103,7 @@ export class ExampleSidebarComponent {
           updatedLoaded[i] = {
             ...updatedLoaded[i],
             component: componentClass,
+            markdownContent,
             loading: false,
           };
           this.loadedExamples.set(updatedLoaded);
@@ -93,8 +124,8 @@ export class ExampleSidebarComponent {
     });
   }
 
-  copyCode(code: string): void {
-    const success = this.clipboard.copy(code);
+  copyMarkdown(markdown: string): void {
+    const success = this.clipboard.copy(markdown);
     if (success) {
       this.copySuccess.set(true);
       setTimeout(() => this.copySuccess.set(false), 2000);
