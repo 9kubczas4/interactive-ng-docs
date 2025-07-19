@@ -7,8 +7,14 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prerender": "ng build --configuration production && ng run interactive-ng-docs:prerender"
+    "prerender": "ng build --configuration production && ng run interactive-ng-docs:prerender",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.{ts,html,scss}",
+    "format:check": "prettier --check src/**/*.{ts,html,scss}",
+    "check": "npm run lint && npm run format:check"
   },
+  "type": "module",
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.0.0",
@@ -36,15 +42,21 @@
     "@angular-devkit/build-angular": "^19.0.0",
     "@angular/cli": "^19.0.0",
     "@angular/compiler-cli": "^19.0.0",
+    "@eslint/js": "^9.31.0",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-boundaries": "^5.0.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "prettier": "^3.6.2",
     "typescript": "~5.6.0"
   }
 }

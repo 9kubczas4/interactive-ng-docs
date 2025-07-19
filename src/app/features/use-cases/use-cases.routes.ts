@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { DocumentationPageComponent } from '../../shared/components/documentation-page/documentation-page.component';
-import { documentationResolver } from '../../core/resolvers/documentation.resolver';
+import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
+import { documentationResolver } from '@core/resolvers/documentation.resolver';
 
 // Import example components
 import { BasicDiscardExampleComponent } from './discard-changes/basic-discard-example.component';
@@ -10,13 +10,13 @@ export const useCasesRoutes: Routes = [
   {
     path: '',
     redirectTo: 'discard-changes',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'discard-changes',
     component: DocumentationPageComponent,
     resolve: {
-      documentationData: documentationResolver
+      documentationData: documentationResolver,
     },
     data: {
       title: 'Discard Changes Pattern',
@@ -32,7 +32,7 @@ export const useCasesRoutes: Routes = [
   <button pButton (click)="discardChanges()" [disabled]="!form.dirty">
     Discard Changes
   </button>
-</form>`
+</form>`,
         },
         {
           title: 'Confirmation Dialog',
@@ -43,35 +43,35 @@ export const useCasesRoutes: Routes = [
     message: 'Are you sure you want to discard your changes?',
     accept: () => this.resetForm()
   });
-}`
-        }
-      ]
-    }
+}`,
+        },
+      ],
+    },
   },
   {
     path: 'form-validation',
     component: DocumentationPageComponent,
     resolve: {
-      documentationData: documentationResolver
+      documentationData: documentationResolver,
     },
     data: {
       title: 'Form Validation',
       markdownPath: 'docs/use-cases/form-validation.md',
       breadcrumbs: ['Documentation', 'Use Cases', 'Form Validation'],
-      examples: []
-    }
+      examples: [],
+    },
   },
   {
     path: 'data-loading',
     component: DocumentationPageComponent,
     resolve: {
-      documentationData: documentationResolver
+      documentationData: documentationResolver,
     },
     data: {
       title: 'Data Loading Patterns',
       markdownPath: 'docs/use-cases/data-loading.md',
       breadcrumbs: ['Documentation', 'Use Cases', 'Data Loading'],
-      examples: []
-    }
-  }
-]; 
+      examples: [],
+    },
+  },
+];
