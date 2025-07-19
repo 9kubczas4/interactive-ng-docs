@@ -8,11 +8,11 @@
       </ol>
     </nav>
   }
-  
+
   <div class="content-area">
     <app-markdown-content [markdown]="pageData().markdownContent" />
   </div>
-  
+
   @if (pageData().examples.length > 0) {
     <div class="examples-section">
       <div class="examples-container">
@@ -21,8 +21,8 @@
             <i class="pi pi-code"></i>
             <span>Interactive Examples</span>
           </h2>
-          <p-button 
-            icon="pi pi-external-link" 
+          <p-button
+            icon="pi pi-external-link"
             label="Open in Dialog"
             severity="secondary"
             size="small"
@@ -35,6 +35,6 @@
       </div>
     </div>
   }
-  
+
   <app-example-dialog />
 </div>

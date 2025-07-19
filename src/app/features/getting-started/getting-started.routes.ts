@@ -1,16 +1,15 @@
 import { Routes } from '@angular/router';
-import { DocumentationPageComponent } from '../../shared/components/documentation-page/documentation-page.component';
-import { documentationResolver } from '../../core/resolvers/documentation.resolver';
+import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
+import { documentationResolver } from '@core/resolvers/documentation.resolver';
 
-// Import example components
-import { WelcomeButtonExampleComponent } from './welcome-button-example.component';
+import { WelcomeButtonExampleComponent } from '@features/getting-started/welcome-button-example.component';
 
 export const gettingStartedRoutes: Routes = [
   {
     path: '',
     component: DocumentationPageComponent,
     resolve: {
-      documentationData: documentationResolver
+      documentationData: documentationResolver,
     },
     data: {
       title: 'Getting Started',
@@ -21,14 +20,14 @@ export const gettingStartedRoutes: Routes = [
           title: 'Welcome Button',
           description: 'A simple button example',
           component: WelcomeButtonExampleComponent,
-          code: `<p-button 
-  label="Welcome!" 
-  icon="pi pi-check" 
+          code: `<p-button
+  label="Welcome!"
+  icon="pi pi-check"
   severity="success"
   (click)="showWelcome()"
-/>`
-        }
-      ]
-    }
-  }
-]; 
+/>`,
+        },
+      ],
+    },
+  },
+];
