@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
+import boundaries from 'eslint-plugin-boundaries';
 
 export default [
   js.configs.recommended,
@@ -11,20 +12,48 @@ export default [
         ecmaVersion: 2022,
         sourceType: 'module',
       },
-      globals: {
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        setTimeout: 'readonly',
-        clearTimeout: 'readonly',
-        setInterval: 'readonly',
-        clearInterval: 'readonly',
-      },
+    },
+    plugins: {
+      boundaries,
     },
     rules: {
-      // Disable problematic JS rules for TypeScript
-      'no-unused-vars': 'off',
-      'no-undef': 'off',
+      'boundaries/element-types': [
+        'error',
+        {
+          default: 'disallow',
+          rules: [
+            {
+              from: 'shared',
+              allow: ['shared'],
+            },
+            {
+              from: 'core',
+              allow: ['shared', 'core'],
+            },
+            {
+              from: 'features',
+              allow: ['shared', 'core', 'features'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      'boundaries/dependency-nodes': ['import'],
+      'boundaries/elements': [
+        {
+          type: 'shared',
+          pattern: 'src/app/shared/**',
+        },
+        {
+          type: 'core',
+          pattern: 'src/app/core/**',
+        },
+        {
+          type: 'features',
+          pattern: 'src/app/features/**',
+        },
+      ],
     },
   },
   {

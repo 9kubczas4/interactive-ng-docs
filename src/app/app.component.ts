@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '@core/layout/header/header.component';
@@ -28,14 +29,13 @@ import { FloatingActionButtonsComponent } from '@shared/components/floating-acti
   imports: [RouterOutlet, HeaderComponent, SidebarComponent, FloatingActionButtonsComponent],
 })
 export class AppComponent {
-  title = 'Interactive Angular Documentation';
-
-  sidebarService = inject(SidebarService);
-  themeService = inject(ThemeService); // Initialize theme service
+  readonly document = inject(DOCUMENT);
+  readonly sidebarService = inject(SidebarService);
+  readonly themeService = inject(ThemeService);
 
   closeSidebarOnMobile(): void {
     // Close sidebar on mobile when clicking on main content
-    if (window.innerWidth <= 768) {
+    if (this.document.defaultView?.innerWidth && this.document.defaultView.innerWidth <= 768) {
       this.sidebarService.close();
     }
   }
