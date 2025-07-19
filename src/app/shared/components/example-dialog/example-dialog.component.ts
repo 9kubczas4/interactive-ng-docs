@@ -6,6 +6,8 @@ import {
   OnInit,
   DestroyRef,
   computed,
+  effect,
+  Type,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,8 +17,15 @@ import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.component';
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
+
+interface LoadedExampleItem {
+  title: string;
+  description?: string;
+  component: Type<unknown> | null;
+  loading: boolean;
+  code?: string;
+}
 
 @Component({
   selector: 'app-example-dialog',
@@ -33,12 +42,60 @@ export class ExampleDialogComponent implements OnInit {
   private readonly clipboard = inject(Clipboard);
 
   readonly isVisible = signal(false);
-  readonly currentExample = signal<ExampleItem | null>(null);
+  readonly currentExample = signal<LoadedExampleItem | null>(null);
   readonly currentExampleIndex = signal(0);
   readonly dialogTitle = signal('Interactive Example');
   readonly copySuccess = signal(false);
+  private readonly loadedExamples = signal<LoadedExampleItem[]>([]);
 
-  readonly availableExamples = computed(() => this.dialogService.examples());
+  readonly availableExamples = computed(() => this.loadedExamples());
+
+  constructor() {
+    // Effect to load components when examples change
+    effect(async () => {
+      const rawExamples = this.dialogService.examples();
+
+      // Initialize loaded examples with loading state
+      const loadedItems: LoadedExampleItem[] = rawExamples.map(example => ({
+        title: example.title,
+        description: example.description,
+        component: null,
+        loading: true,
+        code: example.code,
+      }));
+
+      this.loadedExamples.set(loadedItems);
+
+      // Load each component
+      for (let i = 0; i < rawExamples.length; i++) {
+        try {
+          const componentClass = await rawExamples[i].component();
+
+          // Update the specific item
+          const currentLoaded = this.loadedExamples();
+          const updatedLoaded = [...currentLoaded];
+          updatedLoaded[i] = {
+            ...updatedLoaded[i],
+            component: componentClass,
+            loading: false,
+          };
+          this.loadedExamples.set(updatedLoaded);
+        } catch (error) {
+          console.error(`Failed to load component for example: ${rawExamples[i].title}`, error);
+
+          // Update with error state
+          const currentLoaded = this.loadedExamples();
+          const updatedLoaded = [...currentLoaded];
+          updatedLoaded[i] = {
+            ...updatedLoaded[i],
+            component: null,
+            loading: false,
+          };
+          this.loadedExamples.set(updatedLoaded);
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     // Listen for query params to control dialog visibility and example selection
@@ -114,7 +171,7 @@ export class ExampleDialogComponent implements OnInit {
       .replace(/[^a-z0-9-]/g, '');
   }
 
-  private setCurrentExample(example: ExampleItem, index: number): void {
+  private setCurrentExample(example: LoadedExampleItem, index: number): void {
     this.currentExample.set(example);
     this.currentExampleIndex.set(index);
     this.dialogTitle.set(`Interactive Example: ${example.title}`);
