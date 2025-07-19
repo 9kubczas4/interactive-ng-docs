@@ -15,7 +15,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { ExampleItem } from '../example-sidebar/example-sidebar.component';
+import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.component';
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
 
 @Component({

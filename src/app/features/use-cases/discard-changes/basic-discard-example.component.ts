@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -15,14 +15,19 @@ import { InputTextarea } from 'primeng/inputtextarea';
       </div>
       <div class="field">
         <label for="description">Description</label>
-        <textarea id="description" pInputTextarea formControlName="description" class="w-full"></textarea>
+        <textarea
+          id="description"
+          pInputTextarea
+          formControlName="description"
+          class="w-full"
+        ></textarea>
       </div>
       <div class="flex gap-2">
         <p-button label="Save" severity="success" />
-        <p-button 
-          label="Discard Changes" 
-          severity="secondary" 
-          (click)="discardChanges()" 
+        <p-button
+          label="Discard Changes"
+          severity="secondary"
+          (click)="discardChanges()"
           [disabled]="!form.dirty"
         />
       </div>
@@ -31,19 +36,19 @@ import { InputTextarea } from 'primeng/inputtextarea';
       }
     </form>
   `,
-  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, InputTextarea]
+  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, InputTextarea],
 })
 export class BasicDiscardExampleComponent {
   private fb = new FormBuilder();
   private originalValue = { name: 'John Doe', description: 'Sample description' };
-  
+
   form = this.fb.group({
     name: [this.originalValue.name, Validators.required],
-    description: [this.originalValue.description]
+    description: [this.originalValue.description],
   });
-  
+
   discardChanges(): void {
     this.form.patchValue(this.originalValue);
     this.form.markAsPristine();
   }
-} 
+}

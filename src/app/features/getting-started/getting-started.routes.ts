@@ -2,8 +2,7 @@ import { Routes } from '@angular/router';
 import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
 import { documentationResolver } from '@core/resolvers/documentation.resolver';
 
-// Import example components
-import { WelcomeButtonExampleComponent } from './welcome-button-example.component';
+import { WelcomeButtonExampleComponent } from '@features/getting-started/welcome-button-example.component';
 
 export const gettingStartedRoutes: Routes = [
   {

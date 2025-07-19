@@ -2,9 +2,8 @@ import { Routes } from '@angular/router';
 import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
 import { documentationResolver } from '@core/resolvers/documentation.resolver';
 
-// Import example components
-import { BasicDiscardExampleComponent } from './discard-changes/basic-discard-example.component';
-import { ConfirmationDiscardExampleComponent } from './discard-changes/confirmation-discard-example.component';
+import { BasicDiscardExampleComponent } from '@features/use-cases/discard-changes/basic-discard-example.component';
+import { ConfirmationDiscardExampleComponent } from '@features/use-cases/discard-changes/confirmation-discard-example.component';
 
 export const useCasesRoutes: Routes = [
   {
