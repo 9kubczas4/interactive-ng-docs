@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { inject, Type } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { map, catchError, of } from 'rxjs';
 import { MarkdownService } from '@core/services/markdown.service';
@@ -13,7 +13,7 @@ export interface DocumentationPageData {
 export interface ExampleItem {
   title: string;
   description: string;
-  component: any;
+  component: Type<unknown>;
   code: string;
 }
 
