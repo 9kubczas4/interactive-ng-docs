@@ -91,4 +91,36 @@ $color-dark-surface: #2d3748;
 $color-dark-text: #f7fafc;
 $color-dark-text-secondary: #e2e8f0;
 $color-dark-border: #4a5568;
+
+// Additional breakpoint
 $breakpoint-xl: 1280px;
+
+// Shared Component Variables
+// =========================
+
+// Category chip colors (shared across example-dialog and example-sidebar)
+$chip-best-practice-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+$chip-best-practice-bg-dark: linear-gradient(135deg, #059669 0%, #047857 100%);
+$chip-bad-example-bg: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+$chip-bad-example-bg-dark: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+$chip-text-color: white;
+
+// Documentation card styling (shared across components)
+$card-border-light: rgba($color-primary, 0.2);
+$card-border-dark: rgba($color-primary, 0.3);
+$card-shadow-light: rgba($color-primary, 0.1);
+$card-shadow-hover-light: rgba($color-primary, 0.15);
+$card-shadow-dark: rgba(0, 0, 0, 0.3);
+$card-shadow-hover-dark: rgba(0, 0, 0, 0.4);
+$card-transform-hover: translateY(-1px);
+$card-header-bg-light: rgba($color-primary, 0.05);
+$card-header-bg-light-secondary: rgba($color-secondary, 0.05);
+$card-header-bg-dark: rgba($color-primary, 0.1);
+$card-header-bg-dark-secondary: rgba($color-secondary, 0.1);
+$card-header-letter-spacing: 0.5px;
+$card-transition: all 0.3s ease;
+
+// Dialog button hover effects (shared across components)
+$dialog-button-hover-bg-light: rgba($color-primary, 0.1);
+$dialog-button-hover-bg-dark: rgba($color-primary, 0.2);
+$dialog-button-hover-color: $color-primary;

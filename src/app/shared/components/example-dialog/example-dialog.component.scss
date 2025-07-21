@@ -14,24 +14,9 @@ $dialog-mask-bg: rgba(0, 0, 0, 0.6);
 $dialog-mask-bg-dark: rgba(0, 0, 0, 0.8);
 $dialog-disabled-opacity: 0.3;
 
-// Category chip colors
-$chip-best-practice-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
-$chip-best-practice-bg-dark: linear-gradient(135deg, #059669 0%, #047857 100%);
-$chip-bad-example-bg: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-$chip-bad-example-bg-dark: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-$chip-text-color: white;
-
-// Documentation card styling
-$card-border-light: rgba($color-primary, 0.2);
-$card-border-dark: rgba($color-primary, 0.3);
-$card-shadow-light: rgba($color-primary, 0.1);
-$card-shadow-hover-light: rgba($color-primary, 0.15);
-$card-shadow-dark: rgba(0, 0, 0, 0.4);
-$card-shadow-hover-dark: rgba(0, 0, 0, 0.5);
-$card-header-bg-light: rgba($color-primary, 0.05);
-$card-header-bg-light-secondary: rgba($color-secondary, 0.05);
-$card-header-bg-dark: rgba($color-primary, 0.1);
-$card-header-bg-dark-secondary: rgba($color-secondary, 0.1);
+// Dialog-specific card shadows (slightly different from shared ones)
+$card-shadow-dark-dialog: rgba(0, 0, 0, 0.4);
+$card-shadow-hover-dark-dialog: rgba(0, 0, 0, 0.5);
 
 // Dialog header gradients
 $dialog-header-bg: rgba($color-primary, 0.1);
@@ -553,10 +538,10 @@ $dialog-header-bg-dark-secondary: rgba($color-secondary, 0.2);
   .p-card {
     background: $color-dark-surface !important;
     border-color: $card-border-dark !important;
-    box-shadow: 0 6px 24px $card-shadow-dark !important;
+    box-shadow: 0 6px 24px $card-shadow-dark-dialog !important;
 
     &:hover {
-      box-shadow: 0 8px 32px $card-shadow-hover-dark !important;
+      box-shadow: 0 8px 32px $card-shadow-hover-dark-dialog !important;
     }
   }
 
