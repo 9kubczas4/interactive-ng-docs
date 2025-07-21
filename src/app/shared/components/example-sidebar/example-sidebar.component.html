@@ -2,45 +2,55 @@
   <h4 class="mb-3">Live Examples</h4>
   <p-accordion [multiple]="true">
     @for (example of loadedExamplesComputed(); track example.title) {
-    <p-accordionTab>
-      <ng-template pTemplate="header">
-        <div class="accordion-header">
-          <span class="header-title">{{ example.title }}</span>
-          <p-button icon="pi pi-external-link" [text]="true" size="small" severity="secondary" class="dialog-button"
-            pTooltip="Open in Dialog" tooltipPosition="left" (click)="openExampleInDialog(example.title, $event)"
-            aria-label="Open example in dialog" />
-        </div>
-      </ng-template>
-      <div class="example-container">
-        <div class="example-header">
-          {{ example.title }}
-        </div>
-        <div class="example-content">
-          @if (example.description) {
-          <p class="text-600 mb-3">{{ example.description }}</p>
-          }
-          @if (example.loading) {
-          <div class="loading-state">
-            <i class="pi pi-spin pi-spinner"></i>
-            <span class="ml-2">Loading component...</span>
+      <p-accordionTab>
+        <ng-template pTemplate="header">
+          <div class="accordion-header">
+            <span class="header-title">{{ example.title }}</span>
+            <p-button
+              icon="pi pi-external-link"
+              [text]="true"
+              size="small"
+              severity="secondary"
+              class="dialog-button"
+              pTooltip="Open in Dialog"
+              tooltipPosition="left"
+              (click)="openExampleInDialog(example.title, $event)"
+              aria-label="Open example in dialog"
+            />
           </div>
-          } @else if (example.component) {
-          <ng-container [ngComponentOutlet]="example.component" />
-          } @else {
-          <div class="error-state">
-            <i class="pi pi-exclamation-triangle text-orange-500"></i>
-            <span class="ml-2 text-orange-600">Failed to load component</span>
+        </ng-template>
+        <div class="example-container">
+          <div class="example-header">
+            {{ example.title }}
           </div>
+          <div class="example-content">
+            @if (example.description) {
+              <p class="text-600 mb-3">{{ example.description }}</p>
+            }
+            @if (example.loading) {
+              <div class="loading-state">
+                <i class="pi pi-spin pi-spinner"></i>
+                <span class="ml-2">Loading component...</span>
+              </div>
+            } @else if (example.component) {
+              <ng-container [ngComponentOutlet]="example.component" />
+            } @else {
+              <div class="error-state">
+                <i class="pi pi-exclamation-triangle text-orange-500"></i>
+                <span class="ml-2 text-orange-600">Failed to load component</span>
+              </div>
+            }
+          </div>
+          @if (example.markdownContent) {
+            <p-card styleClass="documentation-card">
+              <app-markdown-content
+                [markdown]="example.markdownContent"
+                [headingPrefix]="'example-' + ($index + 1) + '-'"
+              />
+            </p-card>
           }
         </div>
-        @if (example.markdownContent) {
-        <p-card styleClass="documentation-card">
-          <app-markdown-content [markdown]="example.markdownContent"
-            [headingPrefix]="'example-' + ($index + 1) + '-'" />
-        </p-card>
-        }
-      </div>
-    </p-accordionTab>
+      </p-accordionTab>
     }
   </p-accordion>
 </div>
