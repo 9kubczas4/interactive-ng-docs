@@ -60,10 +60,10 @@
       </div>
 
       @if (currentExample()?.markdownContent) {
-      <div class="example-documentation">
+      <p-card styleClass="documentation-card">
         <app-markdown-content [markdown]="currentExample()?.markdownContent || ''"
           [headingPrefix]="'example-' + (currentExampleIndex() + 1) + '-'" />
-      </div>
+      </p-card>
       }
     </div>
     } @else {

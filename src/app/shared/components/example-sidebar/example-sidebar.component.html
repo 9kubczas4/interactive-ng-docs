@@ -26,10 +26,10 @@
           }
         </div>
         @if (example.markdownContent) {
-        <div class="example-documentation">
+        <p-card styleClass="documentation-card">
           <app-markdown-content [markdown]="example.markdownContent"
             [headingPrefix]="'example-' + ($index + 1) + '-'" />
-        </div>
+        </p-card>
         }
       </div>
     </p-accordionTab>

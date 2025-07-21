@@ -26,6 +26,52 @@
   background: $color-gray-100;
   border-radius: $border-radius-lg;
   border: 1px solid $color-gray-300;
+  margin-bottom: $space-lg;
+}
+
+// Documentation card styling
+:host ::ng-deep .documentation-card {
+  .p-card {
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+      transform: translateY(-1px);
+    }
+  }
+
+  .p-card-header {
+    background: linear-gradient(
+      135deg,
+      rgba(102, 126, 234, 0.05) 0%,
+      rgba(118, 75, 162, 0.05) 100%
+    );
+    border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+    padding: $space-md $space-lg;
+    border-radius: $border-radius-lg $border-radius-lg 0 0;
+  }
+
+  .p-card-body {
+    padding: $space-lg;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-gray-800;
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    i {
+      color: #667eea;
+      font-size: $font-size-base;
+    }
+  }
 }
 
 .example-code {
@@ -129,6 +175,36 @@
     background: $color-dark-surface;
     border-color: $color-dark-border;
     color: $color-dark-text-secondary;
+  }
+
+  // Documentation card dark mode
+  ::ng-deep .documentation-card {
+    .p-card {
+      background: $color-dark-surface;
+      border-color: rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+
+      &:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    .p-card-header {
+      background: linear-gradient(
+        135deg,
+        rgba(102, 126, 234, 0.1) 0%,
+        rgba(118, 75, 162, 0.1) 100%
+      );
+      border-bottom-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .card-header {
+      color: $color-dark-text;
+
+      i {
+        color: #667eea;
+      }
+    }
   }
 
   .example-code {

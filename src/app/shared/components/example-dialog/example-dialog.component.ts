@@ -15,6 +15,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
+import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
@@ -40,6 +41,7 @@ interface LoadedExampleItem {
     ButtonModule,
     AccordionModule,
     TooltipModule,
+    CardModule,
     CommonModule,
     MarkdownContentComponent,
   ],
