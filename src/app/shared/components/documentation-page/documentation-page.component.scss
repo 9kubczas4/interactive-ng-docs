@@ -1,7 +1,78 @@
+@import '../../../../styles/variables';
+
+// Component-specific variables
+$documentation-gap: $space-3xl; // 3rem
+$documentation-gap-mobile: $space-2xl; // 2rem
+$examples-top-offset: -$space-xl; // -1.5rem -> -24px (closest)
+$examples-side-offset: -$space-2xl; // -2rem
+$examples-side-offset-mobile: -$space-lg; // -1rem
+$examples-separator-height: 1px;
+$examples-top-border-height: 2px;
+$examples-backdrop-blur: 10px;
+$examples-transition: opacity 0.2s ease;
+
+// Brand color opacity variations
+$brand-bg-light: rgba($color-primary, 0.03);
+$brand-bg-dark: rgba($color-primary, 0.08);
+$brand-border-light: rgba($color-primary, 0.1);
+$brand-border-dark: rgba($color-primary, 0.2);
+$brand-shadow-light: rgba($color-primary, 0.08);
+$brand-shadow-dark: rgba(0, 0, 0, 0.3);
+$brand-separator-light: rgba($color-primary, 0.3);
+$brand-separator-dark: rgba($color-primary, 0.4);
+$brand-top-border-light: rgba($color-primary, 0.5);
+$brand-top-border-dark: rgba($color-primary, 0.6);
+$brand-title-border: rgba($color-primary, 0.2);
+$brand-title-border-dark: rgba($color-primary, 0.3);
+
+// Secondary color variations (for gradients)
+$brand-secondary-bg-light: rgba($color-secondary, 0.03);
+$brand-secondary-bg-dark: rgba($color-secondary, 0.08);
+$brand-secondary-separator-light: rgba($color-secondary, 0.3);
+$brand-secondary-separator-dark: rgba($color-secondary, 0.4);
+$brand-secondary-top-border-light: rgba($color-secondary, 0.5);
+$brand-secondary-top-border-dark: rgba($color-secondary, 0.6);
+
+// Gradient backgrounds
+$examples-bg-gradient-light: linear-gradient(
+  135deg,
+  $brand-bg-light 0%,
+  $brand-secondary-bg-light 100%
+);
+$examples-bg-gradient-dark: linear-gradient(
+  135deg,
+  $brand-bg-dark 0%,
+  $brand-secondary-bg-dark 100%
+);
+$examples-separator-gradient-light: linear-gradient(
+  90deg,
+  transparent 0%,
+  $brand-separator-light 20%,
+  $brand-secondary-separator-light 80%,
+  transparent 100%
+);
+$examples-separator-gradient-dark: linear-gradient(
+  90deg,
+  transparent 0%,
+  $brand-separator-dark 20%,
+  $brand-secondary-separator-dark 80%,
+  transparent 100%
+);
+$examples-top-border-gradient-light: linear-gradient(
+  90deg,
+  $brand-top-border-light 0%,
+  $brand-secondary-top-border-light 100%
+);
+$examples-top-border-gradient-dark: linear-gradient(
+  90deg,
+  $brand-top-border-dark 0%,
+  $brand-secondary-top-border-dark 100%
+);
+
 .documentation-page {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: $documentation-gap;
   min-height: 100%;
 }
 
@@ -10,34 +81,28 @@
 }
 
 .examples-section {
-  margin-top: 3rem;
+  margin-top: $documentation-gap;
   position: relative;
 
   &::before {
     content: '';
     position: absolute;
-    top: -1.5rem;
-    left: -2rem;
-    right: -2rem;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(102, 126, 234, 0.3) 20%,
-      rgba(118, 75, 162, 0.3) 80%,
-      transparent 100%
-    );
+    top: $examples-top-offset;
+    left: $examples-side-offset;
+    right: $examples-side-offset;
+    height: $examples-separator-height;
+    background: $examples-separator-gradient-light;
   }
 }
 
 .examples-container {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%);
-  border: 1px solid rgba(102, 126, 234, 0.1);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: $examples-bg-gradient-light;
+  border: 1px solid $brand-border-light;
+  border-radius: $border-radius-2xl;
+  padding: $space-2xl;
+  box-shadow: 0 8px 32px $brand-shadow-light;
+  backdrop-filter: blur($examples-backdrop-blur);
+  -webkit-backdrop-filter: blur($examples-backdrop-blur);
   position: relative;
   overflow: hidden;
 
@@ -47,8 +112,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(102, 126, 234, 0.5) 0%, rgba(118, 75, 162, 0.5) 100%);
+    height: $examples-top-border-height;
+    background: $examples-top-border-gradient-light;
   }
 }
 
@@ -56,11 +121,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: $space-xl;
 
   .open-dialog-button {
     opacity: 0.8;
-    transition: opacity 0.2s ease;
+    transition: $examples-transition;
 
     &:hover {
       opacity: 1;
@@ -69,22 +134,22 @@
 }
 
 .examples-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1a202c;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
   margin: 0;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+  padding-bottom: $space-md;
+  border-bottom: 1px solid $brand-title-border;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: $space-md;
 
   i {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: $gradient-primary;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 1.25rem;
+    font-size: $font-size-xl;
     flex-shrink: 0;
   }
 
@@ -93,31 +158,31 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md) {
   .documentation-page {
-    gap: 2rem;
+    gap: $documentation-gap-mobile;
   }
 
   .examples-section {
-    margin-top: 2rem;
+    margin-top: $documentation-gap-mobile;
 
     &::before {
-      left: -1rem;
-      right: -1rem;
+      left: $examples-side-offset-mobile;
+      right: $examples-side-offset-mobile;
     }
   }
 
   .examples-container {
-    padding: 1.5rem;
-    border-radius: 12px;
+    padding: $space-xl;
+    border-radius: $border-radius-xl;
   }
 
   .examples-title {
-    font-size: 1.25rem;
-    gap: 0.5rem;
+    font-size: $font-size-xl;
+    gap: $space-sm;
 
     i {
-      font-size: 1.1rem;
+      font-size: $font-size-lg;
     }
   }
 }
@@ -126,32 +191,22 @@
 :host-context(.dark-mode) {
   .examples-section {
     &::before {
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(102, 126, 234, 0.4) 20%,
-        rgba(118, 75, 162, 0.4) 80%,
-        transparent 100%
-      );
+      background: $examples-separator-gradient-dark;
     }
   }
 
   .examples-container {
-    background: linear-gradient(
-      135deg,
-      rgba(102, 126, 234, 0.08) 0%,
-      rgba(118, 75, 162, 0.08) 100%
-    );
-    border-color: rgba(102, 126, 234, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    background: $examples-bg-gradient-dark;
+    border-color: $brand-border-dark;
+    box-shadow: 0 8px 32px $brand-shadow-dark;
 
     &::before {
-      background: linear-gradient(90deg, rgba(102, 126, 234, 0.6) 0%, rgba(118, 75, 162, 0.6) 100%);
+      background: $examples-top-border-gradient-dark;
     }
   }
 
   .examples-title {
-    color: #f7fafc;
-    border-bottom-color: rgba(102, 126, 234, 0.3);
+    color: $color-dark-text;
+    border-bottom-color: $brand-title-border-dark;
   }
 }
