@@ -323,8 +323,14 @@
       .p-accordionheader-link {
         padding: $space-md $space-lg;
 
-        &:hover .accordion-header .dialog-button {
-          opacity: 1;
+        &:hover {
+          .accordion-header .dialog-button {
+            opacity: 1;
+          }
+
+          .p-accordionheader-toggle-icon {
+            color: $color-dark-text-secondary !important;
+          }
         }
       }
     }
@@ -344,6 +350,10 @@
         &:hover {
           background: $color-dark-border;
           color: $color-dark-text;
+
+          .p-accordionheader-toggle-icon {
+            color: $color-dark-text-secondary !important;
+          }
         }
 
         &:focus {
@@ -354,6 +364,12 @@
 
         .p-accordionheader-toggle-icon {
           color: $color-dark-text-secondary;
+        }
+
+        &:hover {
+          .p-accordionheader-toggle-icon {
+            color: $color-dark-text-secondary !important;
+          }
         }
       }
 
