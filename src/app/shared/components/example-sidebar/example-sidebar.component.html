@@ -2,7 +2,15 @@
   <h4 class="mb-3">Live Examples</h4>
   <p-accordion [multiple]="true">
     @for (example of loadedExamplesComputed(); track example.title) {
-    <p-accordionTab [header]="example.title">
+    <p-accordionTab>
+      <ng-template pTemplate="header">
+        <div class="accordion-header">
+          <span class="header-title">{{ example.title }}</span>
+          <p-button icon="pi pi-external-link" [text]="true" size="small" severity="secondary" class="dialog-button"
+            pTooltip="Open in Dialog" tooltipPosition="left" (click)="openExampleInDialog(example.title, $event)"
+            aria-label="Open example in dialog" />
+        </div>
+      </ng-template>
       <div class="example-container">
         <div class="example-header">
           {{ example.title }}

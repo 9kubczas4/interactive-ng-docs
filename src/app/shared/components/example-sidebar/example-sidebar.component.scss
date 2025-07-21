@@ -14,6 +14,45 @@
   gap: $space-lg;
 }
 
+// Custom accordion header with dialog button
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: $space-sm;
+
+  .header-title {
+    flex: 1;
+    font-weight: $font-weight-semibold;
+    color: inherit;
+  }
+
+  .dialog-button {
+    opacity: 0.5;
+    transition: all 0.2s ease;
+
+    :deep(.p-button) {
+      padding: $space-xs;
+      color: inherit;
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.1);
+        color: #667eea;
+      }
+
+      .p-button-icon {
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  // Show button more prominently on header hover
+  &:hover .dialog-button {
+    opacity: 1;
+  }
+}
+
 .example-header {
   font-weight: $font-weight-semibold;
   color: $color-gray-800;
@@ -179,6 +218,20 @@
     color: $color-dark-text-secondary;
   }
 
+  // Accordion header dark mode
+  .accordion-header {
+    .dialog-button {
+      :deep(.p-button) {
+        color: $color-dark-text-secondary;
+
+        &:hover {
+          background: rgba(102, 126, 234, 0.2);
+          color: #667eea;
+        }
+      }
+    }
+  }
+
   // Documentation card dark mode - higher specificity
   :host ::ng-deep .documentation-card {
     .p-card {
@@ -224,6 +277,19 @@
 
       .code-title {
         color: $color-dark-text-secondary;
+      }
+    }
+  }
+
+  // PrimeNG accordion overrides
+  ::ng-deep .p-accordion {
+    .p-accordionheader {
+      .p-accordionheader-link {
+        padding: $space-md $space-lg;
+
+        &:hover .accordion-header .dialog-button {
+          opacity: 1;
+        }
       }
     }
   }

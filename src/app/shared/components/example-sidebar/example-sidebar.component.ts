@@ -12,8 +12,11 @@ import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { CardModule } from 'primeng/card';
 
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 import { MarkdownService } from '@shared/services/markdown.service';
 import { MarkdownContentComponent } from '@shared/components/markdown-content/markdown-content.component';
+import { ExampleDialogService } from '@shared/services/example-dialog.service';
 
 export interface ExampleItem {
   title: string;
@@ -36,10 +39,18 @@ interface LoadedExampleItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './example-sidebar.component.html',
   styleUrls: ['./example-sidebar.component.scss'],
-  imports: [CommonModule, AccordionModule, CardModule, MarkdownContentComponent],
+  imports: [
+    CommonModule,
+    AccordionModule,
+    CardModule,
+    ButtonModule,
+    TooltipModule,
+    MarkdownContentComponent,
+  ],
 })
 export class ExampleSidebarComponent {
   private readonly markdownService = inject(MarkdownService);
+  private readonly dialogService = inject(ExampleDialogService);
 
   readonly examples = input<ExampleItem[]>([]);
   private readonly loadedExamples = signal<LoadedExampleItem[]>([]);
@@ -111,5 +122,10 @@ export class ExampleSidebarComponent {
         }
       }
     });
+  }
+
+  openExampleInDialog(exampleTitle: string, event: Event): void {
+    event.stopPropagation(); // Prevent accordion toggle
+    this.dialogService.openExample(exampleTitle);
   }
 }
