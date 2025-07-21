@@ -67,6 +67,11 @@ export class ExampleDialogComponent implements OnInit {
 
   readonly availableExamples = computed(() => this.loadedExamples());
 
+  // Dialog styling properties
+  readonly dialogStyle = { width: '100vw', height: '100vh' };
+  readonly dialogContentStyle = { padding: '0', height: 'calc(100vh - 120px)', overflow: 'auto' };
+  readonly dialogZIndex = 10000;
+
   constructor() {
     // Effect to load components when examples change
     effect(async () => {

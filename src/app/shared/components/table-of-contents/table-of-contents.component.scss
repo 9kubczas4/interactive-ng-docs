@@ -2,9 +2,9 @@
 
 .toc-container {
   position: fixed;
-  top: calc($header-height + 16px);
-  right: 24px;
-  z-index: 1100;
+  top: calc($header-height + $toc-container-offset);
+  right: $toc-container-right;
+  z-index: $toc-container-z-index;
 }
 
 .toc-trigger {
@@ -13,26 +13,26 @@
 }
 
 :host ::ng-deep .toc-button {
-  width: 56px;
-  height: 56px;
+  width: $toc-button-size;
+  height: $toc-button-size;
   border-radius: 50%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--p-surface-border);
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.9);
+  box-shadow: $toc-button-shadow;
+  border: 1px solid $toc-button-border-light;
+  transition: $toc-button-transition;
+  backdrop-filter: $toc-button-backdrop-blur;
+  background: $toc-button-bg-light;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    transform: $toc-button-transform-hover;
+    box-shadow: $toc-button-shadow-hover;
   }
 
   .p-button-icon {
-    font-size: 1.25rem;
+    font-size: $toc-button-icon-size;
     color: var(--p-text-color);
     margin: 0;
     position: relative;
@@ -47,27 +47,27 @@
 
 // ToC button brand color - match theme button
 :host ::ng-deep .toc-button .p-button-icon {
-  color: #667eea;
+  color: $color-primary;
 }
 
 .toc-popover {
   position: absolute;
   top: 0;
-  right: 70px;
-  width: 320px;
-  max-height: 400px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(102, 126, 234, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  right: $toc-popover-right-offset;
+  width: $toc-popover-width;
+  max-height: $toc-popover-max-height;
+  background: $toc-popover-bg-light;
+  backdrop-filter: $toc-popover-backdrop-blur;
+  -webkit-backdrop-filter: $toc-popover-backdrop-blur;
+  border: 1px solid $toc-popover-border-light;
+  border-radius: $border-radius-2xl;
+  box-shadow: $toc-popover-shadow;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(10px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: $toc-popover-transform;
+  transition: $toc-popover-transition;
   overflow: hidden;
-  z-index: 1110;
+  z-index: $toc-popover-z-index;
 
   &.visible {
     opacity: 1;
@@ -82,19 +82,19 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, rgba(102, 126, 234, 0.6) 0%, rgba(118, 75, 162, 0.6) 100%);
+    background: $gradient-primary;
   }
 }
 
 .toc-nav {
   padding: $space-lg 0;
-  max-height: 360px;
+  max-height: $toc-nav-max-height;
   overflow-y: auto;
   overflow-x: hidden;
 
   // Custom scrollbar
   &::-webkit-scrollbar {
-    width: 4px;
+    width: $toc-nav-scrollbar-width;
   }
 
   &::-webkit-scrollbar-track {
@@ -102,11 +102,11 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(102, 126, 234, 0.3);
+    background: $toc-nav-scrollbar-thumb;
     border-radius: 2px;
 
     &:hover {
-      background: rgba(102, 126, 234, 0.5);
+      background: $toc-nav-scrollbar-thumb-hover;
     }
   }
 }
@@ -114,27 +114,27 @@
 .toc-item {
   display: block;
   padding: $space-sm $space-xl;
-  color: #4a5568;
+  color: $toc-item-color-light;
   text-decoration: none;
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;
-  transition: all 0.2s ease;
-  border-left: 3px solid transparent;
+  transition: $toc-item-transition;
+  border-left: $toc-item-border-width solid transparent;
   position: relative;
-  line-height: 1.4;
+  line-height: $toc-item-line-height;
   cursor: pointer;
 
   &:hover {
-    background: rgba(102, 126, 234, 0.08);
-    color: #667eea;
-    border-left-color: rgba(102, 126, 234, 0.4);
-    transform: translateX(2px);
+    background: $toc-item-hover-bg-light;
+    color: $color-primary;
+    border-left-color: $toc-item-border-hover;
+    transform: $toc-item-transform-hover;
   }
 
   &.active {
-    background: rgba(102, 126, 234, 0.12);
-    color: #667eea;
-    border-left-color: #667eea;
+    background: $toc-item-active-bg-light;
+    color: $color-primary;
+    border-left-color: $color-primary;
     font-weight: $font-weight-semibold;
 
     &::after {
@@ -143,9 +143,9 @@
       right: $space-lg;
       top: 50%;
       transform: translateY(-50%);
-      width: 6px;
-      height: 6px;
-      background: #667eea;
+      width: $toc-active-dot-size;
+      height: $toc-active-dot-size;
+      background: $toc-active-dot-color;
       border-radius: 50%;
     }
   }
@@ -157,18 +157,18 @@
   }
 
   &.level-2 {
-    padding-left: calc($space-xl + $space-md);
+    padding-left: $toc-level-2-indent;
   }
 
   &.level-3 {
-    padding-left: calc($space-xl + $space-lg);
+    padding-left: $toc-level-3-indent;
     font-size: $font-size-xs;
   }
 
   &.level-4,
   &.level-5,
   &.level-6 {
-    padding-left: calc($space-xl + $space-xl);
+    padding-left: $toc-level-456-indent;
     font-size: $font-size-xs;
     opacity: 0.8;
   }
@@ -177,7 +177,7 @@
 .no-headings {
   padding: $space-lg $space-xl;
   text-align: center;
-  color: #6b7280;
+  color: $toc-item-color-muted;
   font-style: italic;
 
   p {
@@ -186,30 +186,30 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md) {
   .toc-container {
-    top: calc($header-height + 12px);
-    right: 16px;
+    top: calc($header-height + $toc-container-offset-mobile);
+    right: $toc-container-right-mobile;
   }
 
   :host ::ng-deep .toc-button {
-    width: 48px;
-    height: 48px;
+    width: $toc-button-size-mobile;
+    height: $toc-button-size-mobile;
 
     .p-button-icon {
-      font-size: 1.1rem;
+      font-size: $toc-button-icon-size-mobile;
     }
   }
 
   .toc-popover {
-    right: 60px;
-    width: 280px;
-    max-height: 300px;
+    right: $toc-popover-right-offset-mobile;
+    width: $toc-popover-width-mobile;
+    max-height: $toc-popover-max-height-mobile;
   }
 
   .toc-nav {
     padding: $space-md 0;
-    max-height: 280px;
+    max-height: $toc-nav-max-height-mobile;
   }
 
   .toc-item {
@@ -227,58 +227,58 @@
 // Dark mode styles - match floating buttons exactly
 :host-context(.dark-mode) {
   ::ng-deep .toc-button {
-    background: rgba(45, 55, 72, 0.9);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: $toc-button-bg-dark;
+    border-color: $toc-button-border-dark;
 
     &:hover {
-      background: rgba(45, 55, 72, 0.95);
+      background: $toc-button-bg-hover-dark;
     }
 
     .p-button-icon {
-      color: #667eea;
+      color: $color-primary;
     }
   }
 
   .toc-popover {
-    background: rgba(26, 32, 44, 0.95);
-    border-color: rgba(102, 126, 234, 0.3);
+    background: $toc-popover-bg-dark;
+    border-color: $toc-popover-border-dark;
 
     &::before {
-      background: linear-gradient(90deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+      background: $gradient-primary;
     }
   }
 
   .toc-nav {
     &::-webkit-scrollbar-thumb {
-      background: rgba(102, 126, 234, 0.4);
+      background: $toc-nav-scrollbar-thumb-dark;
 
       &:hover {
-        background: rgba(102, 126, 234, 0.6);
+        background: $toc-nav-scrollbar-thumb-hover-dark;
       }
     }
   }
 
   .toc-item {
-    color: #a0aec0;
+    color: $toc-item-color-dark;
 
     &:hover {
-      background: rgba(102, 126, 234, 0.12);
-      color: #667eea;
-      border-left-color: rgba(102, 126, 234, 0.6);
+      background: $toc-item-hover-bg-dark;
+      color: $color-primary;
+      border-left-color: $toc-item-border-hover-dark;
     }
 
     &.active {
-      background: rgba(102, 126, 234, 0.18);
-      color: #667eea;
-      border-left-color: #667eea;
+      background: $toc-item-active-bg-dark;
+      color: $color-primary;
+      border-left-color: $color-primary;
 
       &::after {
-        background: #667eea;
+        background: $color-primary;
       }
     }
   }
 
   .no-headings {
-    color: #9ca3af;
+    color: $toc-item-color-muted-dark;
   }
 }

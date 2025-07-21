@@ -1,17 +1,46 @@
-@import "../../../../styles/variables.scss";
+@import '../../../../styles/variables.scss';
+
+// Component-specific variables
+$sidebar-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
+$sidebar-transition: all 0.3s ease;
+$sidebar-transition-fast: all 0.2s ease;
+$sidebar-transform-hidden: translateX(-100%);
+$sidebar-transform-visible: translateX(0);
+$sidebar-transform-hover: translateX(4px);
+$sidebar-border-active: 3px solid $color-primary;
+
+// Menu state backgrounds
+$menu-active-bg: linear-gradient(
+  135deg,
+  rgba($color-primary, 0.1) 0%,
+  rgba($color-secondary, 0.1) 100%
+);
+$menu-hover-bg: linear-gradient(
+  135deg,
+  rgba($color-primary, 0.05) 0%,
+  rgba($color-secondary, 0.05) 100%
+);
+$menu-active-sub-bg: linear-gradient(
+  135deg,
+  rgba($color-primary, 0.15) 0%,
+  rgba($color-secondary, 0.15) 100%
+);
+
+// Dark mode hover backgrounds
+$dark-hover-bg: rgba($color-white, 0.05);
 
 :host {
   background: $color-white;
   border-left: 1px solid $color-gray-300;
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: $sidebar-shadow;
   width: $sidebar-width;
   max-width: $sidebar-width;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: $sidebar-transition;
   padding-top: $header-height;
-  
+
   &.sidebar-collapsed {
     width: 0;
     max-width: 0;
@@ -29,12 +58,12 @@
   max-width: 100%;
   box-sizing: border-box;
   opacity: 1;
-  transform: translateX(0);
-  transition: all 0.3s ease;
-  
+  transform: $sidebar-transform-visible;
+  transition: $sidebar-transition;
+
   &.collapsed {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: $sidebar-transform-hidden;
     pointer-events: none;
   }
 }
@@ -61,7 +90,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
+
   i {
     background: $gradient-primary;
     -webkit-background-clip: text;
@@ -85,7 +114,7 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  
+
   .p-panelmenu-header {
     .p-panelmenu-header-content {
       width: 100%;
@@ -94,15 +123,15 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      
+
       // Active state for main menu items
       &:has(.p-panelmenu-item-link-active) {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        border-left: 3px solid $color-primary;
-        
+        background: $menu-active-bg;
+        border-left: $sidebar-border-active;
+
         .p-panelmenu-item-link-active {
           color: $color-primary;
-          
+
           .p-menuitem-icon {
             color: $color-primary;
           }
@@ -110,12 +139,12 @@
       }
     }
   }
-  
+
   .p-panelmenu-content {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    
+
     .p-panelmenu-submenu {
       .p-panelmenu-item {
         .p-panelmenu-item-content {
@@ -127,28 +156,28 @@
           text-overflow: ellipsis;
           border-radius: $border-radius-md;
           margin-bottom: $space-xs;
-          transition: all 0.2s ease;
-          
+          transition: $sidebar-transition-fast;
+
           &:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-            transform: translateX(4px);
+            background: $menu-hover-bg;
+            transform: $sidebar-transform-hover;
           }
-          
+
           // Active state for sub-menu items
           &:has(.p-panelmenu-item-link-active) {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
-            border-left: 3px solid $color-primary;
-            
+            background: $menu-active-sub-bg;
+            border-left: $sidebar-border-active;
+
             .p-panelmenu-item-link-active {
               color: $color-primary;
               font-weight: $font-weight-semibold;
-              
+
               .p-panelmenu-submenu-icon {
                 color: $color-primary;
               }
             }
           }
-          
+
           .p-panelmenu-item-link {
             width: 100%;
             max-width: 100%;
@@ -156,11 +185,11 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            
+
             &.p-panelmenu-item-link-active {
               color: $color-primary;
               font-weight: $font-weight-semibold;
-              
+
               .p-panelmenu-submenu-icon {
                 color: $color-primary;
               }
@@ -182,18 +211,18 @@
     border-left: none;
     border-right: 1px solid $color-gray-300;
     padding-top: 0;
-    
+
     &.sidebar-collapsed {
-      transform: translateX(-100%);
+      transform: $sidebar-transform-hidden;
     }
   }
-  
+
   .sidebar-content {
     width: 100%;
     max-width: 100%;
-    
+
     &.collapsed {
-      transform: translateX(0);
+      transform: $sidebar-transform-visible;
       opacity: 1;
     }
   }
@@ -203,75 +232,75 @@
 :host-context(.dark-mode) {
   background: $color-dark-surface;
   border-left-color: $color-dark-border;
-  
+
   .sidebar-content {
     background: $color-dark-surface;
   }
-  
+
   .sidebar-header {
     background: $color-dark-surface;
     border-bottom-color: $color-dark-border;
   }
-  
+
   .menu-container {
     background: $color-dark-surface;
   }
-  
+
   // PrimeNG dark mode overrides
   ::ng-deep .p-panelmenu {
     .p-panelmenu-panel {
       background: none;
       border-width: 0;
     }
-    
+
     .p-panelmenu-header {
       .p-panelmenu-header-content {
         background: $color-dark-surface;
-        
+
         .p-panelmenu-item-link {
           color: $color-dark-text;
-          
+
           .p-menuitem-icon {
             color: $color-dark-text-secondary;
           }
         }
-        
+
         .p-panelmenu-header-label,
         .p-panelmenu-header-content .p-panelmenu-header-label,
         .p-panelmenu-item-link .p-panelmenu-header-label {
           color: white !important;
         }
-        
+
         &:hover {
-          background: rgba(255, 255, 255, 0.05);
+          background: $dark-hover-bg;
         }
       }
     }
-    
+
     .p-panelmenu-content {
       background: $color-dark-surface;
-      
+
       .p-panelmenu-submenu {
         .p-panelmenu-item {
           .p-panelmenu-item-content {
             .p-panelmenu-item-link {
               color: $color-dark-text-secondary;
-              
+
               .p-panelmenu-submenu-icon {
                 color: $color-dark-text-secondary;
               }
             }
-            
+
             &:hover {
-              background: rgba(255, 255, 255, 0.05);
+              background: $dark-hover-bg;
             }
           }
         }
       }
     }
   }
-  
+
   @media (max-width: $breakpoint-md) {
     border-right-color: $color-dark-border;
   }
-} 
+}

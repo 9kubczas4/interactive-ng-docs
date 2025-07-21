@@ -12,6 +12,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
+import {
+  TOC_HEADER_OFFSET,
+  TOC_SCROLL_THRESHOLD,
+  TOC_MOBILE_BREAKPOINT,
+  TOC_INTERSECTION_THRESHOLDS,
+  DOM_UPDATE_DELAY,
+  SCROLL_DETECTION_DELAY,
+  ROUTE_CHANGE_DELAY,
+} from '@shared/constants/layout.constants';
 
 interface HeadingInfo {
   id: string;
@@ -46,7 +55,7 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
       if (urlTree || this.route.snapshot.url) {
         setTimeout(() => {
           this.scanHeadings();
-        }, 500);
+        }, ROUTE_CHANGE_DELAY);
       }
     });
   }
@@ -137,7 +146,7 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
       if (this.scrollListener) {
         this.scrollListener();
       }
-    }, 50);
+    }, SCROLL_DETECTION_DELAY);
   }
 
   private generateId(text: string): string {
@@ -169,8 +178,8 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
         }
       },
       {
-        rootMargin: '-84px 0px -80% 0px', // Account for header height (84px)
-        threshold: [0, 0.1, 0.3],
+        rootMargin: `-${TOC_HEADER_OFFSET}px 0px -80% 0px`, // Account for header height
+        threshold: TOC_INTERSECTION_THRESHOLDS,
       }
     );
 
@@ -186,7 +195,6 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
       const currentHeadings = this.headings();
       if (currentHeadings.length === 0) return;
 
-      const headerHeight = 84;
       let activeId = '';
 
       // Find the heading that's currently visible at the top
@@ -197,7 +205,7 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
           const rect = element.getBoundingClientRect();
 
           // Check if heading is visible and above the header line
-          if (rect.top <= headerHeight + 20) {
+          if (rect.top <= TOC_HEADER_OFFSET + TOC_SCROLL_THRESHOLD) {
             activeId = heading.id;
             break;
           }
@@ -219,7 +227,7 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
       if (this.scrollListener) {
         this.scrollListener();
       }
-    }, 100);
+    }, DOM_UPDATE_DELAY);
   }
 
   navigateToHeading(event: Event, headingId: string) {
@@ -241,7 +249,10 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
     }
 
     // Hide ToC after navigation on mobile
-    if (this.document.defaultView?.innerWidth && this.document.defaultView.innerWidth <= 768) {
+    if (
+      this.document.defaultView?.innerWidth &&
+      this.document.defaultView.innerWidth <= TOC_MOBILE_BREAKPOINT
+    ) {
       this.showToC.set(false);
     }
   }

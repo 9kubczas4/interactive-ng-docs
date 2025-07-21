@@ -1,6 +1,5 @@
 <p-dialog [visible]="isVisible()" [modal]="true" [closable]="false" [draggable]="false" [resizable]="false"
-  [maximizable]="false" [style]="{ width: '100vw', height: '100vh' }"
-  [contentStyle]="{ padding: '0', height: 'calc(100vh - 120px)', overflow: 'auto' }" [baseZIndex]="10000"
+  [maximizable]="false" [style]="dialogStyle" [contentStyle]="dialogContentStyle" [baseZIndex]="dialogZIndex"
   (onHide)="closeDialog()" styleClass="example-dialog fullscreen-dialog">
   <ng-template pTemplate="header">
     <div class="custom-header">
