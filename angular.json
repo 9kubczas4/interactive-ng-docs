@@ -100,14 +100,7 @@
         "prerender": {
           "builder": "@angular-devkit/build-angular:prerender",
           "options": {
-            "routes": [
-              "/",
-              "/getting-started",
-              "/components",
-              "/patterns",
-              "/best-practices",
-              "/a11y"
-            ]
+            "routesFile": "prerender-routes.txt"
           }
         }
       }
