@@ -26,6 +26,7 @@ export const useCasesRoutes: Routes = [
               m => m.BasicDiscardExampleComponent
             ),
           markdownPath: 'docs/examples/use-cases/basic-discard-pattern.md',
+          category: 'bad-example',
         },
         {
           title: 'Confirmation Dialog',
@@ -35,6 +36,7 @@ export const useCasesRoutes: Routes = [
               '@features/use-cases/discard-changes/confirmation-discard-example.component'
             ).then(m => m.ConfirmationDiscardExampleComponent),
           markdownPath: 'docs/examples/use-cases/confirmation-discard-pattern.md',
+          category: 'best-practice',
         },
       ],
     },

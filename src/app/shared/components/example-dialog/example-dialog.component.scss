@@ -16,11 +16,23 @@
       border-bottom: 1px solid $color-gray-300;
       padding-bottom: $space-lg;
 
-      h3 {
-        margin: 0 0 $space-sm 0;
-        font-size: $font-size-2xl;
-        font-weight: $font-weight-bold;
-        color: $color-gray-900;
+      .example-title-section {
+        display: flex;
+        align-items: center;
+        gap: $space-lg;
+        margin-bottom: $space-sm;
+
+        h3 {
+          margin: 0;
+          font-size: $font-size-2xl;
+          font-weight: $font-weight-bold;
+          color: $color-gray-900;
+          flex-shrink: 0;
+        }
+
+        .category-chip {
+          flex-shrink: 0;
+        }
       }
 
       .example-description {
@@ -45,6 +57,35 @@
         padding: $space-xl;
         box-shadow: $shadow-sm;
         margin-bottom: $space-xl;
+      }
+    }
+
+    // Category chip styling with maximum specificity
+    :host ::ng-deep .category-chip.best-practice-chip,
+    :host ::ng-deep .p-chip.best-practice-chip {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      color: white !important;
+      font-weight: $font-weight-medium !important;
+      font-size: $font-size-sm !important;
+      border: none !important;
+
+      .p-chip-text {
+        color: white !important;
+        font-weight: $font-weight-medium !important;
+      }
+    }
+
+    :host ::ng-deep .category-chip.bad-example-chip,
+    :host ::ng-deep .p-chip.bad-example-chip {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+      color: white !important;
+      font-weight: $font-weight-medium !important;
+      font-size: $font-size-sm !important;
+      border: none !important;
+
+      .p-chip-text {
+        color: white !important;
+        font-weight: $font-weight-medium !important;
       }
     }
 
@@ -503,6 +544,27 @@
 
     i {
       color: #667eea !important;
+    }
+  }
+}
+
+// Dark mode chip styling for dialog
+:host-context(.dark-mode) {
+  ::ng-deep .category-chip.best-practice-chip,
+  ::ng-deep .p-chip.best-practice-chip {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+
+    .p-chip-text {
+      color: white !important;
+    }
+  }
+
+  ::ng-deep .category-chip.bad-example-chip,
+  ::ng-deep .p-chip.bad-example-chip {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+
+    .p-chip-text {
+      color: white !important;
     }
   }
 }

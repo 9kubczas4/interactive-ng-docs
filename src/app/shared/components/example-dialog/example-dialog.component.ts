@@ -16,6 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { CardModule } from 'primeng/card';
+import { ChipModule } from 'primeng/chip';
 import { CommonModule } from '@angular/common';
 
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
@@ -29,6 +30,7 @@ interface LoadedExampleItem {
   loading: boolean;
   markdownPath?: string;
   markdownContent?: string;
+  category?: 'best-practice' | 'bad-example';
 }
 
 @Component({
@@ -42,6 +44,7 @@ interface LoadedExampleItem {
     AccordionModule,
     TooltipModule,
     CardModule,
+    ChipModule,
     CommonModule,
     MarkdownContentComponent,
   ],
@@ -76,6 +79,7 @@ export class ExampleDialogComponent implements OnInit {
         loading: true,
         markdownPath: example.markdownPath,
         markdownContent: '',
+        category: example.category,
       }));
 
       this.loadedExamples.set(loadedItems);
@@ -208,5 +212,27 @@ export class ExampleDialogComponent implements OnInit {
       queryParams: { dialog: 'true', example: exampleId },
       queryParamsHandling: 'merge',
     });
+  }
+
+  getCategoryLabel(category?: 'best-practice' | 'bad-example'): string {
+    switch (category) {
+      case 'best-practice':
+        return 'Best Practice';
+      case 'bad-example':
+        return 'Bad Example';
+      default:
+        return '';
+    }
+  }
+
+  getCategoryClass(category?: 'best-practice' | 'bad-example'): string {
+    switch (category) {
+      case 'best-practice':
+        return 'best-practice-chip';
+      case 'bad-example':
+        return 'bad-example-chip';
+      default:
+        return '';
+    }
   }
 }

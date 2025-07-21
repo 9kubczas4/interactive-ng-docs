@@ -22,10 +22,21 @@
   width: 100%;
   padding-right: $space-sm;
 
-  .header-title {
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
     flex: 1;
-    font-weight: $font-weight-semibold;
-    color: inherit;
+
+    .header-title {
+      font-weight: $font-weight-semibold;
+      color: inherit;
+      flex-shrink: 0;
+    }
+  }
+
+  .category-chip {
+    flex-shrink: 0;
   }
 
   .dialog-button {
@@ -50,6 +61,31 @@
   // Show button more prominently on header hover
   &:hover .dialog-button {
     opacity: 1;
+  }
+}
+
+// Category chip styling
+:host ::ng-deep .best-practice-chip {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white !important;
+  font-weight: $font-weight-medium !important;
+  font-size: $font-size-xs !important;
+  border: none !important;
+
+  .p-chip-text {
+    color: white !important;
+  }
+}
+
+:host ::ng-deep .bad-example-chip {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  color: white !important;
+  font-weight: $font-weight-medium !important;
+  font-size: $font-size-xs !important;
+  border: none !important;
+
+  .p-chip-text {
+    color: white !important;
   }
 }
 
@@ -336,6 +372,23 @@
           background: $color-dark-border;
           color: $color-dark-text;
         }
+      }
+    }
+
+    // Dark mode chip styling - ensure chips remain visible
+    ::ng-deep .best-practice-chip {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+
+      .p-chip-text {
+        color: white !important;
+      }
+    }
+
+    ::ng-deep .bad-example-chip {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+
+      .p-chip-text {
+        color: white !important;
       }
     }
   }

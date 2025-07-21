@@ -11,6 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { CardModule } from 'primeng/card';
+import { ChipModule } from 'primeng/chip';
 
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
@@ -23,6 +24,7 @@ export interface ExampleItem {
   description?: string;
   component: () => Promise<Type<unknown>>;
   markdownPath?: string;
+  category?: 'best-practice' | 'bad-example';
 }
 
 interface LoadedExampleItem {
@@ -32,6 +34,7 @@ interface LoadedExampleItem {
   loading: boolean;
   markdownPath?: string;
   markdownContent?: string;
+  category?: 'best-practice' | 'bad-example';
 }
 
 @Component({
@@ -43,6 +46,7 @@ interface LoadedExampleItem {
     CommonModule,
     AccordionModule,
     CardModule,
+    ChipModule,
     ButtonModule,
     TooltipModule,
     MarkdownContentComponent,
@@ -70,6 +74,7 @@ export class ExampleSidebarComponent {
         loading: true,
         markdownPath: example.markdownPath,
         markdownContent: '',
+        category: example.category,
       }));
 
       this.loadedExamples.set(loadedItems);
@@ -127,5 +132,27 @@ export class ExampleSidebarComponent {
   openExampleInDialog(exampleTitle: string, event: Event): void {
     event.stopPropagation(); // Prevent accordion toggle
     this.dialogService.openExample(exampleTitle);
+  }
+
+  getCategoryLabel(category?: 'best-practice' | 'bad-example'): string {
+    switch (category) {
+      case 'best-practice':
+        return 'Best Practice';
+      case 'bad-example':
+        return 'Bad Example';
+      default:
+        return '';
+    }
+  }
+
+  getCategoryClass(category?: 'best-practice' | 'bad-example'): string {
+    switch (category) {
+      case 'best-practice':
+        return 'best-practice-chip';
+      case 'bad-example':
+        return 'bad-example-chip';
+      default:
+        return '';
+    }
   }
 }
