@@ -34,7 +34,13 @@
     @if (currentExample()) {
     <div class="example-display">
       <div class="example-header">
-        <h3>{{ currentExample()?.title }}</h3>
+        <div class="example-title-section">
+          <h3>{{ currentExample()?.title }}</h3>
+          @if (currentExample()?.category) {
+          <p-chip [label]="getCategoryLabel(currentExample()?.category)"
+            [styleClass]="getCategoryClass(currentExample()?.category)" class="category-chip" />
+          }
+        </div>
         @if (currentExample()?.description) {
         <p class="example-description">{{ currentExample()?.description }}</p>
         }
@@ -60,15 +66,10 @@
       </div>
 
       @if (currentExample()?.markdownContent) {
-      <div class="example-documentation">
-        <div class="docs-header">
-          <h4>Documentation</h4>
-          <p-button [icon]="copySuccess() ? 'pi pi-check' : 'pi pi-copy'" severity="secondary" size="small"
-            [text]="true" [disabled]="copySuccess()" (onClick)="copyMarkdown(currentExample()?.markdownContent || '')"
-            [pTooltip]="copySuccess() ? 'Copied!' : 'Copy documentation'" tooltipPosition="left" class="copy-button" />
-        </div>
-        <app-markdown-content [markdown]="currentExample()?.markdownContent || ''" />
-      </div>
+      <p-card styleClass="documentation-card">
+        <app-markdown-content [markdown]="currentExample()?.markdownContent || ''"
+          [headingPrefix]="'example-' + (currentExampleIndex() + 1) + '-'" />
+      </p-card>
       }
     </div>
     } @else {

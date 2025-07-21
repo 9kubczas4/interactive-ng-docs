@@ -1,8 +1,8 @@
 // Import variables
-@import "styles/variables";
+@import 'styles/variables';
 
 // Import PrimeNG styles
-@import "primeicons/primeicons.css";
+@import 'primeicons/primeicons.css';
 
 // Global styles
 * {
@@ -11,8 +11,19 @@
   box-sizing: border-box;
 }
 
+main {
+  /* Automatic scroll offset for anchors - accounts for fixed header */
+  scroll-padding-top: 84px; /* 60px header + 24px breathing room */
+}
+
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
   background: $color-white;
   color: $color-gray-800;
   line-height: 1.6;
@@ -24,13 +35,15 @@ body {
   flex-direction: column;
   height: 100vh;
   margin: 0;
-  background: linear-gradient(135deg, 
-    rgba(102, 126, 234, 0.02) 0%, 
-    rgba(118, 75, 162, 0.02) 25%, 
-    rgba(255, 255, 255, 1) 25%, 
-    rgba(255, 255, 255, 1) 75%, 
-    rgba(102, 126, 234, 0.02) 75%, 
-    rgba(118, 75, 162, 0.02) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.02) 0%,
+    rgba(118, 75, 162, 0.02) 25%,
+    rgba(255, 255, 255, 1) 25%,
+    rgba(255, 255, 255, 1) 75%,
+    rgba(102, 126, 234, 0.02) 75%,
+    rgba(118, 75, 162, 0.02) 100%
+  );
   background-size: 60px 60px;
 }
 
@@ -38,7 +51,7 @@ aside[appSidebar] {
   width: $sidebar-width;
   max-width: $sidebar-width;
   min-width: $sidebar-width;
-  
+
   &.sidebar-collapsed {
     width: 0;
     max-width: 0;
@@ -61,7 +74,7 @@ aside[appSidebar] {
   flex: 1;
   border-left: 1px solid $color-gray-300;
   transition: all 0.3s ease;
-  
+
   &.sidebar-collapsed {
     border-left: none;
   }
@@ -70,14 +83,19 @@ aside[appSidebar] {
 .markdown-content {
   line-height: 1.7;
   max-width: none;
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     margin-bottom: 1.5rem;
     color: #1a202c;
     font-weight: 700;
     letter-spacing: -0.025em;
   }
-  
+
   h1 {
     font-size: 3rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -89,13 +107,13 @@ aside[appSidebar] {
     padding-bottom: 0.75rem;
     margin-bottom: 2rem;
   }
-  
+
   h2 {
     font-size: 2.25rem;
     margin-top: 3rem;
     color: #2d3748;
     position: relative;
-    
+
     &::before {
       content: '';
       position: absolute;
@@ -107,19 +125,19 @@ aside[appSidebar] {
       border-radius: 2px;
     }
   }
-  
+
   h3 {
     font-size: 1.75rem;
     margin-top: 2rem;
     color: #4a5568;
   }
-  
+
   p {
     margin-bottom: 1.5rem;
     color: #4a5568;
     font-size: 1.1rem;
   }
-  
+
   code {
     background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
     padding: 0.25rem 0.5rem;
@@ -129,7 +147,7 @@ aside[appSidebar] {
     color: #e53e3e;
     border: 1px solid #e2e8f0;
   }
-  
+
   pre {
     background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
     padding: 1.5rem;
@@ -138,7 +156,7 @@ aside[appSidebar] {
     margin-bottom: 2rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid #4a5568;
-    
+
     code {
       background: none;
       padding: 0;
@@ -147,22 +165,23 @@ aside[appSidebar] {
       font-size: 0.95rem;
     }
   }
-  
-  ul, ol {
+
+  ul,
+  ol {
     margin-left: 2rem;
     margin-bottom: 1.5rem;
-    
+
     li {
       margin-bottom: 0.75rem;
       color: #4a5568;
       font-size: 1.05rem;
-      
+
       &::marker {
         color: #667eea;
       }
     }
   }
-  
+
   blockquote {
     margin: 2rem 0;
     padding-left: 2rem;
@@ -171,30 +190,31 @@ aside[appSidebar] {
     font-style: italic;
     color: #4a5568;
   }
-  
+
   table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 2rem;
-    
-    th, td {
+
+    th,
+    td {
       padding: 1rem;
       text-align: left;
       border-bottom: 1px solid #e2e8f0;
     }
-    
+
     th {
       background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
       font-weight: 600;
       color: #2d3748;
     }
   }
-  
+
   a {
     color: #667eea;
     text-decoration: none;
     font-weight: 500;
-    
+
     &:hover {
       text-decoration: underline;
     }
@@ -206,38 +226,38 @@ aside[appSidebar] {
   .content-container {
     flex-direction: column;
   }
-  
+
   aside[appSidebar] {
     width: 100%;
     max-width: 100%;
     min-width: 100%;
-    
+
     &.sidebar-collapsed {
       width: 100%;
       max-width: 100%;
       min-width: 100%;
     }
   }
-  
+
   .main-content {
     padding: $space-lg;
     padding-top: calc(#{$header-height} + #{$space-lg});
     border-left: none;
-    
+
     &.sidebar-collapsed {
       border-left: none;
     }
   }
-  
+
   .markdown-content {
     h1 {
       font-size: 2.25rem;
     }
-    
+
     h2 {
       font-size: 1.75rem;
     }
-    
+
     h3 {
       font-size: 1.5rem;
     }
@@ -259,7 +279,7 @@ aside[appSidebar] {
     visibility: hidden;
     transition: all 0.3s ease;
   }
-  
+
   .documentation-layout:not(.sidebar-collapsed)::before {
     opacity: 1;
     visibility: visible;
@@ -269,58 +289,105 @@ aside[appSidebar] {
 // Dark mode styles
 .dark-mode {
   .documentation-layout {
-    background: linear-gradient(135deg, 
-      rgba(102, 126, 234, 0.05) 0%, 
-      rgba(118, 75, 162, 0.05) 25%, 
-      rgba(26, 32, 44, 1) 25%, 
-      rgba(26, 32, 44, 1) 75%, 
-      rgba(102, 126, 234, 0.05) 75%, 
-      rgba(118, 75, 162, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(102, 126, 234, 0.05) 0%,
+      rgba(118, 75, 162, 0.05) 25%,
+      rgba(26, 32, 44, 1) 25%,
+      rgba(26, 32, 44, 1) 75%,
+      rgba(102, 126, 234, 0.05) 75%,
+      rgba(118, 75, 162, 0.05) 100%
+    );
     background-size: 60px 60px;
   }
-  
+
   .content-container {
     background: $color-dark-bg;
   }
-  
+
   .main-content {
     background: $color-dark-bg;
     color: $color-dark-text;
     border-left-color: $color-dark-border;
   }
-  
+
   .markdown-content {
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: $color-dark-text;
     }
-    
-    p, li {
+
+    p,
+    li {
       color: $color-dark-text-secondary;
     }
-    
+
     code {
       color: #ff6b6b;
       border-color: $color-dark-border;
     }
-    
+
     pre {
       background: rgba(0, 0, 0, 0.3);
       border-color: $color-dark-border;
     }
-    
+
     blockquote {
       color: $color-dark-text-secondary;
     }
-    
+
     table {
       th {
         background: $color-dark-surface;
         color: $color-dark-text;
       }
-      
-      th, td {
+
+      th,
+      td {
         border-bottom-color: $color-dark-border;
       }
     }
   }
-} 
+}
+
+// Global chip overrides for example categories - ensure they work everywhere
+.category-chip.best-practice-chip,
+.p-chip.best-practice-chip {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white !important;
+  border: none !important;
+
+  .p-chip-text {
+    color: white !important;
+    font-weight: 500 !important;
+  }
+}
+
+.category-chip.bad-example-chip,
+.p-chip.bad-example-chip {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  color: white !important;
+  border: none !important;
+
+  .p-chip-text {
+    color: white !important;
+    font-weight: 500 !important;
+  }
+}
+
+// Dark mode support for global chips
+:root.dark-mode {
+  .category-chip.best-practice-chip,
+  .p-chip.best-practice-chip {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  }
+
+  .category-chip.bad-example-chip,
+  .p-chip.bad-example-chip {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  }
+}

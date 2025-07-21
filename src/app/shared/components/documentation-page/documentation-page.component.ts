@@ -5,6 +5,7 @@ import { MarkdownContentComponent } from '@shared/components/markdown-content/ma
 import { ExampleSidebarComponent } from '@shared/components/example-sidebar/example-sidebar.component';
 import { ExampleDialogComponent } from '@shared/components/example-dialog/example-dialog.component';
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
+import { TableOfContentsComponent } from '@shared/components/table-of-contents/table-of-contents.component';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -16,6 +17,7 @@ import { ButtonModule } from 'primeng/button';
     MarkdownContentComponent,
     ExampleSidebarComponent,
     ExampleDialogComponent,
+    TableOfContentsComponent,
     ButtonModule,
   ],
 })

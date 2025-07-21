@@ -15,8 +15,10 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
+import { CardModule } from 'primeng/card';
+import { ChipModule } from 'primeng/chip';
 import { CommonModule } from '@angular/common';
-import { Clipboard } from '@angular/cdk/clipboard';
+
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
 import { MarkdownService } from '@shared/services/markdown.service';
 import { MarkdownContentComponent } from '@shared/components/markdown-content/markdown-content.component';
@@ -28,6 +30,7 @@ interface LoadedExampleItem {
   loading: boolean;
   markdownPath?: string;
   markdownContent?: string;
+  category?: 'best-practice' | 'bad-example';
 }
 
 @Component({
@@ -40,6 +43,8 @@ interface LoadedExampleItem {
     ButtonModule,
     AccordionModule,
     TooltipModule,
+    CardModule,
+    ChipModule,
     CommonModule,
     MarkdownContentComponent,
   ],
@@ -49,15 +54,16 @@ export class ExampleDialogComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly dialogService = inject(ExampleDialogService);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly clipboard = inject(Clipboard);
+
   private readonly markdownService = inject(MarkdownService);
 
   readonly isVisible = signal(false);
   readonly currentExample = signal<LoadedExampleItem | null>(null);
   readonly currentExampleIndex = signal(0);
   readonly dialogTitle = signal('Interactive Example');
-  readonly copySuccess = signal(false);
+
   private readonly loadedExamples = signal<LoadedExampleItem[]>([]);
+  private readonly queryParams = signal<{ dialog?: string; example?: string }>({});
 
   readonly availableExamples = computed(() => this.loadedExamples());
 
@@ -74,6 +80,7 @@ export class ExampleDialogComponent implements OnInit {
         loading: true,
         markdownPath: example.markdownPath,
         markdownContent: '',
+        category: example.category,
       }));
 
       this.loadedExamples.set(loadedItems);
@@ -126,22 +133,52 @@ export class ExampleDialogComponent implements OnInit {
         }
       }
     });
+
+    // Effect to handle dialog opening when both examples are loaded and query params indicate dialog should be shown
+    effect(() => {
+      const examples = this.availableExamples();
+      const params = this.queryParams();
+      const showDialog = params.dialog === 'true';
+      const exampleId = params.example;
+
+      // Only proceed if examples are loaded (not empty array with all loading: true)
+      const hasLoadedExamples = examples.length > 0 && examples.some(ex => !ex.loading);
+      // Also check if we have examples from the service (not just an empty array)
+      const hasExamplesFromService = this.dialogService.examples().length > 0;
+
+      if (showDialog && hasLoadedExamples && hasExamplesFromService) {
+        // Add small delay to ensure UI is ready
+        setTimeout(() => {
+          if (exampleId) {
+            this.openExample(exampleId);
+          } else {
+            // If no specific example, show first non-loading one
+            const firstLoadedExample = examples.find(ex => !ex.loading);
+            if (firstLoadedExample) {
+              this.openExample(this.getExampleId(firstLoadedExample.title));
+            }
+          }
+        }, 50);
+      } else if (!showDialog) {
+        this.isVisible.set(false);
+      }
+    });
   }
 
   ngOnInit(): void {
-    // Listen for query params to control dialog visibility and example selection
-    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(queryParams => {
-      const showDialog = queryParams['dialog'] === 'true';
-      const exampleId = queryParams['example'];
+    // Initialize with current query params (handles page refresh case)
+    const currentQueryParams = this.route.snapshot.queryParams;
+    this.queryParams.set({
+      dialog: currentQueryParams['dialog'],
+      example: currentQueryParams['example'],
+    });
 
-      if (showDialog && exampleId) {
-        this.openExample(exampleId);
-      } else if (showDialog && this.availableExamples().length > 0) {
-        // If no specific example, show first one
-        this.openExample(this.getExampleId(this.availableExamples()[0].title));
-      } else {
-        this.isVisible.set(false);
-      }
+    // Listen for query params changes and store them in signal for the effect to react to
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(queryParams => {
+      this.queryParams.set({
+        dialog: queryParams['dialog'],
+        example: queryParams['example'],
+      });
     });
   }
 
@@ -150,11 +187,16 @@ export class ExampleDialogComponent implements OnInit {
     const exampleIndex = examples.findIndex(ex => this.getExampleId(ex.title) === exampleId);
     const example = examples[exampleIndex];
 
-    if (example && exampleIndex !== -1) {
+    if (example && exampleIndex !== -1 && !example.loading) {
       this.currentExample.set(example);
       this.currentExampleIndex.set(exampleIndex);
       this.dialogTitle.set(`Interactive Example: ${example.title}`);
       this.isVisible.set(true);
+    } else if (example && example.loading) {
+      // If example is still loading, retry after a short delay
+      setTimeout(() => {
+        this.openExample(exampleId);
+      }, 100);
     }
   }
 
@@ -187,14 +229,6 @@ export class ExampleDialogComponent implements OnInit {
     this.dialogService.closeExample();
   }
 
-  copyMarkdown(markdown: string): void {
-    const success = this.clipboard.copy(markdown);
-    if (success) {
-      this.copySuccess.set(true);
-      setTimeout(() => this.copySuccess.set(false), 2000);
-    }
-  }
-
   private getExampleId(title: string): string {
     return title
       .toLowerCase()
@@ -214,5 +248,27 @@ export class ExampleDialogComponent implements OnInit {
       queryParams: { dialog: 'true', example: exampleId },
       queryParamsHandling: 'merge',
     });
+  }
+
+  getCategoryLabel(category?: 'best-practice' | 'bad-example'): string {
+    switch (category) {
+      case 'best-practice':
+        return 'Best Practice';
+      case 'bad-example':
+        return 'Bad Example';
+      default:
+        return '';
+    }
+  }
+
+  getCategoryClass(category?: 'best-practice' | 'bad-example'): string {
+    switch (category) {
+      case 'best-practice':
+        return 'best-practice-chip';
+      case 'bad-example':
+        return 'bad-example-chip';
+      default:
+        return '';
+    }
   }
 }

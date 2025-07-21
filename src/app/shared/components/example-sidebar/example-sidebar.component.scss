@@ -1,4 +1,4 @@
-@import "../../../../styles/variables";
+@import '../../../../styles/variables';
 
 .example-sidebar {
   h4 {
@@ -14,6 +14,81 @@
   gap: $space-lg;
 }
 
+// Custom accordion header with dialog button
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: $space-sm;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    flex: 1;
+
+    .header-title {
+      font-weight: $font-weight-semibold;
+      color: inherit;
+      flex-shrink: 0;
+    }
+  }
+
+  .category-chip {
+    flex-shrink: 0;
+  }
+
+  .dialog-button {
+    opacity: 0.5;
+    transition: all 0.2s ease;
+
+    :deep(.p-button) {
+      padding: $space-xs;
+      color: inherit;
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.1);
+        color: #667eea;
+      }
+
+      .p-button-icon {
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  // Show button more prominently on header hover
+  &:hover .dialog-button {
+    opacity: 1;
+  }
+}
+
+// Category chip styling
+:host ::ng-deep .best-practice-chip {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white !important;
+  font-weight: $font-weight-medium !important;
+  font-size: $font-size-xs !important;
+  border: none !important;
+
+  .p-chip-text {
+    color: white !important;
+  }
+}
+
+:host ::ng-deep .bad-example-chip {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  color: white !important;
+  font-weight: $font-weight-medium !important;
+  font-size: $font-size-xs !important;
+  border: none !important;
+
+  .p-chip-text {
+    color: white !important;
+  }
+}
+
 .example-header {
   font-weight: $font-weight-semibold;
   color: $color-gray-800;
@@ -26,6 +101,54 @@
   background: $color-gray-100;
   border-radius: $border-radius-lg;
   border: 1px solid $color-gray-300;
+  margin-bottom: $space-lg;
+}
+
+// Documentation card styling
+:host ::ng-deep .documentation-card {
+  .p-card {
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1) !important;
+    transition: all 0.3s ease !important;
+    background: $color-white !important;
+
+    &:hover {
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15) !important;
+      transform: translateY(-1px) !important;
+    }
+  }
+
+  .p-card-header {
+    background: linear-gradient(
+      135deg,
+      rgba(102, 126, 234, 0.05) 0%,
+      rgba(118, 75, 162, 0.05) 100%
+    ) !important;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.2) !important;
+    padding: $space-md $space-lg !important;
+    border-radius: $border-radius-lg $border-radius-lg 0 0 !important;
+  }
+
+  .p-card-body {
+    padding: $space-lg !important;
+    background: $color-white !important;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-gray-800;
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    i {
+      color: #667eea;
+      font-size: $font-size-base;
+    }
+  }
 }
 
 .example-code {
@@ -33,7 +156,7 @@
   border-radius: $border-radius-lg;
   overflow-x: auto;
   position: relative;
-  
+
   .code-header {
     display: flex;
     align-items: center;
@@ -41,7 +164,7 @@
     padding: $space-md $space-lg;
     background: rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid $color-gray-700;
-    
+
     .code-title {
       font-size: $font-size-sm;
       font-weight: $font-weight-medium;
@@ -49,33 +172,15 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
-    .copy-button {
-      :deep(.p-button) {
-        padding: $space-xs $space-sm;
-        color: $color-gray-400;
-        transition: all 0.2s ease;
-        
-        &:hover:not(:disabled) {
-          color: $color-primary;
-          background: rgba($color-primary, 0.1);
-        }
-        
-        &:disabled {
-          color: $color-green-400;
-          cursor: default;
-        }
-      }
-    }
   }
-  
+
   pre {
     margin: 0;
     background: none;
     padding: $space-lg;
     border: none;
     box-shadow: none;
-    
+
     code {
       background: none;
       color: $color-gray-100;
@@ -93,7 +198,7 @@
     border-radius: $border-radius-lg;
     overflow: hidden;
     box-shadow: $shadow-md;
-    
+
     .p-accordionheader {
       transition: all 0.2s ease;
       font-weight: $font-weight-medium;
@@ -101,26 +206,26 @@
       background: $color-white;
       border: 1px solid $color-gray-300;
       color: $color-gray-900;
-      
+
       &:hover {
         background: $color-gray-100;
       }
-      
+
       &:focus {
         box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.25);
       }
     }
-    
+
     .p-accordioncontent {
       background: $color-white;
       border: 1px solid $color-gray-300;
       border-top: none;
-      
+
       .p-accordioncontent-content {
         padding: $space-lg $space-xl;
       }
     }
-    
+
     &.p-accordionpanel-active {
       .p-accordionheader {
         background: $color-gray-200;
@@ -137,84 +242,147 @@
       color: $color-dark-text;
     }
   }
-  
+
   .example-header {
     color: $color-dark-text;
     border-bottom-color: $color-dark-border;
   }
-  
+
   .example-content {
     background: $color-dark-surface;
     border-color: $color-dark-border;
     color: $color-dark-text-secondary;
   }
-  
+
+  // Accordion header dark mode
+  .accordion-header {
+    .dialog-button {
+      :deep(.p-button) {
+        color: $color-dark-text-secondary;
+
+        &:hover {
+          background: rgba(102, 126, 234, 0.2);
+          color: #667eea;
+        }
+      }
+    }
+  }
+
+  // Documentation card dark mode - higher specificity
+  :host ::ng-deep .documentation-card {
+    .p-card {
+      background: $color-dark-surface !important;
+      border-color: rgba(102, 126, 234, 0.3) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+
+      &:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+      }
+    }
+
+    .p-card-body {
+      background: $color-dark-surface !important;
+      color: $color-dark-text-secondary;
+    }
+
+    .p-card-header {
+      background: linear-gradient(
+        135deg,
+        rgba(102, 126, 234, 0.1) 0%,
+        rgba(118, 75, 162, 0.1) 100%
+      ) !important;
+      border-bottom-color: rgba(102, 126, 234, 0.3) !important;
+    }
+
+    .card-header {
+      color: $color-dark-text;
+
+      i {
+        color: #667eea;
+      }
+    }
+  }
+
   .example-code {
     background: $color-dark-bg;
     border: 1px solid $color-dark-border;
-    
+
     .code-header {
       background: rgba(0, 0, 0, 0.4);
       border-bottom-color: $color-dark-border;
-      
+
       .code-title {
         color: $color-dark-text-secondary;
       }
-      
-      .copy-button {
-        :deep(.p-button) {
-          color: $color-dark-text-secondary;
-          
-          &:hover:not(:disabled) {
-            color: $color-primary;
-            background: rgba($color-primary, 0.2);
+    }
+  }
+
+  // PrimeNG accordion overrides
+  ::ng-deep .p-accordion {
+    .p-accordionheader {
+      .p-accordionheader-link {
+        padding: $space-md $space-lg;
+
+        &:hover {
+          .accordion-header .dialog-button {
+            opacity: 1;
           }
-          
-          &:disabled {
-            color: $color-green-400;
+
+          .p-accordionheader-toggle-icon {
+            color: $color-dark-text-secondary !important;
           }
         }
       }
     }
   }
-  
+
   // PrimeNG accordion dark mode overrides
   ::ng-deep .p-accordion {
     .p-accordionpanel {
       background: $color-dark-surface;
       border-color: $color-dark-border;
-      
+
       .p-accordionheader {
         background: $color-dark-surface;
         border-color: $color-dark-border;
         color: $color-dark-text;
-        
+
         &:hover {
           background: $color-dark-border;
           color: $color-dark-text;
+
+          .p-accordionheader-toggle-icon {
+            color: $color-dark-text-secondary !important;
+          }
         }
-        
+
         &:focus {
           background: $color-dark-border;
           color: $color-dark-text;
           box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.5);
         }
-        
+
         .p-accordionheader-toggle-icon {
           color: $color-dark-text-secondary;
         }
+
+        &:hover {
+          .p-accordionheader-toggle-icon {
+            color: $color-dark-text-secondary !important;
+          }
+        }
       }
-      
+
       .p-accordioncontent {
         background: $color-dark-surface;
         border-color: $color-dark-border;
         color: $color-dark-text-secondary;
-        
+
         .p-accordioncontent-content {
           background: $color-dark-bg;
         }
       }
-      
+
       &.p-accordionpanel-active {
         .p-accordionheader {
           background: $color-dark-border;
@@ -222,5 +390,22 @@
         }
       }
     }
+
+    // Dark mode chip styling - ensure chips remain visible
+    ::ng-deep .best-practice-chip {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+
+      .p-chip-text {
+        color: white !important;
+      }
+    }
+
+    ::ng-deep .bad-example-chip {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+
+      .p-chip-text {
+        color: white !important;
+      }
+    }
   }
-} 
+}

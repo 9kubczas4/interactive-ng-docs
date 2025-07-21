@@ -2,7 +2,21 @@
   <h4 class="mb-3">Live Examples</h4>
   <p-accordion [multiple]="true">
     @for (example of loadedExamplesComputed(); track example.title) {
-    <p-accordionTab [header]="example.title">
+    <p-accordionTab>
+      <ng-template pTemplate="header">
+        <div class="accordion-header">
+          <div class="header-left">
+            <span class="header-title">{{ example.title }}</span>
+            @if (example.category) {
+            <p-chip [label]="getCategoryLabel(example.category)" [styleClass]="getCategoryClass(example.category)"
+              class="category-chip" />
+            }
+          </div>
+          <p-button icon="pi pi-external-link" [text]="true" size="small" severity="secondary" class="dialog-button"
+            pTooltip="Open in Dialog" tooltipPosition="left" (click)="openExampleInDialog(example.title, $event)"
+            aria-label="Open example in dialog" />
+        </div>
+      </ng-template>
       <div class="example-container">
         <div class="example-header">
           {{ example.title }}
@@ -26,16 +40,10 @@
           }
         </div>
         @if (example.markdownContent) {
-        <div class="example-documentation">
-          <div class="docs-header">
-            <span class="docs-title">Documentation</span>
-            <p-button [icon]="copySuccess() ? 'pi pi-check' : 'pi pi-copy'" severity="secondary" size="small"
-              [text]="true" [disabled]="copySuccess()" (onClick)="copyMarkdown(example.markdownContent)"
-              [pTooltip]="copySuccess() ? 'Copied!' : 'Copy documentation'" tooltipPosition="left"
-              class="copy-button" />
-          </div>
-          <app-markdown-content [markdown]="example.markdownContent" />
-        </div>
+        <p-card styleClass="documentation-card">
+          <app-markdown-content [markdown]="example.markdownContent"
+            [headingPrefix]="'example-' + ($index + 1) + '-'" />
+        </p-card>
         }
       </div>
     </p-accordionTab>

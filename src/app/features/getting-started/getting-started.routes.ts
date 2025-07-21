@@ -21,6 +21,7 @@ export const gettingStartedRoutes: Routes = [
               m => m.WelcomeButtonExampleComponent
             ),
           markdownPath: 'docs/examples/getting-started/welcome-button.md',
+          category: 'best-practice',
         },
       ],
     },
