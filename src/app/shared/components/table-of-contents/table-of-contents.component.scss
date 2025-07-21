@@ -1,0 +1,284 @@
+@import '../../../../styles/variables';
+
+.toc-container {
+  position: fixed;
+  top: calc($header-height + 16px);
+  right: 24px;
+  z-index: 1100;
+}
+
+.toc-trigger {
+  position: relative;
+  display: inline-block;
+}
+
+:host ::ng-deep .toc-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--p-surface-border);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .p-button-icon {
+    font-size: 1.25rem;
+    color: var(--p-text-color);
+    margin: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+  .p-button-label {
+    display: none;
+  }
+}
+
+// ToC button brand color - match theme button
+:host ::ng-deep .toc-button .p-button-icon {
+  color: #667eea;
+}
+
+.toc-popover {
+  position: absolute;
+  top: 0;
+  right: 70px;
+  width: 320px;
+  max-height: 400px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  z-index: 1110;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.6) 0%, rgba(118, 75, 162, 0.6) 100%);
+  }
+}
+
+.toc-nav {
+  padding: $space-lg 0;
+  max-height: 360px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 2px;
+
+    &:hover {
+      background: rgba(102, 126, 234, 0.5);
+    }
+  }
+}
+
+.toc-item {
+  display: block;
+  padding: $space-sm $space-xl;
+  color: #4a5568;
+  text-decoration: none;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  position: relative;
+  line-height: 1.4;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(102, 126, 234, 0.08);
+    color: #667eea;
+    border-left-color: rgba(102, 126, 234, 0.4);
+    transform: translateX(2px);
+  }
+
+  &.active {
+    background: rgba(102, 126, 234, 0.12);
+    color: #667eea;
+    border-left-color: #667eea;
+    font-weight: $font-weight-semibold;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: $space-lg;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: #667eea;
+      border-radius: 50%;
+    }
+  }
+
+  // Heading level indentation
+  &.level-1 {
+    padding-left: $space-xl;
+    font-weight: $font-weight-semibold;
+  }
+
+  &.level-2 {
+    padding-left: calc($space-xl + $space-md);
+  }
+
+  &.level-3 {
+    padding-left: calc($space-xl + $space-lg);
+    font-size: $font-size-xs;
+  }
+
+  &.level-4,
+  &.level-5,
+  &.level-6 {
+    padding-left: calc($space-xl + $space-xl);
+    font-size: $font-size-xs;
+    opacity: 0.8;
+  }
+}
+
+.no-headings {
+  padding: $space-lg $space-xl;
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+  }
+}
+
+@media (max-width: 768px) {
+  .toc-container {
+    top: calc($header-height + 12px);
+    right: 16px;
+  }
+
+  :host ::ng-deep .toc-button {
+    width: 48px;
+    height: 48px;
+
+    .p-button-icon {
+      font-size: 1.1rem;
+    }
+  }
+
+  .toc-popover {
+    right: 60px;
+    width: 280px;
+    max-height: 300px;
+  }
+
+  .toc-nav {
+    padding: $space-md 0;
+    max-height: 280px;
+  }
+
+  .toc-item {
+    font-size: $font-size-xs;
+
+    &.level-3,
+    &.level-4,
+    &.level-5,
+    &.level-6 {
+      font-size: 11px;
+    }
+  }
+}
+
+// Dark mode styles - match floating buttons exactly
+:host-context(.dark-mode) {
+  ::ng-deep .toc-button {
+    background: rgba(45, 55, 72, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      background: rgba(45, 55, 72, 0.95);
+    }
+
+    .p-button-icon {
+      color: #667eea;
+    }
+  }
+
+  .toc-popover {
+    background: rgba(26, 32, 44, 0.95);
+    border-color: rgba(102, 126, 234, 0.3);
+
+    &::before {
+      background: linear-gradient(90deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+    }
+  }
+
+  .toc-nav {
+    &::-webkit-scrollbar-thumb {
+      background: rgba(102, 126, 234, 0.4);
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.6);
+      }
+    }
+  }
+
+  .toc-item {
+    color: #a0aec0;
+
+    &:hover {
+      background: rgba(102, 126, 234, 0.12);
+      color: #667eea;
+      border-left-color: rgba(102, 126, 234, 0.6);
+    }
+
+    &.active {
+      background: rgba(102, 126, 234, 0.18);
+      color: #667eea;
+      border-left-color: #667eea;
+
+      &::after {
+        background: #667eea;
+      }
+    }
+  }
+
+  .no-headings {
+    color: #9ca3af;
+  }
+}
