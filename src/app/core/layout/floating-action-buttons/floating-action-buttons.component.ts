@@ -15,6 +15,7 @@ import { ExampleDialogService } from '@shared/services/example-dialog.service';
 import { DOCUMENT } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-floating-action-buttons',
@@ -64,7 +65,7 @@ export class FloatingActionButtonsComponent implements OnInit, OnDestroy {
 
   readonly hasExamples = computed(() => this.hasExamplesSignal());
 
-  private routerSubscription?: any;
+  private routerSubscription?: Subscription;
 
   readonly themeIcon = computed(() => {
     const theme = this.currentTheme();

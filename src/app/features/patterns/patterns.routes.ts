@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { DocumentationPageComponent } from '@shared/components/documentation-page/documentation-page.component';
 import { documentationResolver } from '@core/resolvers/documentation.resolver';
 
-export const useCasesRoutes: Routes = [
+export const patternsRoutes: Routes = [
   {
     path: '',
     redirectTo: 'discard-changes',
@@ -16,16 +16,16 @@ export const useCasesRoutes: Routes = [
     },
     data: {
       title: 'Discard Changes Pattern',
-      markdownPath: 'docs/use-cases/discard-changes.md',
+      markdownPath: 'docs/patterns/discard-changes.md',
       examples: [
         {
           title: 'Basic Discard Pattern',
           description: 'Simple form with discard functionality',
           component: () =>
-            import('@features/use-cases/discard-changes/basic-discard-example.component').then(
+            import('@features/patterns/discard-changes/basic-discard-example.component').then(
               m => m.BasicDiscardExampleComponent
             ),
-          markdownPath: 'docs/examples/use-cases/basic-discard-pattern.md',
+          markdownPath: 'docs/examples/patterns/basic-discard-pattern.md',
           category: 'bad-example',
         },
         {
@@ -33,9 +33,9 @@ export const useCasesRoutes: Routes = [
           description: 'Discard with confirmation dialog',
           component: () =>
             import(
-              '@features/use-cases/discard-changes/confirmation-discard-example.component'
+              '@features/patterns/discard-changes/confirmation-discard-example.component'
             ).then(m => m.ConfirmationDiscardExampleComponent),
-          markdownPath: 'docs/examples/use-cases/confirmation-discard-pattern.md',
+          markdownPath: 'docs/examples/patterns/confirmation-discard-pattern.md',
           category: 'best-practice',
         },
       ],
@@ -49,7 +49,7 @@ export const useCasesRoutes: Routes = [
     },
     data: {
       title: 'Form Validation',
-      markdownPath: 'docs/use-cases/form-validation.md',
+      markdownPath: 'docs/patterns/form-validation.md',
       examples: [],
     },
   },
@@ -61,7 +61,7 @@ export const useCasesRoutes: Routes = [
     },
     data: {
       title: 'Data Loading Patterns',
-      markdownPath: 'docs/use-cases/data-loading.md',
+      markdownPath: 'docs/patterns/data-loading.md',
       examples: [],
     },
   },

@@ -12,8 +12,17 @@ export const appRoutes: Routes = [
       import('./features/getting-started/getting-started.routes').then(r => r.gettingStartedRoutes),
   },
   {
-    path: 'use-cases',
-    loadChildren: () => import('./features/use-cases/use-cases.routes').then(r => r.useCasesRoutes),
+    path: 'patterns',
+    loadChildren: () => import('./features/patterns/patterns.routes').then(r => r.patternsRoutes),
+  },
+  {
+    path: 'best-practices',
+    loadChildren: () =>
+      import('./features/best-practices/best-practices.routes').then(r => r.bestPracticesRoutes),
+  },
+  {
+    path: 'a11y',
+    loadChildren: () => import('./features/a11y/a11y.routes').then(r => r.a11yRoutes),
   },
   {
     path: '**',

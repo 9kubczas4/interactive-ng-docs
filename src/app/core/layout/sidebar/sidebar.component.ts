@@ -22,24 +22,68 @@ export class SidebarComponent {
       routerLink: '/getting-started',
     },
     {
-      label: 'Use Cases',
+      label: 'Patterns',
       icon: 'pi pi-fw pi-bookmark',
       expanded: true,
       items: [
         {
           label: 'Discard Changes',
           icon: 'pi pi-fw pi-undo',
-          routerLink: '/use-cases/discard-changes',
+          routerLink: '/patterns/discard-changes',
         },
         {
           label: 'Form Validation',
           icon: 'pi pi-fw pi-check-circle',
-          routerLink: '/use-cases/form-validation',
+          routerLink: '/patterns/form-validation',
         },
         {
           label: 'Data Loading',
           icon: 'pi pi-fw pi-spinner',
-          routerLink: '/use-cases/data-loading',
+          routerLink: '/patterns/data-loading',
+        },
+      ],
+    },
+    {
+      label: 'Best Practices',
+      icon: 'pi pi-fw pi-star',
+      expanded: false,
+      items: [
+        {
+          label: 'Clean Code',
+          icon: 'pi pi-fw pi-code',
+          routerLink: '/best-practices/clean-code',
+        },
+        {
+          label: 'Component Architecture',
+          icon: 'pi pi-fw pi-sitemap',
+          routerLink: '/best-practices/component-architecture',
+        },
+        {
+          label: 'Performance',
+          icon: 'pi pi-fw pi-bolt',
+          routerLink: '/best-practices/performance',
+        },
+      ],
+    },
+    {
+      label: 'Accessibility',
+      icon: 'pi pi-fw pi-eye',
+      expanded: false,
+      items: [
+        {
+          label: 'Introduction',
+          icon: 'pi pi-fw pi-info-circle',
+          routerLink: '/a11y/introduction',
+        },
+        {
+          label: 'WCAG Guidelines',
+          icon: 'pi pi-fw pi-list',
+          routerLink: '/a11y/wcag-guidelines',
+        },
+        {
+          label: 'Testing',
+          icon: 'pi pi-fw pi-shield',
+          routerLink: '/a11y/testing',
         },
       ],
     },

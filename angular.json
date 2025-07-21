@@ -34,7 +34,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": false
           },
           "configurations": {
             "production": {
@@ -46,8 +49,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "12kb"
                 }
               ],
               "outputHashing": "all"
@@ -96,17 +99,6 @@
             ],
             "scripts": []
           }
-        },
-        "prerender": {
-          "builder": "@angular-devkit/build-angular:prerender",
-          "options": {
-            "routes": [
-              "/",
-              "/getting-started",
-              "/components",
-              "/use-cases"
-            ]
-          }
         }
       }
     }
@@ -114,4 +106,4 @@
   "cli": {
     "analytics": false
   }
-} 
+}

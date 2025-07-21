@@ -6,8 +6,9 @@ import {
   OnInit,
   OnDestroy,
   effect,
+  PLATFORM_ID,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
@@ -40,6 +41,7 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
   private readonly document = inject(DOCUMENT);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly platformId = inject(PLATFORM_ID);
 
   readonly headings = signal<HeadingInfo[]>([]);
   readonly showToC = signal<boolean>(false);
@@ -61,19 +63,25 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Set up intersection observer for active heading detection
-    this.setupIntersectionObserver();
+    // Only set up browser-specific features in browser environment
+    if (isPlatformBrowser(this.platformId)) {
+      // Set up intersection observer for active heading detection
+      this.setupIntersectionObserver();
 
-    // Set up scroll listener for active heading detection (fallback)
-    this.setupScrollListener();
+      // Set up scroll listener for active heading detection (fallback)
+      this.setupScrollListener();
+    }
   }
 
   ngOnDestroy() {
-    if (this.scrollListener) {
-      this.document.removeEventListener('scroll', this.scrollListener);
-    }
-    if (this.observer) {
-      this.observer.disconnect();
+    // Only clean up browser-specific features in browser environment
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.scrollListener) {
+        this.document.removeEventListener('scroll', this.scrollListener);
+      }
+      if (this.observer) {
+        this.observer.disconnect();
+      }
     }
   }
 
@@ -135,18 +143,20 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
 
     this.headings.set(headings);
 
-    // Update intersection observer
-    if (this.observer) {
-      this.observer.disconnect();
-    }
-    this.setupIntersectionObserver();
-
-    // Trigger initial active heading detection
-    setTimeout(() => {
-      if (this.scrollListener) {
-        this.scrollListener();
+    // Update intersection observer (only in browser)
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.observer) {
+        this.observer.disconnect();
       }
-    }, SCROLL_DETECTION_DELAY);
+      this.setupIntersectionObserver();
+
+      // Trigger initial active heading detection
+      setTimeout(() => {
+        if (this.scrollListener) {
+          this.scrollListener();
+        }
+      }, SCROLL_DETECTION_DELAY);
+    }
   }
 
   private generateId(text: string): string {
@@ -159,6 +169,11 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
   }
 
   private setupIntersectionObserver() {
+    // Only set up IntersectionObserver in browser environment
+    if (!isPlatformBrowser(this.platformId) || typeof IntersectionObserver === 'undefined') {
+      return;
+    }
+
     const headingElements = this.headings().map(h => h.element);
     if (headingElements.length === 0) return;
 
@@ -191,6 +206,11 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
   }
 
   private setupScrollListener() {
+    // Only set up scroll listener in browser environment
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     this.scrollListener = () => {
       const currentHeadings = this.headings();
       if (currentHeadings.length === 0) return;
@@ -239,21 +259,23 @@ export class TableOfContentsComponent implements OnInit, OnDestroy {
       queryParamsHandling: 'preserve',
     });
 
-    // Scroll to element
-    const element = this.document.getElementById(headingId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
+    // Scroll to element (only in browser)
+    if (isPlatformBrowser(this.platformId)) {
+      const element = this.document.getElementById(headingId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
 
-    // Hide ToC after navigation on mobile
-    if (
-      this.document.defaultView?.innerWidth &&
-      this.document.defaultView.innerWidth <= TOC_MOBILE_BREAKPOINT
-    ) {
-      this.showToC.set(false);
+      // Hide ToC after navigation on mobile
+      if (
+        this.document.defaultView?.innerWidth &&
+        this.document.defaultView.innerWidth <= TOC_MOBILE_BREAKPOINT
+      ) {
+        this.showToC.set(false);
+      }
     }
   }
 }
