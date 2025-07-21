@@ -1,23 +1,45 @@
-@import "../../../../styles/variables";
+@import '../../../../styles/variables';
+
+// Component-specific variables
+$header-bg-light: rgba($color-white, 0.85);
+$header-bg-dark: rgba($color-dark-surface, 0.85);
+$header-border-light: rgba($color-white, 0.2);
+$header-border-dark: rgba($color-white, 0.1);
+$header-shadow-light: 0 8px 32px rgba(0, 0, 0, 0.1);
+$header-shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.3);
+$header-blur: 20px;
+$header-blur-mobile: 15px;
+$header-blur-hover: 10px;
+$header-transition: all 0.3s ease;
+
+// Glass morphism effect variables
+$glass-overlay-light: rgba($color-white, 0.1);
+$glass-overlay-light-subtle: rgba($color-white, 0.05);
+$glass-overlay-dark: rgba($color-white, 0.05);
+$glass-overlay-dark-subtle: rgba($color-white, 0.02);
+$glass-top-line-light: rgba($color-white, 0.3);
+$glass-top-line-dark: rgba($color-white, 0.1);
+$glass-hover-bg-light: rgba($color-white, 0.1);
+$glass-hover-bg-dark: rgba($color-white, 0.05);
 
 :host {
   width: 100vw;
   height: $header-height;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: $header-bg-light;
+  backdrop-filter: blur($header-blur);
+  -webkit-backdrop-filter: blur($header-blur);
+  border-bottom: 1px solid $header-border-light;
   display: flex;
   align-items: center;
   padding: 0 $space-2xl;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: $header-shadow-light;
   position: fixed;
   top: 0;
   left: 0;
   z-index: $z-index-header;
   flex-shrink: 0;
-  transition: all 0.3s ease;
-  
+  transition: $header-transition;
+
   &::before {
     content: '';
     position: absolute;
@@ -25,12 +47,10 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.1) 0%, 
-      rgba(255, 255, 255, 0.05) 100%);
+    background: linear-gradient(135deg, $glass-overlay-light 0%, $glass-overlay-light-subtle 100%);
     pointer-events: none;
   }
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -38,11 +58,13 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(255, 255, 255, 0.3) 20%, 
-      rgba(255, 255, 255, 0.3) 80%, 
-      transparent 100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      $glass-top-line-light 20%,
+      $glass-top-line-light 80%,
+      transparent 100%
+    );
     pointer-events: none;
   }
 }
@@ -64,18 +86,18 @@
 }
 
 :host ::ng-deep .hamburger-button {
-  transition: all 0.3s ease;
-  
+  transition: $header-transition;
+
   .p-button-icon {
     font-size: $font-size-lg;
     color: $color-gray-600;
   }
-  
+
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    
+    background: $glass-hover-bg-light;
+    backdrop-filter: blur($header-blur-hover);
+    -webkit-backdrop-filter: blur($header-blur-hover);
+
     .p-button-icon {
       color: $color-primary;
     }
@@ -114,34 +136,34 @@
 }
 
 :host ::ng-deep .github-button {
-  transition: all 0.3s ease;
-  
+  transition: $header-transition;
+
   .p-button-label {
     font-weight: $font-weight-medium;
   }
-  
+
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: $glass-hover-bg-light;
+    backdrop-filter: blur($header-blur-hover);
+    -webkit-backdrop-filter: blur($header-blur-hover);
   }
 }
 
 @media (max-width: $breakpoint-md) {
   :host {
     padding: 0 $space-lg;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur($header-blur-mobile);
+    -webkit-backdrop-filter: blur($header-blur-mobile);
   }
-  
+
   .header-left {
     gap: $space-md;
   }
-  
+
   .logo-title {
     font-size: $font-size-xl;
   }
-  
+
   .logo-icon {
     font-size: $font-size-2xl;
   }
@@ -149,60 +171,60 @@
 
 // Dark mode styles
 :host-context(.dark-mode) {
-  background: rgba(45, 55, 72, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  
+  background: $header-bg-dark;
+  backdrop-filter: blur($header-blur);
+  -webkit-backdrop-filter: blur($header-blur);
+  border-bottom: 1px solid $header-border-dark;
+  box-shadow: $header-shadow-dark;
+
   &::before {
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.05) 0%, 
-      rgba(255, 255, 255, 0.02) 100%);
+    background: linear-gradient(135deg, $glass-overlay-dark 0%, $glass-overlay-dark-subtle 100%);
   }
-  
+
   &::after {
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(255, 255, 255, 0.1) 20%, 
-      rgba(255, 255, 255, 0.1) 80%, 
-      transparent 100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      $glass-top-line-dark 20%,
+      $glass-top-line-dark 80%,
+      transparent 100%
+    );
   }
-  
+
   ::ng-deep .hamburger-button {
     .p-button-icon {
       color: $color-dark-text-secondary;
     }
-    
+
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      
+      background: $glass-hover-bg-dark;
+      backdrop-filter: blur($header-blur-hover);
+      -webkit-backdrop-filter: blur($header-blur-hover);
+
       .p-button-icon {
         color: $color-primary;
       }
     }
   }
-  
+
   ::ng-deep .github-button {
     .p-button-icon {
       color: $color-dark-text-secondary;
     }
-    
+
     .p-button-label {
       color: $color-dark-text;
     }
-    
+
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      
+      background: $glass-hover-bg-dark;
+      backdrop-filter: blur($header-blur-hover);
+      -webkit-backdrop-filter: blur($header-blur-hover);
+
       .p-button-icon,
       .p-button-label {
         color: $color-primary;
       }
     }
   }
-} 
+}
