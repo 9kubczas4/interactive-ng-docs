@@ -1,4 +1,4 @@
-@import "../../../../styles/variables";
+@import '../../../../styles/variables';
 
 .example-sidebar {
   h4 {
@@ -33,7 +33,7 @@
   border-radius: $border-radius-lg;
   overflow-x: auto;
   position: relative;
-  
+
   .code-header {
     display: flex;
     align-items: center;
@@ -41,7 +41,7 @@
     padding: $space-md $space-lg;
     background: rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid $color-gray-700;
-    
+
     .code-title {
       font-size: $font-size-sm;
       font-weight: $font-weight-medium;
@@ -49,33 +49,15 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
-    .copy-button {
-      :deep(.p-button) {
-        padding: $space-xs $space-sm;
-        color: $color-gray-400;
-        transition: all 0.2s ease;
-        
-        &:hover:not(:disabled) {
-          color: $color-primary;
-          background: rgba($color-primary, 0.1);
-        }
-        
-        &:disabled {
-          color: $color-green-400;
-          cursor: default;
-        }
-      }
-    }
   }
-  
+
   pre {
     margin: 0;
     background: none;
     padding: $space-lg;
     border: none;
     box-shadow: none;
-    
+
     code {
       background: none;
       color: $color-gray-100;
@@ -93,7 +75,7 @@
     border-radius: $border-radius-lg;
     overflow: hidden;
     box-shadow: $shadow-md;
-    
+
     .p-accordionheader {
       transition: all 0.2s ease;
       font-weight: $font-weight-medium;
@@ -101,26 +83,26 @@
       background: $color-white;
       border: 1px solid $color-gray-300;
       color: $color-gray-900;
-      
+
       &:hover {
         background: $color-gray-100;
       }
-      
+
       &:focus {
         box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.25);
       }
     }
-    
+
     .p-accordioncontent {
       background: $color-white;
       border: 1px solid $color-gray-300;
       border-top: none;
-      
+
       .p-accordioncontent-content {
         padding: $space-lg $space-xl;
       }
     }
-    
+
     &.p-accordionpanel-active {
       .p-accordionheader {
         background: $color-gray-200;
@@ -137,84 +119,69 @@
       color: $color-dark-text;
     }
   }
-  
+
   .example-header {
     color: $color-dark-text;
     border-bottom-color: $color-dark-border;
   }
-  
+
   .example-content {
     background: $color-dark-surface;
     border-color: $color-dark-border;
     color: $color-dark-text-secondary;
   }
-  
+
   .example-code {
     background: $color-dark-bg;
     border: 1px solid $color-dark-border;
-    
+
     .code-header {
       background: rgba(0, 0, 0, 0.4);
       border-bottom-color: $color-dark-border;
-      
+
       .code-title {
         color: $color-dark-text-secondary;
       }
-      
-      .copy-button {
-        :deep(.p-button) {
-          color: $color-dark-text-secondary;
-          
-          &:hover:not(:disabled) {
-            color: $color-primary;
-            background: rgba($color-primary, 0.2);
-          }
-          
-          &:disabled {
-            color: $color-green-400;
-          }
-        }
-      }
     }
   }
-  
+
   // PrimeNG accordion dark mode overrides
   ::ng-deep .p-accordion {
     .p-accordionpanel {
       background: $color-dark-surface;
       border-color: $color-dark-border;
-      
+
       .p-accordionheader {
         background: $color-dark-surface;
         border-color: $color-dark-border;
         color: $color-dark-text;
-        
+
         &:hover {
           background: $color-dark-border;
           color: $color-dark-text;
         }
-        
+
         &:focus {
           background: $color-dark-border;
           color: $color-dark-text;
           box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.5);
         }
-        
+
         .p-accordionheader-toggle-icon {
           color: $color-dark-text-secondary;
         }
       }
-      
+
       .p-accordioncontent {
         background: $color-dark-surface;
         border-color: $color-dark-border;
         color: $color-dark-text-secondary;
-        
+
         .p-accordioncontent-content {
           background: $color-dark-bg;
         }
       }
-      
+
       &.p-accordionpanel-active {
         .p-accordionheader {
           background: $color-dark-border;
@@ -223,4 +190,4 @@
       }
     }
   }
-} 
+}

@@ -11,9 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
-import { Clipboard } from '@angular/cdk/clipboard';
+
 import { MarkdownService } from '@shared/services/markdown.service';
 import { MarkdownContentComponent } from '@shared/components/markdown-content/markdown-content.component';
 
@@ -38,21 +36,12 @@ interface LoadedExampleItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './example-sidebar.component.html',
   styleUrls: ['./example-sidebar.component.scss'],
-  imports: [
-    CommonModule,
-    AccordionModule,
-    CardModule,
-    ButtonModule,
-    TooltipModule,
-    MarkdownContentComponent,
-  ],
+  imports: [CommonModule, AccordionModule, CardModule, MarkdownContentComponent],
 })
 export class ExampleSidebarComponent {
-  private readonly clipboard = inject(Clipboard);
   private readonly markdownService = inject(MarkdownService);
 
   readonly examples = input<ExampleItem[]>([]);
-  readonly copySuccess = signal(false);
   private readonly loadedExamples = signal<LoadedExampleItem[]>([]);
 
   readonly loadedExamplesComputed = computed(() => this.loadedExamples());
@@ -122,13 +111,5 @@ export class ExampleSidebarComponent {
         }
       }
     });
-  }
-
-  copyMarkdown(markdown: string): void {
-    const success = this.clipboard.copy(markdown);
-    if (success) {
-      this.copySuccess.set(true);
-      setTimeout(() => this.copySuccess.set(false), 2000);
-    }
   }
 }

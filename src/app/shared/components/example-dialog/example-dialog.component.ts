@@ -16,7 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
-import { Clipboard } from '@angular/cdk/clipboard';
+
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
 import { MarkdownService } from '@shared/services/markdown.service';
 import { MarkdownContentComponent } from '@shared/components/markdown-content/markdown-content.component';
@@ -49,14 +49,14 @@ export class ExampleDialogComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly dialogService = inject(ExampleDialogService);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly clipboard = inject(Clipboard);
+
   private readonly markdownService = inject(MarkdownService);
 
   readonly isVisible = signal(false);
   readonly currentExample = signal<LoadedExampleItem | null>(null);
   readonly currentExampleIndex = signal(0);
   readonly dialogTitle = signal('Interactive Example');
-  readonly copySuccess = signal(false);
+
   private readonly loadedExamples = signal<LoadedExampleItem[]>([]);
 
   readonly availableExamples = computed(() => this.loadedExamples());
@@ -185,14 +185,6 @@ export class ExampleDialogComponent implements OnInit {
     this.currentExample.set(null);
     this.currentExampleIndex.set(0);
     this.dialogService.closeExample();
-  }
-
-  copyMarkdown(markdown: string): void {
-    const success = this.clipboard.copy(markdown);
-    if (success) {
-      this.copySuccess.set(true);
-      setTimeout(() => this.copySuccess.set(false), 2000);
-    }
   }
 
   private getExampleId(title: string): string {

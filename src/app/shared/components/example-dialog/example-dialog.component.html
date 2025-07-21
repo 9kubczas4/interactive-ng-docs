@@ -61,12 +61,6 @@
 
       @if (currentExample()?.markdownContent) {
       <div class="example-documentation">
-        <div class="docs-header">
-          <h4>Documentation</h4>
-          <p-button [icon]="copySuccess() ? 'pi pi-check' : 'pi pi-copy'" severity="secondary" size="small"
-            [text]="true" [disabled]="copySuccess()" (onClick)="copyMarkdown(currentExample()?.markdownContent || '')"
-            [pTooltip]="copySuccess() ? 'Copied!' : 'Copy documentation'" tooltipPosition="left" class="copy-button" />
-        </div>
         <app-markdown-content [markdown]="currentExample()?.markdownContent || ''"
           [headingPrefix]="'example-' + (currentExampleIndex() + 1) + '-'" />
       </div>
