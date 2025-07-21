@@ -181,3 +181,84 @@ $hljs-dark-attribute: #d19a66;
 $hljs-dark-symbol: #61afef;
 $hljs-dark-builtin: #e06c75;
 $hljs-dark-formula-bg: #3e4451;
+
+// Table of Contents variables (shared with other floating components)
+// ===================================================================
+
+// ToC container positioning
+$toc-container-offset: 16px;
+$toc-container-offset-mobile: 12px;
+$toc-container-right: 24px;
+$toc-container-right-mobile: 16px;
+$toc-container-z-index: 1100;
+
+// ToC button styling (can be shared with other floating buttons)
+$toc-button-size: 56px;
+$toc-button-size-mobile: 48px;
+$toc-button-icon-size: 1.25rem;
+$toc-button-icon-size-mobile: 1.1rem;
+$toc-button-bg-light: rgba(255, 255, 255, 0.9);
+$toc-button-bg-dark: rgba(45, 55, 72, 0.9);
+$toc-button-bg-hover-dark: rgba(45, 55, 72, 0.95);
+$toc-button-border-light: var(--p-surface-border);
+$toc-button-border-dark: rgba(255, 255, 255, 0.1);
+$toc-button-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+$toc-button-shadow-hover: 0 6px 25px rgba(0, 0, 0, 0.2);
+$toc-button-backdrop-blur: blur(10px);
+$toc-button-transform-hover: translateY(-2px);
+$toc-button-transition: all 0.3s ease;
+
+// ToC popover styling
+$toc-popover-width: 320px;
+$toc-popover-width-mobile: 280px;
+$toc-popover-max-height: 400px;
+$toc-popover-max-height-mobile: 300px;
+$toc-popover-right-offset: 70px;
+$toc-popover-right-offset-mobile: 60px;
+$toc-popover-bg-light: rgba(255, 255, 255, 0.95);
+$toc-popover-bg-dark: rgba(26, 32, 44, 0.95);
+$toc-popover-backdrop-blur: blur(20px);
+$toc-popover-border-light: rgba($color-primary, 0.2);
+$toc-popover-border-dark: rgba($color-primary, 0.3);
+$toc-popover-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+$toc-popover-transform: translateX(10px);
+$toc-popover-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$toc-popover-z-index: 1110;
+
+// ToC navigation styling
+$toc-nav-max-height: 360px;
+$toc-nav-max-height-mobile: 280px;
+$toc-nav-scrollbar-width: 4px;
+$toc-nav-scrollbar-thumb: rgba($color-primary, 0.3);
+$toc-nav-scrollbar-thumb-hover: rgba($color-primary, 0.5);
+$toc-nav-scrollbar-thumb-dark: rgba($color-primary, 0.4);
+$toc-nav-scrollbar-thumb-hover-dark: rgba($color-primary, 0.6);
+
+// ToC item styling
+$toc-item-color-light: #4a5568;
+$toc-item-color-dark: #a0aec0;
+$toc-item-color-muted: #6b7280;
+$toc-item-color-muted-dark: #9ca3af;
+$toc-item-hover-bg-light: rgba($color-primary, 0.08);
+$toc-item-hover-bg-dark: rgba($color-primary, 0.12);
+$toc-item-active-bg-light: rgba($color-primary, 0.12);
+$toc-item-active-bg-dark: rgba($color-primary, 0.18);
+$toc-item-border-hover: rgba($color-primary, 0.4);
+$toc-item-border-hover-dark: rgba($color-primary, 0.6);
+$toc-item-transform-hover: translateX(2px);
+$toc-item-transition: all 0.2s ease;
+$toc-item-border-width: 3px;
+$toc-item-line-height: 1.4;
+
+// ToC active indicator
+$toc-active-dot-size: 6px;
+$toc-active-dot-color: $color-primary;
+
+// ToC level indentation (component-specific)
+$toc-level-2-indent: calc($space-xl + $space-md);
+$toc-level-3-indent: calc($space-xl + $space-lg);
+$toc-level-456-indent: calc($space-xl + $space-xl);
+
+// ToC intersection observer settings (for TypeScript usage)
+$toc-header-offset-px: 84; // Header height + padding for intersection observer
+$toc-scroll-threshold: 20; // Additional offset for scroll detection
