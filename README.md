@@ -22,8 +22,9 @@ src/
 │   └── services/   # Markdown service, etc.
 ├── features/       # Lazy-loaded pages with use cases
 │   ├── getting-started/
-│   ├── components/
-│   └── use-cases/
+│   ├── patterns/
+│   ├── best-practices/
+│   └── a11y/
 └── shared/         # Shared components, directives, utilities
     └── components/
 ```
@@ -47,6 +48,7 @@ src/
 ### Development Server
 
 Run the development server:
+
 ```bash
 npm start
 ```
@@ -56,6 +58,7 @@ Navigate to `http://localhost:4200`. The application will automatically reload i
 ### Build
 
 Build the project:
+
 ```bash
 npm run build
 ```
@@ -63,6 +66,7 @@ npm run build
 ### Static Site Generation
 
 Generate a static version of the site:
+
 ```bash
 npm run prerender
 ```

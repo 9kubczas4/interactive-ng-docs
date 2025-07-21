@@ -1,80 +1,123 @@
-<p-dialog [visible]="isVisible()" [modal]="true" [closable]="false" [draggable]="false" [resizable]="false"
-  [maximizable]="false" [style]="dialogStyle" [contentStyle]="dialogContentStyle" [baseZIndex]="dialogZIndex"
-  (onHide)="closeDialog()" styleClass="example-dialog fullscreen-dialog">
+<p-dialog
+  [visible]="isVisible()"
+  [modal]="true"
+  [closable]="false"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="false"
+  [style]="dialogStyle"
+  [contentStyle]="dialogContentStyle"
+  [baseZIndex]="dialogZIndex"
+  (onHide)="closeDialog()"
+  styleClass="example-dialog fullscreen-dialog"
+>
   <ng-template pTemplate="header">
     <div class="custom-header">
       <div class="header-title">
         <h2>{{ dialogTitle() }}</h2>
         @if (availableExamples().length > 1) {
-        <span class="example-counter">{{ currentExampleIndex() + 1 }} of {{ availableExamples().length }}</span>
+          <span class="example-counter"
+            >{{ currentExampleIndex() + 1 }} of {{ availableExamples().length }}</span
+          >
         }
       </div>
 
       @if (availableExamples().length > 1) {
-      <div class="header-navigation">
-        <p-button icon="pi pi-chevron-left" severity="secondary" size="small" [text]="true"
-          [disabled]="currentExampleIndex() === 0" (onClick)="navigateToPrevious()" pTooltip="Previous example"
-          tooltipPosition="bottom" class="nav-button" />
-        <span class="nav-counter">{{ currentExampleIndex() + 1 }} / {{ availableExamples().length }}</span>
-        <p-button icon="pi pi-chevron-right" severity="secondary" size="small" [text]="true"
-          [disabled]="currentExampleIndex() === availableExamples().length - 1" (onClick)="navigateToNext()"
-          pTooltip="Next example" tooltipPosition="bottom" class="nav-button" />
-      </div>
+        <div class="header-navigation">
+          <p-button
+            icon="pi pi-chevron-left"
+            severity="secondary"
+            size="small"
+            [text]="true"
+            [disabled]="currentExampleIndex() === 0"
+            (onClick)="navigateToPrevious()"
+            pTooltip="Previous example"
+            tooltipPosition="bottom"
+            class="nav-button"
+          />
+          <span class="nav-counter"
+            >{{ currentExampleIndex() + 1 }} / {{ availableExamples().length }}</span
+          >
+          <p-button
+            icon="pi pi-chevron-right"
+            severity="secondary"
+            size="small"
+            [text]="true"
+            [disabled]="currentExampleIndex() === availableExamples().length - 1"
+            (onClick)="navigateToNext()"
+            pTooltip="Next example"
+            tooltipPosition="bottom"
+            class="nav-button"
+          />
+        </div>
       }
 
       <div class="header-actions">
-        <p-button icon="pi pi-times" severity="secondary" size="small" [text]="true" (onClick)="closeDialog()"
-          pTooltip="Close dialog" tooltipPosition="bottom" class="close-button" />
+        <p-button
+          icon="pi pi-times"
+          severity="secondary"
+          size="small"
+          [text]="true"
+          (onClick)="closeDialog()"
+          pTooltip="Close dialog"
+          tooltipPosition="bottom"
+          class="close-button"
+        />
       </div>
     </div>
   </ng-template>
 
   <div class="dialog-content">
     @if (currentExample()) {
-    <div class="example-display">
-      <div class="example-header">
-        <div class="example-title-section">
-          <h3>{{ currentExample()?.title }}</h3>
-          @if (currentExample()?.category) {
-          <p-chip [label]="getCategoryLabel(currentExample()?.category)"
-            [styleClass]="getCategoryClass(currentExample()?.category)" class="category-chip" />
+      <div class="example-display">
+        <div class="example-header">
+          <div class="example-title-section">
+            <h3>{{ currentExample()?.title }}</h3>
+            @if (currentExample()?.category) {
+              <p-chip
+                [label]="getCategoryLabel(currentExample()?.category)"
+                [styleClass]="getCategoryClass(currentExample()?.category)"
+                class="category-chip"
+              />
+            }
+          </div>
+          @if (currentExample()?.description) {
+            <p class="example-description">{{ currentExample()?.description }}</p>
           }
         </div>
-        @if (currentExample()?.description) {
-        <p class="example-description">{{ currentExample()?.description }}</p>
+
+        <div class="example-demo">
+          <h4>Live Demo</h4>
+          <div class="demo-container">
+            @if (currentExample()?.loading) {
+              <div class="loading-state">
+                <i class="pi pi-spin pi-spinner"></i>
+                <span class="ml-2">Loading component...</span>
+              </div>
+            } @else if (currentExample()?.component) {
+              <ng-container [ngComponentOutlet]="currentExample()?.component ?? null" />
+            } @else {
+              <div class="error-state">
+                <i class="pi pi-exclamation-triangle text-orange-500"></i>
+                <span class="ml-2 text-orange-600">Failed to load component</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        @if (currentExample()?.markdownContent) {
+          <p-card styleClass="documentation-card">
+            <app-markdown-content
+              [markdown]="currentExample()?.markdownContent || ''"
+              [headingPrefix]="'example-' + (currentExampleIndex() + 1) + '-'"
+            />
+          </p-card>
         }
       </div>
-
-      <div class="example-demo">
-        <h4>Live Demo</h4>
-        <div class="demo-container">
-          @if (currentExample()?.loading) {
-          <div class="loading-state">
-            <i class="pi pi-spin pi-spinner"></i>
-            <span class="ml-2">Loading component...</span>
-          </div>
-          } @else if (currentExample()?.component) {
-          <ng-container [ngComponentOutlet]="currentExample()?.component ?? null" />
-          } @else {
-          <div class="error-state">
-            <i class="pi pi-exclamation-triangle text-orange-500"></i>
-            <span class="ml-2 text-orange-600">Failed to load component</span>
-          </div>
-          }
-        </div>
-      </div>
-
-      @if (currentExample()?.markdownContent) {
-      <p-card styleClass="documentation-card">
-        <app-markdown-content [markdown]="currentExample()?.markdownContent || ''"
-          [headingPrefix]="'example-' + (currentExampleIndex() + 1) + '-'" />
-      </p-card>
-      }
-    </div>
     } @else {
-    <div class="no-example">
-      <p>Example not found</p>
-    </div>
+      <div class="no-example">
+        <p>Example not found</p>
+      </div>
     }
   </div>
 </p-dialog>

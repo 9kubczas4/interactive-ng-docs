@@ -104,7 +104,9 @@
               "/",
               "/getting-started",
               "/components",
-              "/use-cases"
+              "/patterns",
+              "/best-practices",
+              "/a11y"
             ]
           }
         }
@@ -114,4 +116,4 @@
   "cli": {
     "analytics": false
   }
-} 
+}
