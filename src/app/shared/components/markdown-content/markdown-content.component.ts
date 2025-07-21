@@ -9,6 +9,7 @@ import {
   effect,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MarkdownService } from '@shared/services/markdown.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import hljs from 'highlight.js';
@@ -26,8 +27,11 @@ export class MarkdownContentComponent implements AfterViewInit {
   private readonly clipboard = inject(Clipboard);
   private readonly elementRef = inject(ElementRef);
   private readonly document = inject(DOCUMENT);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   markdown = input<string>('');
+  headingPrefix = input<string>(''); // For examples: 'example-1-', 'example-2-', etc.
 
   private htmlContent = computed(() => {
     const markdownText = this.markdown();
@@ -36,24 +40,37 @@ export class MarkdownContentComponent implements AfterViewInit {
 
   sanitizedHtml = computed(() => {
     const html = this.htmlContent();
-    const processedHtml = this.addCopyButtonsToCodeBlocks(html);
+    let processedHtml = this.addCopyButtonsToCodeBlocks(html);
+    processedHtml = this.makeHeadingsRoutable(processedHtml);
     return this.sanitizer.bypassSecurityTrustHtml(processedHtml);
   });
 
   constructor() {
-    // Watch for markdown changes and re-add copy listeners
+    // Watch for markdown changes and re-add copy listeners + heading listeners
     effect(() => {
       const content = this.markdown();
       if (content) {
         // Use setTimeout to ensure DOM is updated after content changes
-        setTimeout(() => this.addCopyListeners(), 100);
+        setTimeout(() => {
+          this.addCopyListeners();
+          this.addHeadingListeners();
+        }, 100);
       }
     });
   }
 
   ngAfterViewInit() {
-    // Add click listeners to copy buttons after view is initialized
+    // Add click listeners to copy buttons and headings after view is initialized
     this.addCopyListeners();
+    this.addHeadingListeners();
+
+    // Handle initial fragment from URL after page reload
+    setTimeout(() => {
+      const fragment = this.route.snapshot.fragment;
+      if (fragment) {
+        this.scrollToHeading(fragment);
+      }
+    }, 200);
   }
 
   private addCopyButtonsToCodeBlocks(html: string): string {
@@ -167,5 +184,72 @@ export class MarkdownContentComponent implements AfterViewInit {
     const div = this.document.createElement('div');
     div.innerHTML = html;
     return div.textContent || div.innerText || '';
+  }
+
+  private makeHeadingsRoutable(html: string): string {
+    const prefix = this.headingPrefix();
+
+    // Add IDs and click handlers to headings
+    return html.replace(
+      /<h([1-6])([^>]*)>(.*?)<\/h[1-6]>/g,
+      (match, level, attributes, content) => {
+        // Generate ID from heading text
+        const headingText = content.replace(/<[^>]*>/g, '').trim(); // Remove HTML tags
+        const baseId = this.generateHeadingId(headingText);
+        const id = prefix ? `${prefix}${baseId}` : baseId;
+
+        return `<h${level}${attributes} id="${id}" class="routable-heading" data-heading-id="${id}">${content}</h${level}>`;
+      }
+    );
+  }
+
+  private generateHeadingId(text: string): string {
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+      .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+  }
+
+  private addHeadingListeners() {
+    setTimeout(() => {
+      const headings = this.elementRef.nativeElement.querySelectorAll('.routable-heading');
+      headings.forEach((heading: HTMLElement) => {
+        heading.style.cursor = 'pointer';
+        heading.addEventListener('click', event => {
+          event.preventDefault();
+          const headingId = heading.getAttribute('data-heading-id');
+          if (headingId) {
+            this.navigateToHeading(headingId);
+          }
+        });
+      });
+    });
+  }
+
+  private navigateToHeading(headingId: string) {
+    // Update URL with fragment
+    this.router.navigate([], {
+      fragment: headingId,
+      queryParamsHandling: 'preserve',
+    });
+
+    // Scroll to element (CSS scroll-padding-top handles header offset)
+    this.scrollToHeading(headingId);
+  }
+
+  private scrollToHeading(headingId: string) {
+    setTimeout(() => {
+      const element = this.document.getElementById(headingId);
+
+      if (element) {
+        // CSS scroll-padding-top handles the header offset automatically
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    }, 200);
   }
 }

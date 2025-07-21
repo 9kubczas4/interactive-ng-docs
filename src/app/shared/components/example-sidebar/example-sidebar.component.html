@@ -34,7 +34,8 @@
               [pTooltip]="copySuccess() ? 'Copied!' : 'Copy documentation'" tooltipPosition="left"
               class="copy-button" />
           </div>
-          <app-markdown-content [markdown]="example.markdownContent" />
+          <app-markdown-content [markdown]="example.markdownContent"
+            [headingPrefix]="'example-' + ($index + 1) + '-'" />
         </div>
         }
       </div>
