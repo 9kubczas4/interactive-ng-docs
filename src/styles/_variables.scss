@@ -124,3 +124,60 @@ $card-transition: all 0.3s ease;
 $dialog-button-hover-bg-light: rgba($color-primary, 0.1);
 $dialog-button-hover-bg-dark: rgba($color-primary, 0.2);
 $dialog-button-hover-color: $color-primary;
+
+// Markdown content variables (shared across markdown components)
+// =============================================================
+
+// Code block styling
+$code-block-margin: 1.5rem 0;
+$code-block-z-index: 10;
+
+// Code copy button styling
+$code-copy-button-bg-light: rgba(0, 0, 0, 0.8);
+$code-copy-button-bg-light-hover: rgba($color-primary, 0.8);
+$code-copy-button-bg-dark: rgba(0, 0, 0, 0.9);
+$code-copy-button-bg-dark-hover: rgba($color-primary, 0.9);
+$code-copy-button-success-bg: rgba(72, 187, 120, 0.8);
+$code-copy-button-success-bg-dark: rgba(104, 211, 145, 0.9);
+$code-copy-button-text-light: #cbd5e0;
+$code-copy-button-text-dark: #e2e8f0;
+$code-copy-button-border-light: #4a5568;
+$code-copy-button-border-hover: $color-primary;
+$code-copy-button-success-border: #48bb78;
+$code-copy-button-success-border-dark: #68d391;
+$code-copy-button-padding: 6px 8px;
+$code-copy-button-gap: 4px;
+$code-copy-button-font-size: 12px;
+$code-copy-button-icon-size: 11px;
+$code-copy-button-position-top: 1rem;
+$code-copy-button-position-right: 1rem;
+
+// Routable headings
+$routable-heading-transition: all 0.2s ease;
+$routable-heading-hover-color: $color-primary;
+$routable-heading-active-color: #5a67d8;
+$routable-heading-active-color-dark: #7c83f6;
+
+// Syntax highlighting - Light theme colors
+$hljs-light-bg: #f8f9fa;
+$hljs-light-text: #383a42;
+$hljs-light-comment: #a0a1a7;
+$hljs-light-keyword: #a626a4;
+$hljs-light-string: #50a14f;
+$hljs-light-title: #c18401;
+$hljs-light-attribute: #986801;
+$hljs-light-symbol: #4078f2;
+$hljs-light-builtin: #e45649;
+$hljs-light-formula-bg: #eee8d5;
+
+// Syntax highlighting - Dark theme colors
+$hljs-dark-bg: #282c34;
+$hljs-dark-text: #abb2bf;
+$hljs-dark-comment: #5c6370;
+$hljs-dark-keyword: #c678dd;
+$hljs-dark-string: #98c379;
+$hljs-dark-title: #e06c75;
+$hljs-dark-attribute: #d19a66;
+$hljs-dark-symbol: #61afef;
+$hljs-dark-builtin: #e06c75;
+$hljs-dark-formula-bg: #3e4451;

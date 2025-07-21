@@ -1,3 +1,5 @@
+@import '../../../../styles/variables';
+
 .markdown-content {
   position: relative;
 }
@@ -5,75 +7,75 @@
 // Routable headings styling
 ::ng-deep .markdown-content .routable-heading {
   position: relative;
-  transition: all 0.2s ease;
+  transition: $routable-heading-transition;
   cursor: pointer;
 
   &:hover {
-    color: #667eea;
+    color: $routable-heading-hover-color;
     text-decoration: underline;
   }
 
   &:active {
-    color: #5a67d8;
+    color: $routable-heading-active-color;
   }
 }
 
 ::ng-deep .markdown-content .code-block-container {
   position: relative;
-  margin: 1.5rem 0;
+  margin: $code-block-margin;
 }
 
 ::ng-deep .markdown-content .code-copy-button {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(0, 0, 0, 0.8);
-  color: #cbd5e0;
-  border: 1px solid #4a5568;
-  border-radius: 6px;
-  padding: 6px 8px;
-  font-size: 12px;
+  top: $code-copy-button-position-top;
+  right: $code-copy-button-position-right;
+  background: $code-copy-button-bg-light;
+  color: $code-copy-button-text-light;
+  border: 1px solid $code-copy-button-border-light;
+  border-radius: $border-radius-md;
+  padding: $code-copy-button-padding;
+  font-size: $code-copy-button-font-size;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: $routable-heading-transition;
   display: flex;
   align-items: center;
-  gap: 4px;
-  z-index: 10;
+  gap: $code-copy-button-gap;
+  z-index: $code-block-z-index;
 
   &:hover:not(.copied) {
-    background: rgba(102, 126, 234, 0.8);
-    border-color: #667eea;
-    color: white;
+    background: $code-copy-button-bg-light-hover;
+    border-color: $code-copy-button-border-hover;
+    color: $color-white;
   }
 
   &.copied {
-    background: rgba(72, 187, 120, 0.8);
-    border-color: #48bb78;
-    color: white;
+    background: $code-copy-button-success-bg;
+    border-color: $code-copy-button-success-border;
+    color: $color-white;
     cursor: default;
   }
 }
 
 .markdown-content :deep(.code-copy-icon) {
-  font-size: 11px;
+  font-size: $code-copy-button-icon-size;
 }
 
 // Highlight.js Light Theme
 ::ng-deep .markdown-content .hljs {
-  background: #f8f9fa !important;
-  color: #383a42 !important;
+  background: $hljs-light-bg !important;
+  color: $hljs-light-text !important;
 }
 
 ::ng-deep .markdown-content .hljs-comment,
 ::ng-deep .markdown-content .hljs-quote {
-  color: #a0a1a7 !important;
+  color: $hljs-light-comment !important;
   font-style: italic;
 }
 
 ::ng-deep .markdown-content .hljs-keyword,
 ::ng-deep .markdown-content .hljs-selector-tag,
 ::ng-deep .markdown-content .hljs-addition {
-  color: #a626a4 !important;
+  color: $hljs-light-keyword !important;
 }
 
 ::ng-deep .markdown-content .hljs-number,
@@ -82,7 +84,7 @@
 ::ng-deep .markdown-content .hljs-literal,
 ::ng-deep .markdown-content .hljs-doctag,
 ::ng-deep .markdown-content .hljs-regexp {
-  color: #50a14f !important;
+  color: $hljs-light-string !important;
 }
 
 ::ng-deep .markdown-content .hljs-title,
@@ -90,7 +92,7 @@
 ::ng-deep .markdown-content .hljs-name,
 ::ng-deep .markdown-content .hljs-selector-id,
 ::ng-deep .markdown-content .hljs-selector-class {
-  color: #c18401 !important;
+  color: $hljs-light-title !important;
 }
 
 ::ng-deep .markdown-content .hljs-attribute,
@@ -99,7 +101,7 @@
 ::ng-deep .markdown-content .hljs-template-variable,
 ::ng-deep .markdown-content .hljs-class .hljs-title,
 ::ng-deep .markdown-content .hljs-type {
-  color: #986801 !important;
+  color: $hljs-light-attribute !important;
 }
 
 ::ng-deep .markdown-content .hljs-symbol,
@@ -110,16 +112,16 @@
 ::ng-deep .markdown-content .hljs-selector-attr,
 ::ng-deep .markdown-content .hljs-selector-pseudo,
 ::ng-deep .markdown-content .hljs-link {
-  color: #4078f2 !important;
+  color: $hljs-light-symbol !important;
 }
 
 ::ng-deep .markdown-content .hljs-built_in,
 ::ng-deep .markdown-content .hljs-deletion {
-  color: #e45649 !important;
+  color: $hljs-light-builtin !important;
 }
 
 ::ng-deep .markdown-content .hljs-formula {
-  background: #eee8d5 !important;
+  background: $hljs-light-formula-bg !important;
 }
 
 ::ng-deep .markdown-content .hljs-emphasis {
@@ -135,47 +137,47 @@
   // Routable headings dark mode
   ::ng-deep .markdown-content .routable-heading {
     &:hover {
-      color: #667eea;
+      color: $routable-heading-hover-color;
       text-decoration: underline;
     }
 
     &:active {
-      color: #7c83f6;
+      color: $routable-heading-active-color-dark;
     }
   }
 
   .markdown-content :deep(.code-copy-button) {
-    background: rgba(0, 0, 0, 0.9);
-    color: #e2e8f0;
-    border-color: #4a5568;
+    background: $code-copy-button-bg-dark;
+    color: $code-copy-button-text-dark;
+    border-color: $code-copy-button-border-light;
 
     &:hover:not(.copied) {
-      background: rgba(102, 126, 234, 0.9);
-      border-color: #667eea;
+      background: $code-copy-button-bg-dark-hover;
+      border-color: $code-copy-button-border-hover;
     }
 
     &.copied {
-      background: rgba(104, 211, 145, 0.9);
-      border-color: #68d391;
+      background: $code-copy-button-success-bg-dark;
+      border-color: $code-copy-button-success-border-dark;
     }
   }
 
   // Highlight.js Dark Theme
   ::ng-deep .markdown-content .hljs {
-    background: #282c34 !important;
-    color: #abb2bf !important;
+    background: $hljs-dark-bg !important;
+    color: $hljs-dark-text !important;
   }
 
   ::ng-deep .markdown-content .hljs-comment,
   ::ng-deep .markdown-content .hljs-quote {
-    color: #5c6370 !important;
+    color: $hljs-dark-comment !important;
     font-style: italic;
   }
 
   ::ng-deep .markdown-content .hljs-keyword,
   ::ng-deep .markdown-content .hljs-selector-tag,
   ::ng-deep .markdown-content .hljs-addition {
-    color: #c678dd !important;
+    color: $hljs-dark-keyword !important;
   }
 
   ::ng-deep .markdown-content .hljs-number,
@@ -184,7 +186,7 @@
   ::ng-deep .markdown-content .hljs-literal,
   ::ng-deep .markdown-content .hljs-doctag,
   ::ng-deep .markdown-content .hljs-regexp {
-    color: #98c379 !important;
+    color: $hljs-dark-string !important;
   }
 
   ::ng-deep .markdown-content .hljs-title,
@@ -192,7 +194,7 @@
   ::ng-deep .markdown-content .hljs-name,
   ::ng-deep .markdown-content .hljs-selector-id,
   ::ng-deep .markdown-content .hljs-selector-class {
-    color: #e06c75 !important;
+    color: $hljs-dark-title !important;
   }
 
   ::ng-deep .markdown-content .hljs-attribute,
@@ -201,7 +203,7 @@
   ::ng-deep .markdown-content .hljs-template-variable,
   ::ng-deep .markdown-content .hljs-class .hljs-title,
   ::ng-deep .markdown-content .hljs-type {
-    color: #d19a66 !important;
+    color: $hljs-dark-attribute !important;
   }
 
   ::ng-deep .markdown-content .hljs-symbol,
@@ -212,16 +214,16 @@
   ::ng-deep .markdown-content .hljs-selector-attr,
   ::ng-deep .markdown-content .hljs-selector-pseudo,
   ::ng-deep .markdown-content .hljs-link {
-    color: #61afef !important;
+    color: $hljs-dark-symbol !important;
   }
 
   ::ng-deep .markdown-content .hljs-built_in,
   ::ng-deep .markdown-content .hljs-deletion {
-    color: #e06c75 !important;
+    color: $hljs-dark-builtin !important;
   }
 
   ::ng-deep .markdown-content .hljs-formula {
-    background: #3e4451 !important;
+    background: $hljs-dark-formula-bg !important;
   }
 
   ::ng-deep .markdown-content .hljs-emphasis {
