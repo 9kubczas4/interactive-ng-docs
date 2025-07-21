@@ -63,6 +63,7 @@ export class ExampleDialogComponent implements OnInit {
   readonly dialogTitle = signal('Interactive Example');
 
   private readonly loadedExamples = signal<LoadedExampleItem[]>([]);
+  private readonly queryParams = signal<{ dialog?: string; example?: string }>({});
 
   readonly availableExamples = computed(() => this.loadedExamples());
 
@@ -132,22 +133,52 @@ export class ExampleDialogComponent implements OnInit {
         }
       }
     });
+
+    // Effect to handle dialog opening when both examples are loaded and query params indicate dialog should be shown
+    effect(() => {
+      const examples = this.availableExamples();
+      const params = this.queryParams();
+      const showDialog = params.dialog === 'true';
+      const exampleId = params.example;
+
+      // Only proceed if examples are loaded (not empty array with all loading: true)
+      const hasLoadedExamples = examples.length > 0 && examples.some(ex => !ex.loading);
+      // Also check if we have examples from the service (not just an empty array)
+      const hasExamplesFromService = this.dialogService.examples().length > 0;
+
+      if (showDialog && hasLoadedExamples && hasExamplesFromService) {
+        // Add small delay to ensure UI is ready
+        setTimeout(() => {
+          if (exampleId) {
+            this.openExample(exampleId);
+          } else {
+            // If no specific example, show first non-loading one
+            const firstLoadedExample = examples.find(ex => !ex.loading);
+            if (firstLoadedExample) {
+              this.openExample(this.getExampleId(firstLoadedExample.title));
+            }
+          }
+        }, 50);
+      } else if (!showDialog) {
+        this.isVisible.set(false);
+      }
+    });
   }
 
   ngOnInit(): void {
-    // Listen for query params to control dialog visibility and example selection
-    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(queryParams => {
-      const showDialog = queryParams['dialog'] === 'true';
-      const exampleId = queryParams['example'];
+    // Initialize with current query params (handles page refresh case)
+    const currentQueryParams = this.route.snapshot.queryParams;
+    this.queryParams.set({
+      dialog: currentQueryParams['dialog'],
+      example: currentQueryParams['example'],
+    });
 
-      if (showDialog && exampleId) {
-        this.openExample(exampleId);
-      } else if (showDialog && this.availableExamples().length > 0) {
-        // If no specific example, show first one
-        this.openExample(this.getExampleId(this.availableExamples()[0].title));
-      } else {
-        this.isVisible.set(false);
-      }
+    // Listen for query params changes and store them in signal for the effect to react to
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(queryParams => {
+      this.queryParams.set({
+        dialog: queryParams['dialog'],
+        example: queryParams['example'],
+      });
     });
   }
 
@@ -156,11 +187,16 @@ export class ExampleDialogComponent implements OnInit {
     const exampleIndex = examples.findIndex(ex => this.getExampleId(ex.title) === exampleId);
     const example = examples[exampleIndex];
 
-    if (example && exampleIndex !== -1) {
+    if (example && exampleIndex !== -1 && !example.loading) {
       this.currentExample.set(example);
       this.currentExampleIndex.set(exampleIndex);
       this.dialogTitle.set(`Interactive Example: ${example.title}`);
       this.isVisible.set(true);
+    } else if (example && example.loading) {
+      // If example is still loading, retry after a short delay
+      setTimeout(() => {
+        this.openExample(exampleId);
+      }, 100);
     }
   }
 
