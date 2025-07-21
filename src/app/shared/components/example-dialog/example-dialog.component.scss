@@ -1,5 +1,44 @@
 @import '../../../../styles/variables';
 
+// Component-specific variables
+$dialog-max-width: 1200px;
+$dialog-header-height: 80px;
+$dialog-header-height-mobile: 100px;
+$dialog-z-index: 10000;
+$dialog-nav-counter-min-width: 50px;
+$dialog-transition: all 0.3s ease;
+$dialog-hover-transform: translateY(-2px);
+
+// Dialog mask overlay
+$dialog-mask-bg: rgba(0, 0, 0, 0.6);
+$dialog-mask-bg-dark: rgba(0, 0, 0, 0.8);
+$dialog-disabled-opacity: 0.3;
+
+// Category chip colors
+$chip-best-practice-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+$chip-best-practice-bg-dark: linear-gradient(135deg, #059669 0%, #047857 100%);
+$chip-bad-example-bg: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+$chip-bad-example-bg-dark: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+$chip-text-color: white;
+
+// Documentation card styling
+$card-border-light: rgba($color-primary, 0.2);
+$card-border-dark: rgba($color-primary, 0.3);
+$card-shadow-light: rgba($color-primary, 0.1);
+$card-shadow-hover-light: rgba($color-primary, 0.15);
+$card-shadow-dark: rgba(0, 0, 0, 0.4);
+$card-shadow-hover-dark: rgba(0, 0, 0, 0.5);
+$card-header-bg-light: rgba($color-primary, 0.05);
+$card-header-bg-light-secondary: rgba($color-secondary, 0.05);
+$card-header-bg-dark: rgba($color-primary, 0.1);
+$card-header-bg-dark-secondary: rgba($color-secondary, 0.1);
+
+// Dialog header gradients
+$dialog-header-bg: rgba($color-primary, 0.1);
+$dialog-header-bg-secondary: rgba($color-secondary, 0.1);
+$dialog-header-bg-dark: rgba($color-primary, 0.2);
+$dialog-header-bg-dark-secondary: rgba($color-secondary, 0.2);
+
 .dialog-content {
   padding: $space-xl;
   height: 100%;
@@ -9,7 +48,7 @@
     display: flex;
     flex-direction: column;
     gap: $space-xl;
-    max-width: 1200px;
+    max-width: $dialog-max-width;
     margin: 0 auto;
 
     .example-header {
@@ -63,28 +102,28 @@
     // Category chip styling with maximum specificity
     :host ::ng-deep .category-chip.best-practice-chip,
     :host ::ng-deep .p-chip.best-practice-chip {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-      color: white !important;
+      background: $chip-best-practice-bg !important;
+      color: $chip-text-color !important;
       font-weight: $font-weight-medium !important;
       font-size: $font-size-sm !important;
       border: none !important;
 
       .p-chip-text {
-        color: white !important;
+        color: $chip-text-color !important;
         font-weight: $font-weight-medium !important;
       }
     }
 
     :host ::ng-deep .category-chip.bad-example-chip,
     :host ::ng-deep .p-chip.bad-example-chip {
-      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
-      color: white !important;
+      background: $chip-bad-example-bg !important;
+      color: $chip-text-color !important;
       font-weight: $font-weight-medium !important;
       font-size: $font-size-sm !important;
       border: none !important;
 
       .p-chip-text {
-        color: white !important;
+        color: $chip-text-color !important;
         font-weight: $font-weight-medium !important;
       }
     }
@@ -92,25 +131,25 @@
     // Documentation card styling
     :host ::ng-deep .documentation-card {
       .p-card {
-        border: 1px solid rgba(102, 126, 234, 0.2) !important;
-        box-shadow: 0 6px 24px rgba(102, 126, 234, 0.1) !important;
-        transition: all 0.3s ease !important;
+        border: 1px solid $card-border-light !important;
+        box-shadow: 0 6px 24px $card-shadow-light !important;
+        transition: $dialog-transition !important;
         margin-top: $space-lg;
         background: $color-white !important;
 
         &:hover {
-          box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15) !important;
-          transform: translateY(-2px) !important;
+          box-shadow: 0 8px 32px $card-shadow-hover-light !important;
+          transform: $dialog-hover-transform !important;
         }
       }
 
       .p-card-header {
         background: linear-gradient(
           135deg,
-          rgba(102, 126, 234, 0.05) 0%,
-          rgba(118, 75, 162, 0.05) 100%
+          $card-header-bg-light 0%,
+          $card-header-bg-light-secondary 100%
         ) !important;
-        border-bottom: 1px solid rgba(102, 126, 234, 0.2) !important;
+        border-bottom: 1px solid $card-border-light !important;
         padding: $space-lg $space-xl !important;
         border-radius: $border-radius-lg $border-radius-lg 0 0 !important;
       }
@@ -129,7 +168,7 @@
         font-size: $font-size-lg;
 
         i {
-          color: #667eea;
+          color: $color-primary;
           font-size: $font-size-xl;
         }
       }
@@ -226,7 +265,7 @@
       font-size: $font-size-sm;
       color: $color-gray-600;
       font-weight: $font-weight-medium;
-      min-width: 50px;
+      min-width: $dialog-nav-counter-min-width;
       text-align: center;
     }
 
@@ -235,7 +274,7 @@
         padding: $space-sm;
 
         &:disabled {
-          opacity: 0.3;
+          opacity: $dialog-disabled-opacity;
         }
       }
     }
@@ -285,11 +324,7 @@
     transform: none !important;
 
     .p-dialog-header {
-      background: linear-gradient(
-        135deg,
-        rgba($color-primary, 0.1) 0%,
-        rgba($color-secondary, 0.1) 100%
-      );
+      background: linear-gradient(135deg, $dialog-header-bg 0%, $dialog-header-bg-secondary 100%);
       border-bottom: 1px solid $color-gray-300;
       padding: $space-md $space-xl;
       border-radius: 0;
@@ -301,7 +336,7 @@
 
     .p-dialog-content {
       padding: 0;
-      height: calc(100vh - 80px);
+      height: calc(100vh - #{$dialog-header-height});
       overflow: auto;
       background: $color-white;
     }
@@ -312,7 +347,7 @@
   }
 
   .p-dialog-mask {
-    background: rgba(0, 0, 0, 0.6);
+    background: $dialog-mask-bg;
   }
 }
 
@@ -408,8 +443,8 @@
       .p-dialog-header {
         background: linear-gradient(
           135deg,
-          rgba($color-primary, 0.2) 0%,
-          rgba($color-secondary, 0.2) 100%
+          $dialog-header-bg-dark 0%,
+          $dialog-header-bg-dark-secondary 100%
         );
         border-bottom-color: $color-dark-border;
       }
@@ -421,7 +456,7 @@
   }
 
   .p-dialog-mask {
-    background: rgba(0, 0, 0, 0.8);
+    background: $dialog-mask-bg-dark;
   }
 }
 
@@ -507,7 +542,7 @@
       }
 
       .p-dialog-content {
-        height: calc(100vh - 100px);
+        height: calc(100vh - #{$dialog-header-height-mobile});
       }
     }
   }
@@ -517,11 +552,11 @@
 :host-context(.dark-mode) ::ng-deep .documentation-card {
   .p-card {
     background: $color-dark-surface !important;
-    border-color: rgba(102, 126, 234, 0.3) !important;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
+    border-color: $card-border-dark !important;
+    box-shadow: 0 6px 24px $card-shadow-dark !important;
 
     &:hover {
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+      box-shadow: 0 8px 32px $card-shadow-hover-dark !important;
     }
   }
 
@@ -533,17 +568,17 @@
   .p-card-header {
     background: linear-gradient(
       135deg,
-      rgba(102, 126, 234, 0.1) 0%,
-      rgba(118, 75, 162, 0.1) 100%
+      $card-header-bg-dark 0%,
+      $card-header-bg-dark-secondary 100%
     ) !important;
-    border-bottom-color: rgba(102, 126, 234, 0.3) !important;
+    border-bottom-color: $card-border-dark !important;
   }
 
   .card-header {
     color: $color-dark-text !important;
 
     i {
-      color: #667eea !important;
+      color: $color-primary !important;
     }
   }
 }
@@ -552,19 +587,19 @@
 :host-context(.dark-mode) {
   ::ng-deep .category-chip.best-practice-chip,
   ::ng-deep .p-chip.best-practice-chip {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    background: $chip-best-practice-bg-dark !important;
 
     .p-chip-text {
-      color: white !important;
+      color: $chip-text-color !important;
     }
   }
 
   ::ng-deep .category-chip.bad-example-chip,
   ::ng-deep .p-chip.bad-example-chip {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    background: $chip-bad-example-bg-dark !important;
 
     .p-chip-text {
-      color: white !important;
+      color: $chip-text-color !important;
     }
   }
 }
