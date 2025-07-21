@@ -32,13 +32,14 @@
 // Documentation card styling
 :host ::ng-deep .documentation-card {
   .p-card {
-    border: 1px solid rgba(102, 126, 234, 0.2);
-    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
-    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1) !important;
+    transition: all 0.3s ease !important;
+    background: $color-white !important;
 
     &:hover {
-      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
-      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15) !important;
+      transform: translateY(-1px) !important;
     }
   }
 
@@ -47,14 +48,15 @@
       135deg,
       rgba(102, 126, 234, 0.05) 0%,
       rgba(118, 75, 162, 0.05) 100%
-    );
-    border-bottom: 1px solid rgba(102, 126, 234, 0.2);
-    padding: $space-md $space-lg;
-    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    ) !important;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.2) !important;
+    padding: $space-md $space-lg !important;
+    border-radius: $border-radius-lg $border-radius-lg 0 0 !important;
   }
 
   .p-card-body {
-    padding: $space-lg;
+    padding: $space-lg !important;
+    background: $color-white !important;
   }
 
   .card-header {
@@ -177,16 +179,21 @@
     color: $color-dark-text-secondary;
   }
 
-  // Documentation card dark mode
-  ::ng-deep .documentation-card {
+  // Documentation card dark mode - higher specificity
+  :host ::ng-deep .documentation-card {
     .p-card {
-      background: $color-dark-surface;
-      border-color: rgba(102, 126, 234, 0.3);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      background: $color-dark-surface !important;
+      border-color: rgba(102, 126, 234, 0.3) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
 
       &:hover {
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
       }
+    }
+
+    .p-card-body {
+      background: $color-dark-surface !important;
+      color: $color-dark-text-secondary;
     }
 
     .p-card-header {
@@ -194,8 +201,8 @@
         135deg,
         rgba(102, 126, 234, 0.1) 0%,
         rgba(118, 75, 162, 0.1) 100%
-      );
-      border-bottom-color: rgba(102, 126, 234, 0.3);
+      ) !important;
+      border-bottom-color: rgba(102, 126, 234, 0.3) !important;
     }
 
     .card-header {
