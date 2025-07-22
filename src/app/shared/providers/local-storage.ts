@@ -10,9 +10,15 @@ export const LOCAL_STORAGE = new InjectionToken<Storage>('localStorage', {
     // Mock localStorage for SSR
     return {
       getItem: () => null,
-      setItem: () => {},
-      removeItem: () => {},
-      clear: () => {},
+      setItem: () => {
+        // Empty implementation
+      },
+      removeItem: () => {
+        // Empty implementation
+      },
+      clear: () => {
+        // Empty implementation
+      },
       length: 0,
       key: () => null,
     } as Storage;

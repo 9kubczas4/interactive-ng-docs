@@ -16,9 +16,7 @@ export interface NavigationExampleItem {
   category: string;
 }
 
-export interface ComponentLoader {
-  (): Promise<Type<unknown>>;
-}
+export type ComponentLoader = () => Promise<Type<unknown>>;
 
 export const EXAMPLE_COMPONENT_LOADER = new InjectionToken<Record<string, ComponentLoader>>(
   'EXAMPLE_COMPONENT_LOADER'
