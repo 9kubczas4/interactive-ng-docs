@@ -1,28 +1,13 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { provideServerRendering } from '@angular/platform-server';
-import { provideRouter } from '@angular/router';
-import { appRoutes } from './app/app.routes';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { getAppProviders } from './app/app.config';
 
 const bootstrap = () =>
   bootstrapApplication(AppComponent, {
     providers: [
-      provideRouter(appRoutes),
-      provideAnimations(),
-      provideHttpClient(withFetch()),
+      ...getAppProviders([]), // <-- Provide routes here or inject dynamically
       provideServerRendering(),
-      providePrimeNG({
-        theme: {
-          preset: Aura,
-          options: {
-            darkModeSelector: '.dark-mode',
-          },
-        },
-      }),
     ],
   });
 
