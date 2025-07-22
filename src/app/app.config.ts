@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
@@ -7,6 +7,8 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
 import { provideNavigationInitializer } from './core/services/navigation-init';
+import { EXAMPLE_COMPONENT_LOADER } from '@shared/interfaces/example-item';
+import { EXAMPLE_COMPONENT_MAP } from '@core/consts/example-components-map';
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -43,5 +45,9 @@ export function getAppProviders(routes: any[]) {
       },
     }),
     ...provideNavigationInitializer,
+    {
+      provide: EXAMPLE_COMPONENT_LOADER,
+      useValue: EXAMPLE_COMPONENT_MAP,
+    },
   ];
 }

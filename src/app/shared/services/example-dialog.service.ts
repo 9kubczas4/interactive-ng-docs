@@ -1,6 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ExampleItem } from '@shared/components/example-sidebar/example-sidebar.component';
+import { ExampleItem } from '@shared/interfaces/example-item';
 
 @Injectable({
   providedIn: 'root',

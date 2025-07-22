@@ -4,9 +4,9 @@ import {
   input,
   inject,
   signal,
-  Type,
   computed,
   effect,
+  Type,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
@@ -18,14 +18,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MarkdownService } from '@shared/services/markdown.service';
 import { MarkdownContentComponent } from '@shared/components/markdown-content/markdown-content.component';
 import { ExampleDialogService } from '@shared/services/example-dialog.service';
-
-export interface ExampleItem {
-  title: string;
-  description?: string;
-  component: () => Promise<Type<unknown>>;
-  markdownPath?: string;
-  category?: 'best-practice' | 'bad-example';
-}
+import { ExampleItem } from '@shared/interfaces/example-item';
 
 interface LoadedExampleItem {
   title: string;
