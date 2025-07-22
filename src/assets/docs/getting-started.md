@@ -7,8 +7,8 @@ Welcome to the Interactive Angular Documentation! This documentation system is b
 - **Interactive Examples**: Live examples in the sidebar show real components in action
 - **Markdown Support**: All content is written in Markdown and rendered as HTML
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **Static Site Generation**: Pre-rendered for optimal performance
 - **TypeScript**: Full TypeScript support with strict type checking
+- **Developer CLI**: Easily add new pages and examples with a guided CLI tool
 
 ## Installation
 
@@ -16,7 +16,7 @@ To get started with this documentation system:
 
 ```bash
 npm install
-ng serve
+npm run start
 ```
 
 ## Project Structure
@@ -24,17 +24,53 @@ ng serve
 The project follows a clean architecture with three main folders:
 
 - **core**: Layout components, services, error handlers, and interceptors
-- **features**: Lazy-loaded pages with documented use cases
+- **features**: Lazy-loaded examples
 - **shared**: Reusable components, directives, and utilities
-
-## Navigation
-
-Use the sidebar to navigate between different sections:
-
-1. **Getting Started**: This page with basic information
-2. **Components**: Documentation for UI components
-3. **Use Cases**: Real-world examples and patterns
+- **assets/docs**: Markdown documentation and example content
 
 ## Contributing
 
-Feel free to contribute to this documentation by adding new examples or improving existing content. 
+We welcome contributions! You can add new documentation pages and interactive examples using the built-in CLI tool.
+
+### Adding a New Page
+
+1. Run the CLI command:
+   ```bash
+   npm run add-page
+   ```
+2. Follow the interactive prompts:
+   - Select page level (first or second level)
+   - Enter the page label (e.g., "Clean Code")
+   - Select an icon
+   - Accept or override the suggested URL path and markdown file path
+   - For second-level pages, select the parent page
+3. The CLI will:
+   - Update `src/assets/navigation.json`
+   - Create the markdown file in the correct location with a template
+
+### Adding a New Example
+
+1. Run the CLI command:
+   ```bash
+   npm run add-example
+   ```
+2. Follow the interactive prompts:
+   - Select the page to add the example to
+   - Enter the example title and description
+   - Select the category (best-practice or bad-example)
+   - Accept or override the suggested component name and markdown path
+3. The CLI will:
+   - Update `src/assets/navigation.json` with the new example
+   - Create the Angular component file in the correct feature folder
+   - Add the component to the example component map
+   - Create the example markdown documentation
+   - The default example is an interactive counter using Angular signals
+
+### Developer Workflow
+
+- Use the CLI to add or update documentation content
+- Edit the generated markdown and component files as needed
+- Preview your changes locally with `npm run start`
+- Submit a pull request with your improvements!
+
+_For more details, see the README or explore the codebase. Happy documenting!_

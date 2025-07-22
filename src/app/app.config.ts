@@ -1,5 +1,5 @@
 import { importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Route } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,7 +10,7 @@ import { provideNavigationInitializer } from './core/services/navigation-init';
 import { EXAMPLE_COMPONENT_LOADER } from '@shared/interfaces/example-item';
 import { EXAMPLE_COMPONENT_MAP } from '@core/consts/example-components-map';
 
-const MyPreset = definePreset(Aura, {
+const docsPreset = definePreset(Aura, {
   semantic: {
     primary: {
       50: '{indigo.50}',
@@ -29,7 +29,7 @@ const MyPreset = definePreset(Aura, {
 });
 
 // Shared provider factory for both CSR and SSG
-export function getAppProviders(routes: any[]) {
+export function getAppProviders(routes: Route[]) {
   return [
     importProvidersFrom(BrowserModule),
     provideRouter(routes),
@@ -38,7 +38,7 @@ export function getAppProviders(routes: any[]) {
     providePrimeNG({
       ripple: true,
       theme: {
-        preset: MyPreset,
+        preset: docsPreset,
         options: {
           darkModeSelector: '.dark-mode',
         },

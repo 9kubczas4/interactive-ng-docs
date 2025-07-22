@@ -6,6 +6,9 @@ const boundariesConfig = require('./boundaries.json');
 
 module.exports = tseslint.config(
   {
+    ignores: ['.angular/**', 'dist/**'],
+  },
+  {
     files: ['**/*.ts'],
     plugins: {
       boundaries: boundariesPlugin,
