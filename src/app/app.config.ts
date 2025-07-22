@@ -6,8 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
-
-import { appRoutes } from './app.routes';
+import { provideNavigationInitializer } from './core/services/navigation-init';
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -27,10 +26,11 @@ const MyPreset = definePreset(Aura, {
   },
 });
 
-export const appConfig: ApplicationConfig = {
-  providers: [
+// Shared provider factory for both CSR and SSG
+export function getAppProviders(routes: any[]) {
+  return [
     importProvidersFrom(BrowserModule),
-    provideRouter(appRoutes),
+    provideRouter(routes),
     provideAnimations(),
     provideHttpClient(),
     providePrimeNG({
@@ -42,5 +42,6 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-  ],
-};
+    ...provideNavigationInitializer,
+  ];
+}

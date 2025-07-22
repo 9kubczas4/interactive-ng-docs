@@ -2,6 +2,9 @@ import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/cor
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
 import { SidebarService } from '@core/services/sidebar.service';
+import { NavigationService, NavigationItem } from '@core/services/navigation.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'aside[appSidebar]',
@@ -12,80 +15,21 @@ import { SidebarService } from '@core/services/sidebar.service';
 })
 export class SidebarComponent {
   private sidebarService = inject(SidebarService);
+  private navigationService = inject(NavigationService);
 
   readonly isOpen = this.sidebarService.isOpen;
 
-  menuItems = signal<MenuItem[]>([
-    {
-      label: 'Getting Started',
-      icon: 'pi pi-fw pi-home',
-      routerLink: '/getting-started',
-    },
-    {
-      label: 'Patterns',
-      icon: 'pi pi-fw pi-bookmark',
-      expanded: true,
-      items: [
-        {
-          label: 'Discard Changes',
-          icon: 'pi pi-fw pi-undo',
-          routerLink: '/patterns/discard-changes',
-        },
-        {
-          label: 'Form Validation',
-          icon: 'pi pi-fw pi-check-circle',
-          routerLink: '/patterns/form-validation',
-        },
-        {
-          label: 'Data Loading',
-          icon: 'pi pi-fw pi-spinner',
-          routerLink: '/patterns/data-loading',
-        },
-      ],
-    },
-    {
-      label: 'Best Practices',
-      icon: 'pi pi-fw pi-star',
-      expanded: false,
-      items: [
-        {
-          label: 'Clean Code',
-          icon: 'pi pi-fw pi-code',
-          routerLink: '/best-practices/clean-code',
-        },
-        {
-          label: 'Component Architecture',
-          icon: 'pi pi-fw pi-sitemap',
-          routerLink: '/best-practices/component-architecture',
-        },
-        {
-          label: 'Performance',
-          icon: 'pi pi-fw pi-bolt',
-          routerLink: '/best-practices/performance',
-        },
-      ],
-    },
-    {
-      label: 'Accessibility',
-      icon: 'pi pi-fw pi-eye',
-      expanded: false,
-      items: [
-        {
-          label: 'Introduction',
-          icon: 'pi pi-fw pi-info-circle',
-          routerLink: '/a11y/introduction',
-        },
-        {
-          label: 'WCAG Guidelines',
-          icon: 'pi pi-fw pi-list',
-          routerLink: '/a11y/wcag-guidelines',
-        },
-        {
-          label: 'Testing',
-          icon: 'pi pi-fw pi-shield',
-          routerLink: '/a11y/testing',
-        },
-      ],
-    },
-  ]);
+  readonly menuItems = toSignal(
+    this.navigationService.getNavigation().pipe(map(items => this.mapToMenuItems(items))),
+    { initialValue: [] }
+  );
+
+  private mapToMenuItems(items: NavigationItem[]): MenuItem[] {
+    return items.map(item => ({
+      label: item.label,
+      icon: item.icon,
+      routerLink: item.path ? '/' + item.path : undefined,
+      items: item.children ? this.mapToMenuItems(item.children) : undefined,
+    }));
+  }
 }

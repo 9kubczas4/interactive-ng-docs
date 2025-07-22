@@ -1,7 +1,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 
 import { AppComponent } from './app/app.component';
-import { appConfig } from './app/app.config';
+import { getAppProviders } from './app/app.config';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch(err => console.error(err)); 
+bootstrapApplication(AppComponent, {
+  providers: getAppProviders([]), // <-- Provide routes here or inject dynamically
+}).catch(err => console.error(err));

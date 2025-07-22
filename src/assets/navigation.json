@@ -1,0 +1,80 @@
+[
+  {
+    "label": "Getting Started",
+    "icon": "pi pi-fw pi-home",
+    "path": "getting-started",
+    "markdownPath": "docs/getting-started.md"
+  },
+  {
+    "label": "Patterns",
+    "icon": "pi pi-fw pi-bookmark",
+    "children": [
+      {
+        "label": "Discard Changes",
+        "icon": "pi pi-fw pi-undo",
+        "path": "patterns/discard-changes",
+        "markdownPath": "docs/patterns/discard-changes.md"
+      },
+      {
+        "label": "Form Validation",
+        "icon": "pi pi-fw pi-check-circle",
+        "path": "patterns/form-validation",
+        "markdownPath": "docs/patterns/form-validation.md"
+      },
+      {
+        "label": "Data Loading",
+        "icon": "pi pi-fw pi-spinner",
+        "path": "patterns/data-loading",
+        "markdownPath": "docs/patterns/data-loading.md"
+      }
+    ]
+  },
+  {
+    "label": "Best Practices",
+    "icon": "pi pi-fw pi-star",
+    "children": [
+      {
+        "label": "Clean Code",
+        "icon": "pi pi-fw pi-code",
+        "path": "best-practices/clean-code",
+        "markdownPath": "docs/best-practices/clean-code.md"
+      },
+      {
+        "label": "Component Architecture",
+        "icon": "pi pi-fw pi-sitemap",
+        "path": "best-practices/component-architecture",
+        "markdownPath": "docs/best-practices/component-architecture.md"
+      },
+      {
+        "label": "Performance",
+        "icon": "pi pi-fw pi-bolt",
+        "path": "best-practices/performance",
+        "markdownPath": "docs/best-practices/performance.md"
+      }
+    ]
+  },
+  {
+    "label": "Accessibility",
+    "icon": "pi pi-fw pi-eye",
+    "children": [
+      {
+        "label": "Introduction",
+        "icon": "pi pi-fw pi-info-circle",
+        "path": "a11y/introduction",
+        "markdownPath": "docs/a11y/introduction.md"
+      },
+      {
+        "label": "WCAG Guidelines",
+        "icon": "pi pi-fw pi-list",
+        "path": "a11y/wcag-guidelines",
+        "markdownPath": "docs/a11y/wcag-guidelines.md"
+      },
+      {
+        "label": "Testing",
+        "icon": "pi pi-fw pi-shield",
+        "path": "a11y/testing",
+        "markdownPath": "docs/a11y/testing.md"
+      }
+    ]
+  }
+]
